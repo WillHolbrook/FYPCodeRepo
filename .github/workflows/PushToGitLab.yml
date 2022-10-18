@@ -12,7 +12,8 @@ jobs:
       - run: tree
 #       - run:
 #       - run: cd ./FYPCodeRepo/FYPCodeRepo
-        working-directory: ./app
       - run: git checkout -B "develop"
+        working-directory: FYPCodeRepo
       - run: ls -l
+        working-directory: FYPCodeRepo
       
