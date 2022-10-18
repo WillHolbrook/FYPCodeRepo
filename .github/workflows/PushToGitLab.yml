@@ -16,4 +16,6 @@ jobs:
         working-directory: FYPCodeRepo
       - run: ls -l
         working-directory: FYPCodeRepo
+      - run: cat .gitignore
+        working-directory: FYPCodeRepo
       
