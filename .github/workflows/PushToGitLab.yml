@@ -17,5 +17,6 @@ jobs:
       - run: git checkout -B "develop"
       - run: git remote add gitlab git@git.cs.bham.ac.uk:projects-2022-23/wdh961.git
       - run: git fetch gitlab
+      - run: git pull gitlab develop
       - run: git push gitlab develop
       
