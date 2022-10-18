@@ -14,9 +14,12 @@ jobs:
         with:
           host: git.cs.bham.ac.uk
           private-key: ${{ secrets.GITLAB_FYP_CODE_REPO_KEY }}
-      - run: git checkout -B "develop"
+      - run: git checkout -B github develop
       - run: git remote add gitlab git@git.cs.bham.ac.uk:projects-2022-23/wdh961.git
-      - run: git fetch gitlab
+      - run: |
+          git fetch gitlab
+          git status
+          tree
       - run: git pull gitlab develop
       - run: git push gitlab develop
       
