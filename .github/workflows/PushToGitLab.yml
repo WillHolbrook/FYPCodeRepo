@@ -5,17 +5,19 @@ jobs:
   push-to-github:
     runs-on: ubuntu-latest
     steps:    
-      - uses: webfactory/ssh-agent@v0.5.4
-        with:
-          ssh-private-key: ${{secrets.LOCAL_FYP_CODE_REPO_KEY}}
-      - run: git clone git@github.com:WillHolbrook/FYPCodeRepo.git
-      - run: tree
-#       - run:
-#       - run: cd ./FYPCodeRepo/FYPCodeRepo
-      - run: git checkout -B "develop"
-        working-directory: FYPCodeRepo
-      - run: ls -l
-        working-directory: FYPCodeRepo
+      - uses: actions/checkout@v3
       - run: cat .gitignore
-        working-directory: FYPCodeRepo
+#       - uses: webfactory/ssh-agent@v0.5.4
+#         with:
+#           ssh-private-key: ${{secrets.LOCAL_FYP_CODE_REPO_KEY}}
+#       - run: git clone git@github.com:WillHolbrook/FYPCodeRepo.git
+#       - run: tree
+# #       - run:
+# #       - run: cd ./FYPCodeRepo/FYPCodeRepo
+#       - run: git checkout -B "develop"
+#         working-directory: FYPCodeRepo
+#       - run: ls -l
+#         working-directory: FYPCodeRepo
+#       - run: cat .gitignore
+#         working-directory: FYPCodeRepo
       
