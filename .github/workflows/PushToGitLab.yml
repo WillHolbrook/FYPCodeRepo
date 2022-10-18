@@ -8,9 +8,11 @@ jobs:
       - uses: webfactory/ssh-agent@v0.5.4
         with:
           ssh-private-key: ${{secrets.LOCAL_FYP_CODE_REPO_KEY}}
+      - run: mkdir "temp" | cd ./temp
       - run: git clone git@github.com:WillHolbrook/FYPCodeRepo.git
       - run: tree
-      - run: cd ./FYPCodeRepo/FYPCodeRepo
+#       - run:
+#       - run: cd ./FYPCodeRepo/FYPCodeRepo
 #       - run: git checkout -B "develop"
       - run: ls -l
       
