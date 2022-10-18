@@ -1,0 +1,20 @@
+name: learn-github-actions
+run-name: ${{ github.actor }} is learning GitHub Actions
+on: [push]
+#   push:
+#     branches: [ develop ]
+#   pull_request:
+#     branches: [ develop ]
+jobs:
+  push-to-github:
+    runs-on: ubuntu-latest
+    steps:    
+      - uses: actions/checkout@v3
+      - uses: MrSquaare/ssh-setup-action@v2
+        with:
+          host: git.cs.bham.ac.uk
+          private-key: ${{ secrets.GITLAB_FYP_CODE_REPO_KEY }}
+      - run: git checkout -B "develop"
+      - run: git remote add gitlab git@git.cs.bham.ac.uk:projects-2022-23/wdh961.git
+      - run: git push gitlab develop
+      
