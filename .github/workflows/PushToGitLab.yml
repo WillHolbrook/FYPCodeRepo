@@ -26,7 +26,7 @@ jobs:
           git status
           tree
       - run: git log
-#       - run: git log gitlab/develop
+      - run: git log gitlab/develop
 #       - run: git pull gitlab develop
-#       - run: git push gitlab develop
+      - run: git push gitlab develop
       
