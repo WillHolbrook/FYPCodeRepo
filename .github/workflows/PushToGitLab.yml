@@ -20,7 +20,9 @@ jobs:
 # #       - run: cd ./FYPCodeRepo/FYPCodeRepo
       - run: git checkout -B "develop"
       - run: git remote add gitlab git@git.cs.bham.ac.uk:projects-2022-23/wdh961.git
-      - run: git push gitlab develop
+      - run: tree ~
+      - run: cat ~/.ssh/config
+#       - run: git push gitlab develop
       
 #         working-directory: FYPCodeRepo
 #       - run: ls -l
