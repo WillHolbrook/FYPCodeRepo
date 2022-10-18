@@ -9,7 +9,7 @@ jobs:
         with:
           ssh-private-key: ${{secrets.LOCAL_FYP_CODE_REPO_KEY}}
       - run: git clone git@github.com:WillHolbrook/FYPCodeRepo.git
-      - run: cd FYPCodeRepo
+      - run: cd ./FYPCodeRepo
       - run: git checkout -B "develop"
       - run: ls -l
       
