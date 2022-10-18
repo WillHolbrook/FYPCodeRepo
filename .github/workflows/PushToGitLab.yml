@@ -16,4 +16,5 @@ jobs:
           private-key: ${{ secrets.GITLAB_FYP_CODE_REPO_KEY }}
       - run: git checkout -B "develop"
       - run: git remote add gitlab git@git.cs.bham.ac.uk:projects-2022-23/wdh961.git
+      - run: git push gitlab develop
       
