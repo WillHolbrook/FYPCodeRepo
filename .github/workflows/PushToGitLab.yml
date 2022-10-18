@@ -20,6 +20,8 @@ jobs:
           git fetch gitlab
           git status
           tree
-      - run: git pull gitlab develop
-      - run: git push gitlab develop
+      - run: git log
+      - run: git log gitlab/develop
+#       - run: git pull gitlab develop
+#       - run: git push gitlab develop
       
