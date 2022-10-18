@@ -6,6 +6,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: git pull https://github.com/${{github.GITHUB_REPOSITORY}}.git
+      - run: git pull https://github.com/${{GITHUB_REPOSITORY}}.git
       - run: ls -l
       - run: pwd
