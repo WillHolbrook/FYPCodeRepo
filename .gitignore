@@ -249,3 +249,6 @@ fabric.properties
 
 .idea/*
 **/node_modules/*
+/resources/input_pdfs
+/resources/output_tei_xml
+/resources/output_txt
