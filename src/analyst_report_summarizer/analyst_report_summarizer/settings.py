@@ -24,10 +24,15 @@ SECRET_KEY = 'django-insecure-ryqj9@_xn8!)kyylmpf#d9ug-r__spfnh44!idc3qoxqua$e9f
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+# CORS_ORIGIN_ALLOW_ALL = DEBUG
 
 ALLOWED_HOSTS = []
 
-
+# REST_FRAMEWORK = {
+#     'DEFAULT_PERMISSION_CLASSES': [
+#        'rest_framework.permissions.AllowAny',
+#     ]
+# }
 # Application definition
 
 INSTALLED_APPS = [
@@ -38,7 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'summarizer_web_app'
+    'summarizer_web_app',
+    'auth_api'
 ]
 
 MIDDLEWARE = [
@@ -56,7 +62,7 @@ ROOT_URLCONF = 'analyst_report_summarizer.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -123,3 +129,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+STATICFILES_DIRS = (
+    BASE_DIR.joinpath("./static"),
+)

@@ -1,10 +1,11 @@
 from django.urls import path
 from django.views.generic import TemplateView
+from rest_framework.routers import DefaultRouter
 
-from .api import ListApi, CardApi
+from .api import ListViewSet, CardViewSet
 
-urlpatterns = [
-    path('lists', ListApi.as_view()),
-    path('cards', CardApi.as_view()),
-    path('home', TemplateView.as_view(template_name="summarizer_web_app/home.html"))
-]
+router = DefaultRouter()
+router.register('lists', ListViewSet)
+router.register('cards', CardViewSet)
+
+urlpatterns = router.urls
