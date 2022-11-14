@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+  grobid:
+    image: registry.hub.docker.com/grobid/grobid:0.7.2
+    domainname: "grobidwillholbrook"
+    ports:
+      - "8070:8070"
+#    deploy:
+#      resources:
+#
