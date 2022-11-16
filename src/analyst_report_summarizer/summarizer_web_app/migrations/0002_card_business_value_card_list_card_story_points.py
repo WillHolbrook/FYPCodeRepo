@@ -5,7 +5,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('summarizer_web_app', '0001_initial'),
     ]
@@ -19,7 +18,8 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='card',
             name='list',
-            field=models.ForeignKey(default=None, on_delete=django.db.models.deletion.CASCADE, related_name='cards', to='summarizer_web_app.list'),
+            field=models.ForeignKey(default=None, on_delete=django.db.models.deletion.CASCADE, related_name='cards',
+                                    to='summarizer_web_app.list'),
             preserve_default=False,
         ),
         migrations.AddField(
