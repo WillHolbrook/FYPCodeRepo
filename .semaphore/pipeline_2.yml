@@ -1,0 +1,29 @@
+version: v1.0
+name: Dockerize
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu2004
+blocks:
+  - name: Docker Build
+    task:
+      jobs:
+        - name: 'Job #1'
+          commands:
+            - 'echo "${DOCKER_TOKEN}" | docker login -u "${DOCKER_USERNAME}" --password-stdin'
+            - 'docker pull $DOCKER_USERNAME/analyst_report_summarizer:latest || true'
+            - 'docker build --cache-from=$DOCKER_USERNAME/analyst_report_summarizer:latest -t $DOCKER_USERNAME/analyst_report_summarizer:latest .'
+            - 'docker push $DOCKER_USERNAME/analyst_report_summarizer:latest'
+      secrets:
+        - name: dockerhub
+      prologue:
+        commands:
+          - sem-version python 3.10
+          - checkout
+          - cache restore
+          - mkdir -p .pip_cache
+          - pip install --cache-dir .pip_cache -r requirements.txt
+          - cd src/analyst_report_summarizer
+          - 'python manage.py makemigrations '
+          - python manage.py migrate
+          - cd ../..
