@@ -1,17 +1,38 @@
-# The image you are going to inherit your Dockerfile from
-FROM python:3.10
-# Necessary, so Docker doesn't buffer the output and that you can see the output
-# of your application (e.g., Django logs) in real-time.
-ENV PYTHONUNBUFFERED 1
-ENV PYTHONDONTWRITEBYTECODE 1
-# Make a directory in your Docker image, which you can use to store your source code
-RUN mkdir opt/app
-# Copy the requirements.txt file adjacent to the Dockerfile
-# to your Docker image
-COPY ./requirements.txt opt/requirements.txt
-COPY ./start-server.sh opt/start-server.sh
-# Install the requirements.txt file in Docker image
-RUN pip install -r opt/requirements.txt
+FROM ubuntu:20.04 AS BASE
+ENV TZ-Europe/London
+WORKDIR /opt/report_summarizer/API/
 
-STOPSIGNAL SIGTERM
-CMD ["/opt/start-server.sh"]
+COPY ./ /opt/report_summarizer/API/
+COPY ./requirements.txt /opt/report_summarizer/API/requirements.txt
+
+RUN in -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+RUN apt update && apt install apache2 python3 python3-pip python3-venv libapache2-mod-wsgi-py3 -y
+
+# Set up a python virtual environment for use and set it to the default
+ENV VIRTUAL_ENV=/opt/report_summarizer/venv 
+RUN python3 -m venv $VIRTUAL_ENV
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+
+# Install dependencies, gather all static files and check system 
+RUN pip3 install -r requirements.txt && python3 manage.py check 
+RUN python3 manage.py collectstatic-noinput
+
+# Copy apache config + keys into place 
+COPY ./build/apache_config_files/ /etc/apache2/sites-available/
+
+# Ensure that the db.sqlite3 file exists and www-data can write to it 
+RUN touch /opt/report_summarizer/API/db.sqlite3 && \
+	chmod 770 /opt/report_summarizer/API/db.sqlite3	
+
+# Configure permissions and enable site
+RUN chown -R www-data:www-data /opt/report_summarizer/API && \
+	chmod +x /opt/report_summarizer/API/analyst_report_summarizer/wsgi.py && \
+	a2dissite 000-default && \
+	a2ensite API
+
+# Expose HTTP and HTTPS
+EXPOSE 80/tcp 
+EXPOSE 443/tcp
+
+# Docker containers only run whilst main process is ongoing, so apache must run in the foreground 
+CMD apachectl -D FOREGROUND
