@@ -1,5 +1,5 @@
 {
-    "grobid_server": "http://25.0.108.122:8070/",
+    "grobid_server": "http://grobid.willholbrook.com",
     "batch_size": 1000,
     "sleep_time": 10,
     "timeout": 60,

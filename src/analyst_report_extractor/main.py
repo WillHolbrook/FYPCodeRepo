@@ -47,15 +47,46 @@ def extract_text_from_xml(input_filepath: Path, output_filepath: Path, write_mod
 
 def main():
     # TODO add some handling around the grobid server being down
+    import re
+    from datetime import datetime
 
-    client: GrobidClient = GrobidClient(config_path="./grobid_config.json")
-    input_folder_path = Path("../resources/input_pdfs")
-    tei_xml_output_folder_path = Path("../resources/output_tei_xml")
-    extract_tei_xml_from_pdf(input_folder_path, tei_xml_output_folder_path, client)
+    # client: GrobidClient = GrobidClient(config_path="./grobid_config.json")
+    root_folder_path = Path("../../FilestoreRepo/FTSE100Info/reports").resolve()
+    # root_output_folder_path = Path("../../FilestoreRepo/FTSE100Info/teixmlreports").resolve()
+    # root_txt_output_folder_path = Path("../../FilestoreRepo/FTSE100Info/txtReports").resolve()
+    # if not root_output_folder_path.exists():
+    #     root_output_folder_path.mkdir()
+    #
+    # for input_folder_path in root_folder_path.glob("*"):
+    #     if input_folder_path.is_dir():
+    #         tei_xml_output_folder_path = root_output_folder_path.joinpath(f"./{input_folder_path.name}")
+    #         if not tei_xml_output_folder_path.is_dir():
+    #             tei_xml_output_folder_path.mkdir()
+    #         print(input_folder_path, tei_xml_output_folder_path)
+    #
+    #         extract_tei_xml_from_pdf(input_folder_path, tei_xml_output_folder_path, client)
+    # count = 0
+    #
+    # for file in root_output_folder_path.rglob("*"):
+    #     if file.is_file():
+    #         count += 1
+    #
+    # print(f"Number of Reports: {count}")
+    #
+    # for input_folder_path in root_output_folder_path.glob("*"):
+    #     if input_folder_path.is_dir():
+    #         txt_output_folder_path = root_txt_output_folder_path.joinpath(f"./{input_folder_path.name}")
+    #         if not txt_output_folder_path.is_dir():
+    #             txt_output_folder_path.mkdir()
+    #         print(f"Extracting from folder {txt_output_folder_path}")
+    #
+    #         for filepath in input_folder_path.rglob("*.tei.xml"):
+    #             extract_text_from_xml(filepath, txt_output_folder_path.joinpath(f"./{filepath.name}.txt"))
 
-    txt_output_folder_path = Path("../resources/output_txt")
-    for filepath in tei_xml_output_folder_path.rglob("*.tei.xml"):
-        extract_text_from_xml(filepath, txt_output_folder_path.joinpath(f"./{filepath.name}.txt"))
+    for input_folder_path in root_folder_path.rglob("*.pdf"):
+        datetime_str = re.sub(r"(\d+)_.*", r"\1", input_folder_path.name)
+        datetime_obj = datetime.strptime(datetime_str, "%Y%m%d")
+        print(f"{input_folder_path}\t{input_folder_path.name}\t{datetime_obj}")
 
 
 if __name__ == "__main__":
