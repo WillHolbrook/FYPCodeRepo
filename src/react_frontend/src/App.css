@@ -1,4 +1,27 @@
 .App {
+  padding: 20px;
+  min-height: 100vh;
+  background-color: #282c34;
+  color: white;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  font-size: calc(10px + 2vmin);
   text-align: center;
-  background-color: aquamarine;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+}
+
+.orange {
+  color: orange;
 }

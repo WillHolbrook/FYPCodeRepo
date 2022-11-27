@@ -1,42 +1,42 @@
+import React, {useState, useEffect} from "react";
+import axios from "axios";
+import MovieList from "./components/movie-list";
+import MovieDetails from "./components/movie-details";
 import './App.css';
-import Header from "./components/header";
-import Footer from "./components/footer";
-import Numbers from "./components/numbers";
-import styled from "styled-components";
-
-function createAlert() {
-  alert('Helloo. You clicked me')
-}
-
-function ShowMessage(props) {
-  if (props.toShow) {
-    return <h2>My message</h2>
-  } else {
-    return <h2>Forbidden</h2>
-  }
-
-}
-
-const pStyle = {
-  fontSize: '2em',
-  color: 'red'
-}
-
-const Paragraph = styled.p`
-  font-size: 3em;
-  color: green;
-`;
 
 function App() {
+
+  const [movies, setMovies] = useState([]);
+  const [selectedMovie, setSelectedMovie] = useState(null);
+
+  useEffect(() => {
+    axios.get("http://127.0.0.1:8000/api/movies/",
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Token 0c95087e3f74faa2745c8a69fbc7e4f842ad5ae0'
+        }
+      }).then(response => {
+        setMovies(response.data)
+    }).catch(error => {
+      console.log(error)
+    })
+  }, [])
+
+  const movieClicked = (movie, evt) => {
+    console.log(movie.title);
+    setSelectedMovie(movie)
+  }
+
   return (
     <div className="App">
-      <Header info="This is my message"/>
-      <Header info="Header 2 Electric Booglaoo"/>
-      <p style={pStyle}>main content</p>
-      <Paragraph>New Styled</Paragraph>
-      <Footer trademark="page by Will" myalert={createAlert}/>
-      <ShowMessage toShow={false}/>
-      <Numbers/>
+      <header className="App-header">
+        <h1>Movie rater</h1>
+      </header>
+      <div className="layout">
+        <MovieList movies={movies} movieClicked={movieClicked}/>
+        <MovieDetails movie={selectedMovie}/>
+      </div>
     </div>
   );
 }
