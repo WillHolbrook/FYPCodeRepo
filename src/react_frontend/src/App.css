@@ -39,3 +39,29 @@
   font-size: 1.8rem;
   cursor: pointer;
 }
+
+.movie-item {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+}
+
+.movie-item svg{
+  font-size: 1.2rem;
+  margin: 16px 5px;
+}
+
+.movie-list-title {
+  cursor: pointer;
+}
+
+.hover {
+  color: purple;
+}
+
+.svg-inline--fa{
+  cursor: pointer;
+}
+
+.svg-inline--fa:hover{
+  color: purple;
+}
