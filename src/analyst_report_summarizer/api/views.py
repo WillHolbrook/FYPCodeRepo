@@ -43,10 +43,13 @@ class MovieViewSet(viewsets.ModelViewSet):
             response = {'message': 'You need to provide Stars When updating or inserting a record'}
             return Response(response, status=status.HTTP_400_BAD_REQUEST)
         else:
-            rating = Rating.objects.get(user=user.id, movie=movie.id)
-            serializer = RatingSerializer(rating, many=False)
-            response = {'message': f'Rating Retrieved', 'result': serializer.data}
-            return Response(response, status=status.HTTP_200_OK)
+            try:
+                rating = Rating.objects.get(user=user.id, movie=movie.id)
+                serializer = RatingSerializer(rating, many=False)
+                response = {'message': f'Rating Retrieved', 'result': serializer.data}
+                return Response(response, status=status.HTTP_200_OK)
+            except Rating.DoesNotExist:
+                return Response(None, status=status.HTTP_204_NO_CONTENT)
 
 
 class RatingViewSet(viewsets.ModelViewSet):

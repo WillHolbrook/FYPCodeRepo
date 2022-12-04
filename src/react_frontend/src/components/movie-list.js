@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {faEdit, faTrash} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {API} from "../api-service";
 
 function MovieList(props) {
   const defaultMovieId = -1
@@ -12,6 +13,16 @@ function MovieList(props) {
 
   const editClicked = movie => {
     props.editClicked(movie);
+  }
+
+  const removeClicked = movie => {
+    API.deleteMovie(movie.id)
+      .then(resp => {
+      if (resp.status === 204){
+        props.removeClicked(movie)
+      }
+    })
+
   }
 
   return (
@@ -29,7 +40,8 @@ function MovieList(props) {
               icon={faEdit}
               onClick={() => editClicked(movie)}/>
             <FontAwesomeIcon
-              icon={faTrash}/>
+              icon={faTrash}
+              onClick={() => removeClicked(movie)}/>
           </div>)
       })}
     </div>

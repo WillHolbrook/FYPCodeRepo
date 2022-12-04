@@ -1,8 +1,7 @@
-import React, {useState, useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faStar} from "@fortawesome/free-solid-svg-icons";
-import axios from "axios";
-
+import {API} from "../api-service";
 
 function MovieDetails(props) {
 
@@ -15,21 +14,7 @@ function MovieDetails(props) {
 
   useEffect(() => {
     if (props.movie) {
-      axios.get(
-        `http://127.0.0.1:8000/api/movies/${props.movie.id}/rate_movie/`,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Token 0c95087e3f74faa2745c8a69fbc7e4f842ad5ae0'
-          }
-        }
-      ).then(resp => {
-        let rating = resp.data.result.stars - 1
-        setSelectedRate(rating)
-        setHighlighted(rating)
-      }).catch(error => {
-        console.log(error)
-      })
+      getDetails(props.movie.id)
     }
   }, [props.movie])
 
@@ -38,37 +23,23 @@ function MovieDetails(props) {
   }
 
   const rateClicked = rate => evt => {
-    axios.post(
-      `http://127.0.0.1:8000/api/movies/${mov.id}/rate_movie/`,
-      JSON.stringify({stars: rate + 1}),
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Token 0c95087e3f74faa2745c8a69fbc7e4f842ad5ae0'
-        }
-      }
-    ).then(resp => {
+    API.updateMovieRating(mov.id, rate).then(resp => {
         setSelectedRate(resp.data.result.stars - 1)
       }
-    ).then(() => getDetails()
-    ).catch(error => {
-      console.log(error)
-    })
+    ).then(() => getDetails(mov.id))
   }
 
-  const getDetails = () => {
-    axios.get(
-      `http://127.0.0.1:8000/api/movies/${mov.id}/`,
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Token 0c95087e3f74faa2745c8a69fbc7e4f842ad5ae0'
-        }
+  const getDetails = (mov_id) => {
+    API.getMyMovieRating(mov_id).then(resp => {
+      if (resp.status === 204) {
+        let rating = -1
+        setSelectedRate(rating)
+        setHighlighted(rating)
+      } else {
+        let rating = resp.data.result.stars - 1
+        setSelectedRate(rating)
+        setHighlighted(rating)
       }
-    ).then(response => {
-      props.updateMovie(response.data)
-    }).catch(error => {
-      console.log(error)
     })
   }
 
