@@ -7,43 +7,45 @@ import {API} from "./api-service";
 import {useCookies} from "react-cookie";
 import {faFilm, faSignOutAlt} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {useFetch} from "./hooks/useFetch";
+import Loading from "./components/loading";
+import Error from "./components/error";
 
 function App() {
 
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [editedMovie, setEditedMovieMovie] = useState(null);
-  const [token, setToken, removeToken] = useCookies(['rs_token'])
+  const [token, setToken, removeToken] = useCookies(['rs_token']);
+  const [data, loading, error] = useFetch();
 
 
   useEffect(() => {
-    API.getMovies().then(response => {
-      setMovies(response.data)
-    })
-  }, [])
+    setMovies(data)
+  }, [data]);
 
   useEffect(() => {
     if (!token.rs_token){
       window.location.href = '/'
     }
-  }, [token])
+  }, [token]);
 
 
   const editClicked = movie => {
     setEditedMovieMovie(movie)
     setSelectedMovie(null)
-  }
+  };
 
 
   const removeClicked = movie => {
     const newMovies = movies.filter(mov => mov.id !== movie.id)
     setMovies(newMovies)
-  }
+  };
 
   const loadMovieDetails = movie => {
     setEditedMovieMovie(null)
     setSelectedMovie(movie)
-  }
+  };
 
   const updateMovie = movie => {
     const newMovies = movies.map(mov => {
@@ -53,7 +55,7 @@ function App() {
       return mov
     })
     setMovies(newMovies)
-  }
+  };
 
   const updateMovieById = movieId => {
     API.getMovie(movieId).then(resp => {
@@ -63,28 +65,30 @@ function App() {
             return resp.data
           }
           return mov
-        })
-        setMovies(newMovies)
+        });
+        setMovies(newMovies);
       } else {
-        console.log("Error", resp)
+        console.log("Error", resp);
       }
-    })
-  }
+    });
+  };
 
   const newBlankMovie = () => {
     setEditedMovieMovie({title: '', description: ''})
     setSelectedMovie(null)
-  }
+  };
 
   const addCreatedMovie = movie => {
     const newMovies = [...movies, movie];
     setMovies(newMovies)
-  }
+  };
 
   const logoutUser = () => {
     removeToken('rs_token', {path: '/'})
-  }
+  };
 
+  if(error) {return <div className="App"><Error/></div>}
+  if(loading) {return <div className="App"><Loading/></div>}
   return (
     <div className="App">
       <header className="App-header">

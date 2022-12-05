@@ -4,6 +4,7 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny
+import time
 
 from .models import Movie, Rating
 from .serializers import MovieSerializer, RatingSerializer, UserSerializer
@@ -19,6 +20,12 @@ class UserViewSet(viewsets.ModelViewSet):
 class MovieViewSet(viewsets.ModelViewSet):
     queryset = Movie.objects.all()
     serializer_class = MovieSerializer
+
+    # Used to test error and loading pages artificially
+    # def list(self, request, *args, **kwargs):
+    #     time.sleep(5)
+    #     # return super(MovieViewSet, self).list(request, *args, **kwargs)
+    #     return Response({"message": "internal Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     @action(detail=True, methods=['POST', 'GET'])
     def rate_movie(self, request, pk=None):
@@ -41,7 +48,8 @@ class MovieViewSet(viewsets.ModelViewSet):
 
             movie = Movie.objects.get(id=pk)
             serializer = RatingSerializer(rating, many=False)
-            response = {'message': message, 'result': serializer.data, 'avg_rating': movie.avg_rating(), 'no_of_ratings': movie.no_of_ratings()}
+            response = {'message': message, 'result': serializer.data, 'avg_rating': movie.avg_rating(),
+                        'no_of_ratings': movie.no_of_ratings()}
             return Response(response, status=code)
 
         elif request.method == 'POST':
@@ -72,4 +80,3 @@ class MyRatingsViewSet(viewsets.ReadOnlyModelViewSet):
 
         queryset = self.queryset.filter(user=self.request.user.id)
         return queryset
-
