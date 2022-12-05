@@ -10,6 +10,8 @@ from .serializers import MovieSerializer, RatingSerializer, UserSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
+    authentication_classes = []
+    permission_classes = [AllowAny]
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
@@ -39,7 +41,7 @@ class MovieViewSet(viewsets.ModelViewSet):
 
             movie = Movie.objects.get(id=pk)
             serializer = RatingSerializer(rating, many=False)
-            response = {'message': message, 'result': serializer.data, 'avg_rating': movie.avg_rating()}
+            response = {'message': message, 'result': serializer.data, 'avg_rating': movie.avg_rating(), 'no_of_ratings': movie.no_of_ratings()}
             return Response(response, status=code)
 
         elif request.method == 'POST':

@@ -32,9 +32,11 @@ function MovieDetails(props) {
       .then(resp => {
         let updated_mov = props.movie
         updated_mov.avg_rating = resp.data.avg_rating
+        updated_mov.no_of_ratings = resp.data.no_of_ratings
         props.setMovie(updated_mov)
+        props.updateMovie(updated_mov)
+        return updated_mov
       })
-      .then(() => props.updateMovieById(mov.id))
   }
 
   const getDetails = (mov_id) => {
@@ -69,7 +71,7 @@ function MovieDetails(props) {
           {[...Array(5)].map((e, i) => {
             return <FontAwesomeIcon
               icon={faStar}
-              className={highlighted < i ? '' : 'orange'}
+              className={highlighted < i ? 'hover' : 'orange hover'}
               key={i}
               onMouseEnter={highlightRate(i)}
               onMouseLeave={highlightRate(selectedRate)}

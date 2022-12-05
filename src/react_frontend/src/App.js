@@ -5,13 +5,16 @@ import MovieForm from "./components/movie-form";
 import './App.css';
 import {API} from "./api-service";
 import {useCookies} from "react-cookie";
+import {faFilm, faSignOutAlt} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 function App() {
 
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [editedMovie, setEditedMovieMovie] = useState(null);
-  const [token, setToken] = useCookies(['rs_token'])
+  const [token, setToken, removeToken] = useCookies(['rs_token'])
+
 
   useEffect(() => {
     API.getMovies().then(response => {
@@ -20,10 +23,10 @@ function App() {
   }, [])
 
   useEffect(() => {
-    if (!token.rs_token) {
-      window.location.href = '/';
+    if (!token.rs_token){
+      window.location.href = '/'
     }
-  }, [token.rs_token])
+  }, [token])
 
 
   const editClicked = movie => {
@@ -62,8 +65,7 @@ function App() {
           return mov
         })
         setMovies(newMovies)
-      }
-      else {
+      } else {
         console.log("Error", resp)
       }
     })
@@ -79,10 +81,18 @@ function App() {
     setMovies(newMovies)
   }
 
+  const logoutUser = () => {
+    removeToken('rs_token', {path: '/'})
+  }
+
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Movie rater</h1>
+        <h1>
+          <FontAwesomeIcon icon={faFilm}/>
+          <span>Movie rater</span>
+        </h1>
+        <FontAwesomeIcon icon={faSignOutAlt} className={"hover"} onClick={logoutUser}/>
       </header>
       <div className="layout">
         <div>
@@ -96,7 +106,7 @@ function App() {
         <MovieDetails
           movie={selectedMovie}
           setMovie={setSelectedMovie}
-          updateMovie={loadMovieDetails}
+          updateMovie={updateMovie}
           updateMovieById={updateMovieById}/>
         {editedMovie ? <MovieForm movie={editedMovie} updateMovie={updateMovie} createMovie={addCreatedMovie}/> : null}
       </div>

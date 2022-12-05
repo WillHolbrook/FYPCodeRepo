@@ -1,13 +1,18 @@
 import axios from "axios";
-import React, {useEffect} from "react";
+import React from "react";
 
-axios.defaults.headers.common['Content-Type'] = 'application/json';
-axios.defaults.baseURL = 'http://127.0.0.1:8000/';
+export let axapi = axios.create({
+  baseURL: 'http://127.0.0.1:8000/',
+  timeout: 1000,
+  headers: {'Content-Type': 'application/json'}
+});
+
+
 
 export class API {
 
   static updateMovieRating(mov_id, rate) {
-    return axios.post(
+    return axapi.post(
       `api/movies/${mov_id}/rate_movie/`,
       {stars: rate + 1},
       null
@@ -17,7 +22,7 @@ export class API {
   };
 
   static updateMovie(mov_id, body) {
-    return axios.put(
+    return axapi.put(
       `api/movies/${mov_id}/`,
       body,
       null
@@ -27,7 +32,7 @@ export class API {
   };
 
   static getMyMovieRating(mov_id) {
-    return axios.get(
+    return axapi.get(
       `api/movies/${mov_id}/rate_movie/`
     ).catch(error => {
       console.log(error)
@@ -35,7 +40,7 @@ export class API {
   };
 
   static getMovie(mov_id) {
-    return axios.get(
+    return axapi.get(
       `api/movies/${mov_id}/`
     ).catch(error => {
       console.log(error)
@@ -43,7 +48,7 @@ export class API {
   };
 
   static getMovies() {
-    return axios.get(
+    return axapi.get(
       `api/movies/`
     ).catch(error => {
       console.log(error)
@@ -51,7 +56,7 @@ export class API {
   };
 
   static createMovie(body) {
-    return axios.post(
+    return axapi.post(
       `api/movies/`,
       body,
       null
@@ -61,7 +66,7 @@ export class API {
   }
 
   static deleteMovie(mov_id) {
-    return axios.delete(
+    return axapi.delete(
       `api/movies/${mov_id}/`
     ).catch(error => {
       console.log(error)
@@ -69,7 +74,7 @@ export class API {
   }
 
   static loginUser(body) {
-    return axios.post(
+    return axapi.post(
       'auth/',
       body,
       {
@@ -83,7 +88,7 @@ export class API {
   }
 
   static registerUser(body) {
-    return axios.post(
+    return axapi.post(
       'api/users/',
       body,
       {

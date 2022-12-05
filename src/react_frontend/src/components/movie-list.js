@@ -38,10 +38,12 @@ function MovieList(props) {
             </h2>
             <FontAwesomeIcon
               icon={faEdit}
-              onClick={() => editClicked(movie)}/>
+              onClick={() => editClicked(movie)}
+              className={"hover"}/>
             <FontAwesomeIcon
               icon={faTrash}
-              onClick={() => removeClicked(movie)}/>
+              onClick={() => removeClicked(movie)}
+              className={"hover"}/>
           </div>)
       })}
     </div>
