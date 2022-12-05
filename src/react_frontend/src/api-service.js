@@ -1,12 +1,11 @@
 import axios from "axios";
+import React, {useEffect} from "react";
 
-const TOKEN = "0c95087e3f74faa2745c8a69fbc7e4f842ad5ae0";
-
-axios.defaults.headers.common['Authorization'] = `Token ${TOKEN}`;
 axios.defaults.headers.common['Content-Type'] = 'application/json';
 axios.defaults.baseURL = 'http://127.0.0.1:8000/';
 
 export class API {
+
   static updateMovieRating(mov_id, rate) {
     return axios.post(
       `api/movies/${mov_id}/rate_movie/`,
@@ -72,6 +71,20 @@ export class API {
   static loginUser(body) {
     return axios.post(
       'auth/',
+      body,
+      {
+        headers:{
+          'Authorization': null
+        }
+      }
+    ).catch(error => {
+      console.log(error)
+    });
+  }
+
+  static registerUser(body) {
+    return axios.post(
+      'api/users/',
       body,
       {
         headers:{

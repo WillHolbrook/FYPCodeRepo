@@ -29,15 +29,18 @@ class MovieViewSet(viewsets.ModelViewSet):
                 rating.stars = stars
                 rating.save()
 
-                serializer = RatingSerializer(rating, many=False)
-                response = {'message': f'Rating Updated', 'result': serializer.data}
-                return Response(response, status=status.HTTP_200_OK)
-            except:
+                message = 'Rating Updated'
+                code = status.HTTP_200_OK
+            except Rating.DoesNotExist:
                 rating = Rating.objects.create(user=user, movie=movie, stars=stars)
 
-                serializer = RatingSerializer(rating, many=False)
-                response = {'message': f'Rating Created', 'result': serializer.data}
-                return Response(response, status=status.HTTP_201_CREATED)
+                message = 'Rating Created'
+                code = status.HTTP_201_CREATED
+
+            movie = Movie.objects.get(id=pk)
+            serializer = RatingSerializer(rating, many=False)
+            response = {'message': message, 'result': serializer.data, 'avg_rating': movie.avg_rating()}
+            return Response(response, status=code)
 
         elif request.method == 'POST':
             response = {'message': 'You need to provide Stars When updating or inserting a record'}

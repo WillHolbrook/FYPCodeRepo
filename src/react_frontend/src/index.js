@@ -1,12 +1,12 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import Auth from "./auth";
+import Auth from "./components/auth";
 import reportWebVitals from './reportWebVitals';
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
-
-export const TokenContext = React.createContext(undefined);
+import {CookiesProvider} from "react-cookie";
+import ApiComp from "./components/api-component";
 
 function Router() {
 
@@ -21,12 +21,11 @@ function Router() {
     },
   ])
 
-  const [token, setToken] = useState('');
-
   return (<React.StrictMode>
-    <TokenContext.Provider value={[token, setToken]}>
+    <CookiesProvider>
+      <ApiComp/>
       <RouterProvider router={router}/>
-    </TokenContext.Provider>
+    </CookiesProvider>
   </React.StrictMode>)
 }
 

@@ -4,18 +4,26 @@ import MovieDetails from "./components/movie-details";
 import MovieForm from "./components/movie-form";
 import './App.css';
 import {API} from "./api-service";
+import {useCookies} from "react-cookie";
 
 function App() {
 
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [editedMovie, setEditedMovieMovie] = useState(null);
+  const [token, setToken] = useCookies(['rs_token'])
 
   useEffect(() => {
     API.getMovies().then(response => {
       setMovies(response.data)
     })
   }, [])
+
+  useEffect(() => {
+    if (!token.rs_token) {
+      window.location.href = '/';
+    }
+  }, [token.rs_token])
 
 
   const editClicked = movie => {
@@ -44,6 +52,23 @@ function App() {
     setMovies(newMovies)
   }
 
+  const updateMovieById = movieId => {
+    API.getMovie(movieId).then(resp => {
+      if (resp.status === 200) {
+        const newMovies = movies.map(mov => {
+          if (mov.id === movieId) {
+            return resp.data
+          }
+          return mov
+        })
+        setMovies(newMovies)
+      }
+      else {
+        console.log("Error", resp)
+      }
+    })
+  }
+
   const newBlankMovie = () => {
     setEditedMovieMovie({title: '', description: ''})
     setSelectedMovie(null)
@@ -68,7 +93,11 @@ function App() {
             removeClicked={removeClicked}/>
           <button onClick={newBlankMovie}>Add New Movie</button>
         </div>
-        <MovieDetails movie={selectedMovie} updateMovie={loadMovieDetails}/>
+        <MovieDetails
+          movie={selectedMovie}
+          setMovie={setSelectedMovie}
+          updateMovie={loadMovieDetails}
+          updateMovieById={updateMovieById}/>
         {editedMovie ? <MovieForm movie={editedMovie} updateMovie={updateMovie} createMovie={addCreatedMovie}/> : null}
       </div>
     </div>

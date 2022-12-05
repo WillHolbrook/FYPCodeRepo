@@ -25,8 +25,16 @@ function MovieDetails(props) {
   const rateClicked = rate => evt => {
     API.updateMovieRating(mov.id, rate).then(resp => {
         setSelectedRate(resp.data.result.stars - 1)
+        setHighlighted(resp.data.result.stars - 1)
+        return resp
       }
-    ).then(() => getDetails(mov.id))
+    )
+      .then(resp => {
+        let updated_mov = props.movie
+        updated_mov.avg_rating = resp.data.avg_rating
+        props.setMovie(updated_mov)
+      })
+      .then(() => props.updateMovieById(mov.id))
   }
 
   const getDetails = (mov_id) => {
