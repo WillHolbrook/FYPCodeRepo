@@ -1,30 +1,33 @@
 import React, {useEffect, useState} from "react";
 import {API} from "../api-service";
 import {useCookies} from "react-cookie";
+import PassRequire from "./pass-require";
 
 function Auth() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isLoginView, setIsLoginView] = useState(true);
   const [token, setToken] = useCookies(['rs_token']);
+  const [passwordValid, setPasswordValid] = useState(false);
 
   useEffect(() => {
     if (token.rs_token) {
       window.location.href = '/movies/';
     }
-  }, [token])
+  }, [token]);
 
   const loginClicked = () => {
     API.loginUser({username, password})
       .then(resp => setToken('rs_token', resp.data.token))
-  }
+  };
 
   const registerClicked = () => {
     API.registerUser({username, password})
       .then(() => loginClicked())
-  }
+  };
 
-  const isDisabled = username.length === 0 || password.length === 0;
+  const isDisabled = username.length === 0 || (!isLoginView && !passwordValid) || password.length === 0;
+
 
   return (
     <div className={"App"}>
@@ -40,14 +43,17 @@ function Auth() {
                onChange={evt => setPassword(evt.target.value)}/><br/>
         {isLoginView ?
           <button onClick={loginClicked} disabled={isDisabled}>Log In</button> :
-          <button onClick={registerClicked} disabled={isDisabled}>Register</button>
+          (<React.Fragment>
+            <PassRequire password={password} setPasswordValid={setPasswordValid}/>
+            <button onClick={registerClicked} disabled={isDisabled}>Register</button>
+          </React.Fragment>)
         }
 
 
-        <p onClick={() => setIsLoginView(!isLoginView)}>
+        <p onClick={() => setIsLoginView(!isLoginView)} className={"hover clickable"}>
           {isLoginView ?
-            "You don't already have an account? Register here!" :
-            "You already have an account? Login here"}
+            (<div>You don't already have an account? <a>Register here!</a></div>) :
+            (<div>You already have an account? <a>Login here</a></div>)}
         </p>
 
       </div>
