@@ -7,6 +7,7 @@ import reportWebVitals from './reportWebVitals';
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import {CookiesProvider} from "react-cookie";
 import ApiComp from "./components/api-component";
+import NavBar from "./components/nav-bar";
 
 function Router() {
 
@@ -23,8 +24,11 @@ function Router() {
 
   return (<React.StrictMode>
     <CookiesProvider>
-      <ApiComp/>
-      <RouterProvider router={router}/>
+      <div className={"top-level"}>
+        <NavBar/>
+        <ApiComp/>
+        <RouterProvider router={router}/>
+      </div>
     </CookiesProvider>
   </React.StrictMode>)
 }

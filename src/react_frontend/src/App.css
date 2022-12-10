@@ -1,8 +1,13 @@
-.App {
-  padding: 20px;
+.top-level {
   min-height: 100vh;
   background-color: #282c34;
   color: white;
+  box-sizing: border-box;
+}
+
+.App {
+  padding: 20px;
+
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -24,15 +29,40 @@
 
 .login-container {
   width: 50%;
-  margin: 0px 25% 25%;
+  margin: 0 25% 25%;
+}
+
+.nav-bar {
+  background-color: #181C29;
+  color: white;
+  height: calc(10px + 6vh);
+  display: flex;
+  justify-content: center;
+  padding: 0.2rem calc((100vw - 1000px) / 2);
+  z-index: 12;
+}
+
+.title {
+  font-size: calc(10px + 2vmin);
+  /*font-size: 10px;*/
+  padding: 0;
+  margin: auto;
+  font-weight: bold;
+}
+
+label {
+  font-weight: bold;
 }
 
 input, textarea {
-  width: 95%;
+  width: 100%;
   padding: 10px;
   margin: 8px 0;
   font-size: 0.8rem;
   border-radius: 10px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 button {
@@ -44,9 +74,10 @@ button {
   font-size: 0.8rem;
   outline: none;
   border: none;
-  margin: 0 auto;
+  margin: 8px auto;
   display: block;
-  width: 75%;
+  width: 100%;
+  cursor: pointer;
 }
 
 button:disabled {
@@ -68,7 +99,7 @@ button:disabled {
   border-top: 2px solid purple;
 }
 
-.rate-container .fa-star{
+.rate-container .fa-star {
   font-size: 1.8rem;
   cursor: pointer;
 }
@@ -78,7 +109,7 @@ button:disabled {
   grid-template-columns: 1fr auto auto;
 }
 
-.movie-item svg{
+.movie-item svg {
   font-size: 1.2rem;
   margin: 16px 5px;
 }
@@ -96,15 +127,31 @@ button:disabled {
   color: darkred;
 }
 
-h1 .fa-film{
+h1 .fa-film {
   color: white;
   transform: rotate(45deg);
   padding: 10px;
 }
 
-.fa-right-from-bracket{
+.fa-right-from-bracket {
   position: absolute;
   top: 20px;
   right: 20px;
   font-size: 1.5rem;
+}
+
+a {
+  color: #55c1db;
+}
+
+.hover:hover a{
+  color: purple;
+}
+
+.check-passed {
+  color: #009E0F;
+}
+
+.check-failed {
+  color: #CC0000;
 }
