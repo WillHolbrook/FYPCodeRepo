@@ -1,10 +1,38 @@
 default_language_version:
     python: python3.10
 repos:
--   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v3.2.0
-    hooks:
-    -   id: trailing-whitespace
-    -   id: end-of-file-fixer
-    -   id: check-yaml
-    -   id: check-added-large-files
+    -   repo: https://github.com/pre-commit/pre-commit-hooks
+        rev: v3.2.0
+        hooks:
+            -   id: trailing-whitespace
+            -   id: end-of-file-fixer
+            -   id: check-yaml
+            -   id: check-added-large-files
+            -   id: fix-encoding-pragma
+                files: backend/.*
+    -   repo: https://github.com/psf/black
+        rev: 22.10.0
+        hooks:
+            -   id: black
+                files: backend/.*
+    -   repo: https://github.com/PyCQA/isort
+        rev: 5.12.0
+        hooks:
+            -   id: isort
+                files: backend/.*
+    -   repo: local
+        hooks:
+            -   id: pylint
+                files: backend/.*
+                name: pylint
+                entry: pylint
+                language: system
+                types: [ python ]
+                args:
+                  [
+                      "-rn", # Only display messages
+                      "-sn", # Don't display the score
+                      "--load-plugins=pylint_django", # Load Django extension to avoid Django related issues
+                      "--django-settings-module=analyst_report_summarizer.settings"
+                  ]
+                exclude: .*/migrations/.*
