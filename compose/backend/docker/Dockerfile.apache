@@ -12,7 +12,7 @@ ENV VIRTUAL_ENV /opt/report_summarizer/venv
 RUN python3 -m venv $VIRTUAL_ENV
 ENV PATH "$VIRTUAL_ENV/bin:$PATH"
 
-# Install dependencies, gather all static files and check system 
+# Install dependencies, gather all static files and check system
 RUN pip3 install -r requirements.txt
 
 COPY ./src/analyst_report_summarizer /opt/report_summarizer/API/

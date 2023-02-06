@@ -1,0 +1,58 @@
+default_language_version:
+    python: python3.10
+repos:
+    -   repo: https://github.com/pre-commit/pre-commit-hooks
+        rev: v3.2.0
+        hooks:
+            -   id: trailing-whitespace
+            -   id: end-of-file-fixer
+            -   id: check-yaml
+            -   id: check-added-large-files
+            -   id: fix-encoding-pragma
+                files: backend/.*
+    -   repo: https://github.com/psf/black
+        rev: 22.10.0
+        hooks:
+            -   id: black
+                files: backend/.*
+    -   repo: https://github.com/PyCQA/isort
+        rev: 5.12.0
+        hooks:
+            -   id: isort
+                files: backend/.*
+    -   repo: local
+        hooks:
+            -   id: pylint
+                files: backend/.*
+                name: pylint
+                entry: pylint
+                language: system
+                types: [ python ]
+                args:
+                  [
+                      "-rn", # Only display messages
+                      "-sn", # Don't display the score
+                      "--load-plugins=pylint_django", # Load Django extension to avoid Django related issues
+                      "--django-settings-module=analyst_report_summarizer.settings" # Needed for above plugin
+                  ]
+                exclude: .*/migrations/.*
+    -   repo: https://github.com/pre-commit/mirrors-prettier
+        rev: 'v2.7.1'
+        hooks:
+            -   id: prettier
+                files: frontend/.*
+                additional_dependencies:
+                    - prettier@2.7.1
+                    - '@trivago/prettier-plugin-sort-imports@4.0.0'
+    -   repo: https://github.com/pre-commit/mirrors-eslint
+        rev: 'v8.33.0'
+        hooks:
+            -   id: eslint
+                files: frontend/.*
+                args:
+                    [
+                        "--max-warnings=0"
+                    ]
+                additional_dependencies:
+                    - eslint@8.33.0
+                    - eslint-plugin-react@7.32.2

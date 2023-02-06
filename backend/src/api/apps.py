@@ -1,6 +1,10 @@
+# -*- coding: utf-8 -*-
+"""Template Docstring"""
 from django.apps import AppConfig
 
 
 class ApiConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
-    name = 'api'
+    """Template Docstring"""
+
+    default_auto_field = "django.db.models.BigAutoField"
+    name = "api"

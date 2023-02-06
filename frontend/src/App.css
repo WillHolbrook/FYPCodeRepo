@@ -7,7 +7,6 @@
 
 .App {
   padding: 20px;
-
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -33,7 +32,7 @@
 }
 
 .nav-bar {
-  background-color: #181C29;
+  background-color: #181c29;
   color: white;
   height: calc(10px + 6vh);
   display: flex;
@@ -54,7 +53,8 @@ label {
   font-weight: bold;
 }
 
-input, textarea {
+input,
+textarea {
   width: 100%;
   padding: 10px;
   margin: 8px 0;
@@ -144,14 +144,14 @@ a {
   color: #55c1db;
 }
 
-.hover:hover a{
+.hover:hover a {
   color: purple;
 }
 
 .check-passed {
-  color: #009E0F;
+  color: #009e0f;
 }
 
 .check-failed {
-  color: #CC0000;
+  color: #cc0000;
 }
