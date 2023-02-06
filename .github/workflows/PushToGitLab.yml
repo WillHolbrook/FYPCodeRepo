@@ -8,7 +8,7 @@ on:
 jobs:
   push-to-github:
     runs-on: ubuntu-latest
-    steps:             
+    steps:
       - uses: MrSquaare/ssh-setup-action@v2
         with:
           host: github.com
@@ -17,7 +17,6 @@ jobs:
       - uses: MrSquaare/ssh-setup-action@v2
         with:
           host: git.cs.bham.ac.uk
-          private-key: ${{ secrets.GITLAB_FYP_CODE_REPO_KEY }} 
+          private-key: ${{ secrets.GITLAB_FYP_CODE_REPO_KEY }}
       - run: git remote add gitlab git@git.cs.bham.ac.uk:projects-2022-23/wdh961.git
       - run: git push gitlab develop
-      

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 ASGI config for analyst_report_summarizer project.
 
@@ -11,6 +12,6 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'analyst_report_summarizer.settings')
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "analyst_report_summarizer.settings")
 
 application = get_asgi_application()

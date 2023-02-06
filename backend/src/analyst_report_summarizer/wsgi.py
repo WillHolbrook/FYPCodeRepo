@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+# pylint: disable=wrong-import-position
 """
 WSGI config for analyst_report_summarizer project.
 
@@ -9,10 +11,11 @@ https://docs.djangoproject.com/en/4.1/howto/deployment/wsgi/
 
 import os
 import sys
-sys.path.append('/opt/report_summarizer/API/')
+
+sys.path.append("/opt/report_summarizer/API/")
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'analyst_report_summarizer.settings')
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "analyst_report_summarizer.settings")
 
 application = get_wsgi_application()
