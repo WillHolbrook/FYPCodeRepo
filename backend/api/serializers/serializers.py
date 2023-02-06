@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 """Template Docstring"""
+from api.models.models import Movie, Rating
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
-
-from .models import Movie, Rating
 
 
 class UserSerializer(serializers.ModelSerializer):

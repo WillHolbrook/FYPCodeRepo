@@ -3,14 +3,17 @@
 """Views used in basic app"""
 import time
 
+from api.models.models import Movie, Rating
+from api.serializers.serializers import (
+    MovieSerializer,
+    RatingSerializer,
+    UserSerializer,
+)
 from django.contrib.auth import get_user_model
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
-
-from .models import Movie, Rating
-from .serializers import MovieSerializer, RatingSerializer, UserSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):

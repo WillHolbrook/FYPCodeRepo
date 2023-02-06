@@ -20,6 +20,10 @@ repos:
         hooks:
             -   id: isort
                 files: backend/.*
+                args:
+                    [
+                        "--profile", "black"
+                    ]
     -   repo: local
         hooks:
             -   id: pylint
