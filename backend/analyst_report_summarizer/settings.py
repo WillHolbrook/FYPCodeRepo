@@ -151,3 +151,5 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.TokenAuthentication",
     ],
 }
+
+MEDIA_ROOT = Path("/media").resolve()
