@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 """Module to contain Profile Model and associated methods"""
+import io
+import sys
+
 from django.contrib.auth import get_user_model
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -36,8 +40,20 @@ class Profile(models.Model):
 
     def save(self, *args, **kwargs):
         if self.profile_image:
+            print(self.profile_image.name)
             image = Image.open(self.profile_image)
-            self.profile_image = image.resize(
-                Profile.profile_image_size, Image.ANTIALIAS
+            image = image.convert("RGB")
+            image = image.resize(Profile.profile_image_size, Image.ANTIALIAS)
+            output = io.BytesIO()
+            image.save(output, format="JPEG", quality=85)
+            output.seek(0)
+            self.profile_image = InMemoryUploadedFile(
+                output,
+                "ImageField",
+                self.profile_image.name,
+                "image/jpeg",
+                sys.getsizeof(output),
+                None,
             )
+
         super().save(*args, **kwargs)
