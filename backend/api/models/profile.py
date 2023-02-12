@@ -28,7 +28,6 @@ class Profile(models.Model):
     ):  # pylint: disable=[no-self-argument, unused-argument]
         """Creates a Profile whenever a User is Saved"""
         if created:
-            print("Profile Should Be Created")
             Profile.objects.create(user=instance)
 
     @receiver(post_save, sender=get_user_model())
@@ -41,6 +40,7 @@ class Profile(models.Model):
     def save(self, *args, **kwargs):
         if self.profile_image:
             print(self.profile_image.name)
+            print(type(self.profile_image))
             image = Image.open(self.profile_image)
             image = image.convert("RGB")
             image = image.resize(Profile.profile_image_size, Image.ANTIALIAS)
