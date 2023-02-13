@@ -4,6 +4,8 @@ from api.managers.user_api_key_manager import UserAPIKeyManager
 from api.models.profile import Profile
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from rest_framework_api_key.models import AbstractAPIKey
 
 
@@ -26,6 +28,15 @@ class UserAPIKey(AbstractAPIKey):
         on_delete=models.CASCADE,
         related_name="api_keys",
     )
+
+    @receiver(post_save, sender=Profile)
+    def auto_generate_keys(
+        sender, instance, created, **kwargs
+    ):  # pylint: disable=[no-self-argument, unused-argument]
+        """Method to auto generate api keys on user creation"""
+        if created:
+            UserAPIKey.objects.create_key(user_profile=instance, is_key1=True)
+            UserAPIKey.objects.create_key(user_profile=instance, is_key1=False)
 
     def clean(self) -> None:
         if UserAPIKey.objects.filter(

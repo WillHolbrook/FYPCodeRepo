@@ -123,6 +123,6 @@ class UserAPIKeyTestCase(TestCase):
             msg="2 keys not automatically created",
         )
         # If either of the keys aren't generated tge following statements will throw an error
-        UserAPIKey.objects.get(profile=created_user.profile, is_key1=True)
-        UserAPIKey.objects.get(profile=created_user.profile, is_key1=False)
+        UserAPIKey.objects.get(user_profile=created_user.profile, is_key1=True)
+        UserAPIKey.objects.get(user_profile=created_user.profile, is_key1=False)
         created_user.delete()
