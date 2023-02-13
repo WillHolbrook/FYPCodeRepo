@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "rest_framework",
     "rest_framework.authtoken",
+    "rest_framework_api_key",
     "api",
 ]
 
@@ -144,10 +145,11 @@ CSRF_HEADER_NAME = "HTTP_X_XSRF_TOKEN"
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = CSRF_TRUSTED_ORIGINS
 
-
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.TokenAuthentication",
     ],
 }
+
+MEDIA_ROOT = Path("/media").resolve()
