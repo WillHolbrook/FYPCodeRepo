@@ -4,6 +4,7 @@ import io
 import sys
 from pathlib import Path
 
+from analyst_report_summarizer.settings import TEST_RESOURCES_ROOT
 from api.models.profile import Profile
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ObjectDoesNotExist
@@ -33,7 +34,7 @@ class ProfileTestCase(TestCase):
 
     @staticmethod
     def _load_test_image(
-        path: Path = Path("./api/tests/resources/test.jpg"),
+        path: Path = TEST_RESOURCES_ROOT.joinpath(Path("./test.jpg")),
     ) -> InMemoryUploadedFile:
         image = Image.open(path)
         output = io.BytesIO()

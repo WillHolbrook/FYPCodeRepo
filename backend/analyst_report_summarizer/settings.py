@@ -153,3 +153,5 @@ REST_FRAMEWORK = {
 }
 
 MEDIA_ROOT = Path("/media").resolve()
+
+TEST_RESOURCES_ROOT = Path("./api/tests/resources/")

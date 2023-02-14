@@ -7,7 +7,7 @@ from rest_framework_api_key.models import BaseAPIKeyManager
 
 
 class UserAPIKeyManager(BaseAPIKeyManager):
-    """Module to manage creation of UserAPIKey objects"""
+    """Manager for creation of UserAPIKey objects"""
 
     def _set_default_values(self, user_profile, is_key1: bool, kwargs):
         """Method to set default values of is_key1"""
