@@ -5,7 +5,8 @@ from datetime import datetime
 from pathlib import Path
 from xml.etree.ElementTree import Element
 
-from grobid_client.grobid_client import GrobidClient
+from analyst_report_summarizer.settings import GROBID_CONFIG
+from api.grobid_client.grobid_client import GrobidClient
 
 
 # TODO add a return value probably a list of paths of outputted files
@@ -114,19 +115,18 @@ def get_sub_file_count(root_folder_path: Path) -> int:
 
 
 def main():
-    client: GrobidClient = GrobidClient(config_path="./grobid_config.json")
-    root_folder_path = Path("../../FilestoreRepo/FTSE100Info/reports").resolve()
-    root_tei_xml_output_folder_path = Path(
-        "../../FilestoreRepo/FTSE100Info/teixmlreports"
-    ).resolve()
-    root_txt_output_folder_path = Path(
-        "../../FilestoreRepo/FTSE100Info/txtReports"
-    ).resolve()
+    client: GrobidClient = GrobidClient(config_dict=GROBID_CONFIG)
+    root_folder_path = Path("./api/tests/resources").resolve()
+    root_tei_xml_output_folder_path = Path("./api/tests/resources").resolve()
+    # root_txt_output_folder_path = Path(
+    #     "../../FilestoreRepo/FTSE100Info/txtReports"
+    # ).resolve()
 
-    count = get_sub_file_count(root_txt_output_folder_path)
-    # print(f"Number of Reports: {count}")
+    count = get_sub_file_count(root_folder_path)
+    print(f"Number of Reports: {count}")
     # print_datetime_name_and_paths_tab_separated(root_folder_path)
-    #
+
+    extract_tei_xml_from_pdf(root_folder_path, root_folder_path, client)
     # extract_tei_xml_from_root(root_tei_xml_output_folder_path, root_folder_path, client)
     # extract_txt_from_root(root_txt_output_folder_path, root_tei_xml_output_folder_path)
 
