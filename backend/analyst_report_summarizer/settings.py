@@ -153,3 +153,13 @@ REST_FRAMEWORK = {
 }
 
 MEDIA_ROOT = Path("/media").resolve()
+
+TEST_RESOURCES_ROOT = Path("./api/tests/resources/")
+
+GROBID_CONFIG = {
+    "grobid_server": "https://grobid.willholbrook.com",
+    "batch_size": 1000,
+    "sleep_time": 10,
+    "timeout": 60,
+    "coordinates": ["persName", "figure", "ref", "biblStruct", "formula", "s"],
+}

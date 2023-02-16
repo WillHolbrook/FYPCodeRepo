@@ -24,14 +24,14 @@ fontsize=14
 
 
 // This text will be stored with each diagram;  use it for notes.</help_text>
-  <zoom_level>8</zoom_level>
+  <zoom_level>12</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>504</x>
-      <y>72</y>
-      <w>312</w>
-      <h>80</h>
+      <x>648</x>
+      <y>108</y>
+      <w>468</w>
+      <h>120</h>
     </coordinates>
     <panel_attributes>Default Django User Model
 --
@@ -45,10 +45,10 @@ Delete: Removes the User and the associated profile</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>504</x>
-      <y>216</y>
-      <w>312</w>
-      <h>152</h>
+      <x>648</x>
+      <y>324</y>
+      <w>468</w>
+      <h>228</h>
     </coordinates>
     <panel_attributes>Profile Model
 --
@@ -69,10 +69,10 @@ RegenKey2: Regenerates Key2 with a new value
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>648</x>
-      <y>144</y>
-      <w>32</w>
-      <h>88</h>
+      <x>864</x>
+      <y>216</y>
+      <w>48</w>
+      <h>132</h>
     </coordinates>
     <panel_attributes>lt=-
 m1=1
@@ -83,14 +83,15 @@ m2=1
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>904</x>
-      <y>72</y>
-      <w>328</w>
-      <h>280</h>
+      <x>1248</x>
+      <y>108</y>
+      <w>492</w>
+      <h>420</h>
     </coordinates>
     <panel_attributes>File Model
 --
 TEIXML: String - File generated from Grobid Server
+UploadDateTime: DateTime - Time representing when the file was uploaded
 FilePlaintext: String - Text extracted from the TEIXML Field
 CorpusFlag: Bool - Flag to represent whether the file is used
     as part of the corpus or a users file upload
@@ -110,10 +111,10 @@ Delete: File and associated sentences</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>72</x>
-      <y>72</y>
-      <w>400</w>
-      <h>832</h>
+      <x>0</x>
+      <y>108</y>
+      <w>600</w>
+      <h>1248</h>
     </coordinates>
     <panel_attributes>API Interface
 --
@@ -188,10 +189,10 @@ algorithm ReProcessFile can be called
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>904</x>
-      <y>424</y>
-      <w>328</w>
-      <h>120</h>
+      <x>1248</x>
+      <y>636</y>
+      <w>492</w>
+      <h>180</h>
     </coordinates>
     <panel_attributes>Sentence Model
 --
@@ -204,10 +205,10 @@ TFIDFWeight: TF-IDF weight of a given sentence in a file
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>504</x>
-      <y>424</y>
-      <w>312</w>
-      <h>120</h>
+      <x>648</x>
+      <y>636</y>
+      <w>468</w>
+      <h>180</h>
     </coordinates>
     <panel_attributes>TermIDF Model
 --
@@ -221,10 +222,10 @@ IDF: Float - The IDF of the specific term
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>808</x>
-      <y>96</y>
-      <w>112</w>
-      <h>40</h>
+      <x>1104</x>
+      <y>144</y>
+      <w>168</w>
+      <h>60</h>
     </coordinates>
     <panel_attributes>lt=-
 m1=0,1
@@ -235,10 +236,10 @@ m2=*
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1048</x>
-      <y>344</y>
-      <w>32</w>
-      <h>96</h>
+      <x>1464</x>
+      <y>516</y>
+      <w>48</w>
+      <h>144</h>
     </coordinates>
     <panel_attributes>lt=-
 m1=1

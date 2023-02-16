@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
 """Module for testing UserAPIKey"""
-# from django.contrib.auth.models import User
-# from api.models.profile import Profile
-# from api.models.user_api_key import UserAPIKey
 from profile import Profile
 
 from api.models.user_api_key import UserAPIKey
