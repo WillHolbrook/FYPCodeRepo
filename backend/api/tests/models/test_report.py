@@ -1,13 +1,16 @@
 # -*- coding: utf-8 -*-
-# pylint: disable=[fixme,redundant-unittest-assert]
 """Module for testing Report model"""
+import xml.etree.ElementTree as ET
+from datetime import timedelta
 from pathlib import Path
 
 from analyst_report_summarizer.settings import TEST_RESOURCES_ROOT
+from api.grobid_tfidf_code.main import extract_text_from_element_tree
 from api.models.report import Report
 from django.contrib.auth import get_user_model
 from django.core.files import File
 from django.test import TestCase
+from django.utils import timezone
 
 
 class ReportTestCase(TestCase):
@@ -21,8 +24,7 @@ class ReportTestCase(TestCase):
         path: Path = TEST_RESOURCES_ROOT.joinpath(Path("test.pdf")),
     ) -> File:
         """Method to load the test pdf used across multiple tests"""
-        with open(path, "rb") as file:
-            return File(file, path.name)
+        return File(open(path, "rb"), path.name)
 
     def test_report_creation(self):
         """Test to see if a Report can be created"""
@@ -41,9 +43,12 @@ class ReportTestCase(TestCase):
         with open(
             TEST_RESOURCES_ROOT.joinpath(Path("test.tei.xml")), encoding="utf-8"
         ) as file:
-            test_text = file.read()
+            expected_text = extract_text_from_element_tree(ET.fromstring(file.read()))
+
+        test_text = extract_text_from_element_tree(ET.fromstring(report.tei_xml))
+
         self.assertEqual(
-            report.plain_text, test_text, msg="The extracted tei.xml isn't as expected"
+            test_text, expected_text, msg="The extracted tei.xml isn't as expected"
         )
 
     def test_upload_with_user_set(self):
@@ -91,3 +96,11 @@ class ReportTestCase(TestCase):
             msg="The 2 reports were not deleted when the user was deleted",
         )
         self.assertEqual(len(Report.objects.filter(user=created_user)), 0)
+
+    def test_upload_time(self):
+        """Test to see if the upload time is set correctly with a 10 second margin of error"""
+        now = timezone.now()
+        report = Report.objects.create(self._load_test_pdf())
+
+        self.assertGreater(report.upload_datetime, now - timedelta(seconds=10))
+        self.assertLess(report.upload_datetime, now + timedelta(seconds=10))
