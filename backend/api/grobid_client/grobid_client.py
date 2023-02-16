@@ -277,20 +277,22 @@ class GrobidClient(ApiClient):
     def process_pdf(
         self,
         service,
-        pdf_file,
-        generateIDs,
-        consolidate_header,
-        consolidate_citations,
-        include_raw_citations,
-        include_raw_affiliations,
-        tei_coordinates,
-        segment_sentences,
+        pdf_file_path,
+        generate_ids=False,
+        consolidate_header=True,
+        consolidate_citations=False,
+        include_raw_citations=False,
+        include_raw_affiliations=False,
+        tei_coordinates=False,
+        segment_sentences=False,
+        pdf_bytes=None,
     ):
-        pdf_handle = open(pdf_file, "rb")
+        if pdf_bytes is None:
+            pdf_bytes = open(pdf_file_path, "rb")
         files = {
             "input": (
-                pdf_file,
-                pdf_handle,
+                pdf_file_path,
+                pdf_bytes,
                 "application/pdf",
                 {"Expires": "0"},
             )
@@ -300,7 +302,7 @@ class GrobidClient(ApiClient):
 
         # set the GROBID parameters
         the_data = {}
-        if generateIDs:
+        if generate_ids:
             the_data["generateIDs"] = "1"
         if consolidate_header:
             the_data["consolidateHeader"] = "1"
@@ -328,8 +330,8 @@ class GrobidClient(ApiClient):
                 time.sleep(self.config["sleep_time"])
                 return self.process_pdf(
                     service,
-                    pdf_file,
-                    generateIDs,
+                    pdf_file_path,
+                    generate_ids,
                     consolidate_header,
                     consolidate_citations,
                     include_raw_citations,
@@ -338,203 +340,8 @@ class GrobidClient(ApiClient):
                     segment_sentences,
                 )
         except requests.exceptions.ReadTimeout:
-            pdf_handle.close()
-            return (pdf_file, 408, None)
+            pdf_bytes.close()
+            return pdf_file_path, 408, None
 
-        pdf_handle.close()
-        return (pdf_file, status, res.text)
-
-    def process_txt(
-        self,
-        service,
-        txt_file,
-        generateIDs,
-        consolidate_header,
-        consolidate_citations,
-        include_raw_citations,
-        include_raw_affiliations,
-        tei_coordinates,
-        segment_sentences,
-    ):
-        # create request based on file content
-        references = None
-        with open(txt_file) as f:
-            references = [line.rstrip() for line in f]
-
-        the_url = self.config["grobid_server"]
-        the_url += "/api/" + service
-
-        # set the GROBID parameters
-        the_data = {}
-        if consolidate_citations:
-            the_data["consolidateCitations"] = "1"
-        if include_raw_citations:
-            the_data["includeRawCitations"] = "1"
-        the_data["citations"] = references
-        res, status = self.post(
-            url=the_url, data=the_data, headers={"Accept": "application/xml"}
-        )
-
-        if status == 503:
-            time.sleep(self.config["sleep_time"])
-            return self.process_txt(
-                service,
-                txt_file,
-                generateIDs,
-                consolidate_header,
-                consolidate_citations,
-                include_raw_citations,
-                include_raw_affiliations,
-                tei_coordinates,
-                segment_sentences,
-            )
-
-        return (txt_file, status, res.text)
-
-
-def main():
-    valid_services = [
-        "processFulltextDocument",
-        "processHeaderDocument",
-        "processReferences",
-        "processCitationList",
-    ]
-
-    parser = argparse.ArgumentParser(description="Client for GROBID services")
-    parser.add_argument(
-        "service",
-        help="one of " + str(valid_services),
-    )
-    parser.add_argument(
-        "--input",
-        default=None,
-        help="path to the directory containing PDF files or .txt (for processCitationList only, one reference per line) to process",
-    )
-    parser.add_argument(
-        "--output",
-        default=None,
-        help="path to the directory where to put the results (optional)",
-    )
-    parser.add_argument(
-        "--config",
-        default="./config.json",
-        help="path to the config file, default is ./config.json",
-    )
-    parser.add_argument("--n", default=10, help="concurrency for service usage")
-    parser.add_argument(
-        "--generateIDs",
-        action="store_true",
-        help="generate random xml:id to textual XML elements of the result files",
-    )
-    parser.add_argument(
-        "--consolidate_header",
-        action="store_true",
-        help="call GROBID with consolidation of the metadata extracted from the header",
-    )
-    parser.add_argument(
-        "--consolidate_citations",
-        action="store_true",
-        help="call GROBID with consolidation of the extracted bibliographical references",
-    )
-    parser.add_argument(
-        "--include_raw_citations",
-        action="store_true",
-        help="call GROBID requesting the extraction of raw citations",
-    )
-    parser.add_argument(
-        "--include_raw_affiliations",
-        action="store_true",
-        help="call GROBID requestiong the extraciton of raw affiliations",
-    )
-    parser.add_argument(
-        "--force",
-        action="store_true",
-        help="force re-processing pdf input files when tei output files already exist",
-    )
-    parser.add_argument(
-        "--teiCoordinates",
-        action="store_true",
-        help="add the original PDF coordinates (bounding boxes) to the extracted elements",
-    )
-    parser.add_argument(
-        "--segmentSentences",
-        action="store_true",
-        help="segment sentences in the text content of the document with additional <s> elements",
-    )
-    parser.add_argument(
-        "--verbose",
-        action="store_true",
-        help="print information about processed files in the console",
-    )
-
-    args = parser.parse_args()
-
-    input_path = args.input
-    config_path = args.config
-    output_path = args.output
-
-    if args.n is not None:
-        try:
-            n = int(args.n)
-        except ValueError:
-            print(
-                "Invalid concurrency parameter n:",
-                n,
-                ", n = 10 will be used by default",
-            )
-            pass
-
-    # if output path does not exist, we create it
-    if output_path is not None and not os.path.isdir(output_path):
-        try:
-            print("output directory does not exist but will be created:", output_path)
-            os.makedirs(output_path)
-        except OSError:
-            print("Creation of the directory", output_path, "failed")
-        else:
-            print("Successfully created the directory", output_path)
-
-    service = args.service
-    generateIDs = args.generateIDs
-    consolidate_header = args.consolidate_header
-    consolidate_citations = args.consolidate_citations
-    include_raw_citations = args.include_raw_citations
-    include_raw_affiliations = args.include_raw_affiliations
-    force = args.force
-    tei_coordinates = args.teiCoordinates
-    segment_sentences = args.segmentSentences
-    verbose = args.verbose
-
-    if service is None or not service in valid_services:
-        print("Missing or invalid service, must be one of", valid_services)
-        exit(1)
-
-    try:
-        client = GrobidClient(config_path=config_path)
-    except ServerUnavailableException:
-        exit(1)
-
-    start_time = time.time()
-
-    client.process(
-        service,
-        input_path,
-        output=output_path,
-        n=n,
-        generateIDs=generateIDs,
-        consolidate_header=consolidate_header,
-        consolidate_citations=consolidate_citations,
-        include_raw_citations=include_raw_citations,
-        include_raw_affiliations=include_raw_affiliations,
-        tei_coordinates=tei_coordinates,
-        segment_sentences=segment_sentences,
-        force=force,
-        verbose=verbose,
-    )
-
-    runtime = round(time.time() - start_time, 3)
-    print("runtime: %s seconds " % (runtime))
-
-
-if __name__ == "__main__":
-    main()
+        pdf_bytes.close()
+        return pdf_file_path, status, res.text

@@ -35,7 +35,7 @@ def extract_tei_xml_from_pdf(
 
 
 # TODO add a return value maybe a success code or length of string extracted?
-def extract_text_from_xml(
+def extract_text_from_xml_file(
     input_filepath: Path, output_filepath: Path, write_mode: str = "w"
 ) -> None:
     """
@@ -50,12 +50,15 @@ def extract_text_from_xml(
 
     """
     tree = ET.parse(input_filepath)
-    root: Element = tree.getroot()
-    text: str = "".join(root.itertext())
-    text = re.sub(r"\s*?(\n)\s*", "\n", text)
+    text = extract_text_from_element_tree(tree.getroot())
 
     with open(output_filepath, write_mode, encoding="utf-8") as f:
         f.write(text)
+
+
+def extract_text_from_element_tree(root: ET.Element) -> str:
+    text: str = "".join(root.itertext())
+    return re.sub(r"\s*?(\n)\s*", "\n", text)
 
 
 def print_datetime_name_and_paths_tab_separated(root_folder_path: Path):
@@ -99,7 +102,7 @@ def extract_txt_from_root(root_output_folder_path: Path, root_input_folder_path:
             print(f"Extracting from folder {txt_output_folder_path}")
 
             for filepath in input_folder_path.rglob("*.tei.xml"):
-                extract_text_from_xml(
+                extract_text_from_xml_file(
                     filepath, txt_output_folder_path.joinpath(f"./{filepath.name}.txt")
                 )
 
