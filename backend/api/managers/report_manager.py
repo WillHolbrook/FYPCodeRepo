@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 """Module for ReportManager"""
+from analyst_report_summarizer.settings import GROBID_CONFIG
+from api.grobid_client.grobid_client import GrobidClient
 from django.core.files import File
 from django.db.models.manager import Manager
 
@@ -13,6 +15,10 @@ class ReportManager(Manager):  # pylint: disable=too-few-public-methods
         """Method to create a Report model from the file pdf
 
         This will involve calling the grobid server configured in settings to extract the TEI XML"""
-        # TODO implement sending file to the grobid server for processing # pylint: disable=fixme
-
-        return super().create(*args, **kwargs)
+        client: GrobidClient = GrobidClient(config_dict=GROBID_CONFIG)
+        _, _, tei_xml = client.process_pdf(
+            "processFulltextDocument",
+            report_file.name,
+            pdf_bytes=report_file.open("rb"),
+        )
+        return super().create(*args, tei_xml=tei_xml, **kwargs)

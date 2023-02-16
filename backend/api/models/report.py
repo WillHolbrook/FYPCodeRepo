@@ -12,5 +12,12 @@ class Report(models.Model):
     objects = ReportManager()
 
     user = models.ForeignKey(
-        get_user_model(), on_delete=models.CASCADE, related_name="user_files", null=True
+        get_user_model(), on_delete=models.CASCADE, related_name="reports", null=True
     )
+    tei_xml = models.TextField(null=False)
+    upload_datetime = models.DateTimeField(auto_now_add=True, null=False)
+    last_modified = models.DateTimeField(auto_now=True, null=False)
+    corpus_flag = models.BooleanField(default=True, null=False)
+    in_idf_flag = models.BooleanField(default=False, null=False)
+    plaintext_datetime = models.DateTimeField(null=True)
+    sentence_datetime = models.DateTimeField(null=True)
