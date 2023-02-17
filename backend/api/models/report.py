@@ -15,6 +15,7 @@ class Report(models.Model):
         get_user_model(), on_delete=models.CASCADE, related_name="reports", null=True
     )
     tei_xml = models.TextField(null=False)
+    plaintext = models.TextField(null=True, default=None)
     upload_datetime = models.DateTimeField(auto_now_add=True, null=False)
     last_modified = models.DateTimeField(auto_now=True, null=False)
     corpus_flag = models.BooleanField(default=True, null=False)
