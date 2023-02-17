@@ -22,3 +22,10 @@ class ReportManager(Manager):  # pylint: disable=too-few-public-methods
             pdf_bytes=report_file.open("rb"),
         )
         return super().create(*args, tei_xml=tei_xml, **kwargs)
+
+    def _create_without_file(self, *args, **kwargs):
+        """Method to create an instance of the report model without a pdf
+
+        This means you need to manually pass the tei_xml element"""
+
+        return super().create(*args, **kwargs)
