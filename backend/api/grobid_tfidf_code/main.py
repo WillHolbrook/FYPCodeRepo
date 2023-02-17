@@ -5,6 +5,7 @@ from datetime import datetime
 from pathlib import Path
 from xml.etree.ElementTree import Element
 
+import nltk.tokenize
 from analyst_report_summarizer.settings import GROBID_CONFIG
 from api.grobid_client.grobid_client import GrobidClient
 
@@ -115,6 +116,11 @@ def get_sub_file_count(root_folder_path: Path) -> int:
             count += 1
 
     return count
+
+
+def split_into_sentences(doc: str) -> list[str]:
+    """Method to split a document into sentences"""
+    return nltk.tokenize.sent_tokenize(doc, language="english")
 
 
 def main():
