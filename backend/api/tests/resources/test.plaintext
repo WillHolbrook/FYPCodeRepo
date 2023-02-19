@@ -1,7 +1,7 @@
 
-Final Year Project Repo for William Holbrook
-Final Year Project Repo for William Holbrook
-4743053FB8136FBC9B33B55B41790CD2
-GROBID - A machine learning software for extracting information from scholarly documents
-pip install pre-commit
-Then install the hooks specified in .pre-commit-config.yaml by running pre-commit install Further details can be found here Python pre-commit hooks are set up to only run on the "backend" directory and "JavaScript" are only set up for the frontend directory
+Final Year Project Repo for William Holbrook.
+Final Year Project Repo for William Holbrook.
+4743053FB8136FBC9B33B55B41790CD2.
+GROBID - A machine learning software for extracting information from scholarly documents.
+pip install pre-commit.
+Then install the hooks specified in .pre-commit-config.yaml by running pre-commit install Further details can be found here. Python pre-commit hooks are set up to only run on the "backend" directory and "JavaScript" are only set up for the frontend directory.
