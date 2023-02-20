@@ -4,7 +4,7 @@ import xml.etree.ElementTree as ET
 from datetime import timedelta
 from pathlib import Path
 
-from analyst_report_summarizer.settings import TEST_RESOURCES_ROOT
+from analyst_report_summarizer.settings import DATETIME_TEST_LEEWAY, TEST_RESOURCES_ROOT
 from api.grobid_tfidf_code.main import extract_text_from_element_tree
 from api.models.report import Report
 from django.contrib.auth import get_user_model
@@ -98,9 +98,35 @@ class ReportTestCase(TestCase):
         self.assertEqual(len(Report.objects.filter(user=created_user)), 0)
 
     def test_upload_time(self):
-        """Test to see if the upload time is set correctly with a 10 second margin of error"""
+        """Test to see if the upload time is set correctly with a 10-second margin of error"""
         now = timezone.now()
         report = Report.objects.create(self._load_test_pdf())
 
-        self.assertGreater(report.upload_datetime, now - timedelta(seconds=10))
-        self.assertLess(report.upload_datetime, now + timedelta(seconds=10))
+        self.assertGreater(
+            report.upload_datetime, now - timedelta(seconds=DATETIME_TEST_LEEWAY)
+        )
+        self.assertLess(
+            report.upload_datetime, now + timedelta(seconds=DATETIME_TEST_LEEWAY)
+        )
+
+    def test_plaintext_extraction(self):
+        """Test to see if the plaintext is extracted and stored in a report object"""
+        report = Report.objects.create(self._load_test_pdf())
+        report.extract_plaintext()
+        test_text = extract_text_from_element_tree(ET.fromstring(report.tei_xml))
+
+        self.assertEqual(report.plaintext, test_text)
+
+    def test_plaintext_extraction_time(self):
+        """Test to see if the plaintext extraction time is appropriately updated"""
+        report = Report.objects.create(self._load_test_pdf())
+        now = timezone.now()
+        report.extract_plaintext()
+
+        self.assertIsNotNone(report.plaintext_datetime)
+        self.assertGreater(
+            report.plaintext_datetime, now - timedelta(seconds=DATETIME_TEST_LEEWAY)
+        )
+        self.assertLess(
+            report.plaintext_datetime, now + timedelta(seconds=DATETIME_TEST_LEEWAY)
+        )
