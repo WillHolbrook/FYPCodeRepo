@@ -3,7 +3,7 @@
 from datetime import timedelta
 from pathlib import Path
 
-from analyst_report_summarizer.settings import TEST_RESOURCES_ROOT
+from analyst_report_summarizer.settings import DATETIME_TEST_LEEWAY, TEST_RESOURCES_ROOT
 from api.grobid_tfidf_code.main import split_into_sentences
 from api.models.report import Report
 from api.models.sentence import Sentence
@@ -103,5 +103,9 @@ class SentenceTestCase(TestCase):
         Sentence.objects.extract_sentences(report)
 
         self.assertIsNotNone(report.sentence_datetime)
-        self.assertGreater(report.sentence_datetime, now - timedelta(seconds=10))
-        self.assertLess(report.sentence_datetime, now + timedelta(seconds=10))
+        self.assertGreater(
+            report.sentence_datetime, now - timedelta(seconds=DATETIME_TEST_LEEWAY)
+        )
+        self.assertLess(
+            report.sentence_datetime, now + timedelta(seconds=DATETIME_TEST_LEEWAY)
+        )
