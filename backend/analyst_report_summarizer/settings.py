@@ -150,6 +150,8 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.TokenAuthentication",
     ],
+    "PAGE_SIZE": 10,
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
 }
 
 MEDIA_ROOT = Path("/media").resolve()
@@ -163,3 +165,5 @@ GROBID_CONFIG = {
     "timeout": 60,
     "coordinates": ["persName", "figure", "ref", "biblStruct", "formula", "s"],
 }
+
+DATETIME_TEST_LEEWAY = 10
