@@ -8,8 +8,8 @@ from django.urls import include, path, re_path
 from rest_framework import routers
 
 router = routers.DefaultRouter()
-router.register("users", UserViewSet)
-router.register("reports", ReportViewSet)
+router.register("users", UserViewSet, basename="users")
+router.register("reports", ReportViewSet, basename="reports")
 
 api_patterns = [
     re_path("report_upload", UserReportUploadView.as_view(), name="report_upload"),
