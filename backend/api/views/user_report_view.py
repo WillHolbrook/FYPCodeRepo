@@ -35,6 +35,14 @@ class ReportViewSet(
         return super().get_serializer_class()
 
     def destroy(self, request, *args, **kwargs):
+        if request.user.is_anonymous:
+            return (
+                Response(
+                    data={"message": "User can't be anonymous"},
+                    status=status.HTTP_401_UNAUTHORIZED,
+                ),
+                None,
+            )
         instance = self.get_object()
         if request.user == instance.user:
             self.perform_destroy(instance)
