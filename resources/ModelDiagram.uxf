@@ -28,8 +28,8 @@ fontsize=14
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>648</x>
-      <y>108</y>
+      <x>684</x>
+      <y>48</y>
       <w>468</w>
       <h>120</h>
     </coordinates>
@@ -45,8 +45,8 @@ Delete: Removes the User and the associated profile</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>648</x>
-      <y>324</y>
+      <x>684</x>
+      <y>264</y>
       <w>468</w>
       <h>228</h>
     </coordinates>
@@ -69,8 +69,8 @@ RegenKey2: Regenerates Key2 with a new value
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>864</x>
-      <y>216</y>
+      <x>900</x>
+      <y>156</y>
       <w>48</w>
       <h>132</h>
     </coordinates>
@@ -83,8 +83,8 @@ m2=1
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1248</x>
-      <y>108</y>
+      <x>1284</x>
+      <y>48</y>
       <w>492</w>
       <h>420</h>
     </coordinates>
@@ -111,33 +111,32 @@ Delete: File and associated sentences</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>0</x>
-      <y>108</y>
+      <x>36</x>
+      <y>48</y>
       <w>600</w>
       <h>1248</h>
     </coordinates>
     <panel_attributes>API Interface
 --
-CRUDUser: CRUD user and associated profile.
+\/ CRUDUser: CRUD user and associated profile.
 RegenKey1: Regenerates Key1 with a new value
     and invalidates the old value
 RegenKey2: Regenerates Key2 with a new value
     and invalidates the old value
 CRUDProfileImage: CRUD profile image
 --
-UploadFile: Uploads a new analyst report and processes the file
+\/ UploadFile: Uploads a new analyst report and processes the file
     extracting the relevant information and sentences.
 ReProcessFile: Runs the new updated algorithm on a specific File object
-    to generate the new plaintext and extract the sentences from the
-    already extracted TEIXML.
+    to generate the new plaintext from the already extracted TEIXML.
 ReProcessAll: Calling this is equivalent to calling ReProcessFile on
-	every stored File objecy
-ExtractSentenceTFIDF: ReExtracts sentences from a specific File object
+	every stored File object
+\/ ExtractSentenceTFIDF: ReExtracts sentences from a specific File object
     and calculates the TFIDF for each extracted sentence then returns
     the sentences in a paged manner like get sentence so this would
     return the first page and then for subsequent pages GetSentenceTFIDF
     should be called.
-GetSentenceTFIDF: Returns the different sentences in a given document
+\/ GetSentenceTFIDF: Returns the different sentences in a given document
     paged so not all sentences are returned at once and allows you to
     order in ascending or descending order of TF-IDF weight
 ExtractAllSentenceTFIDF: calls ExtractSentenceTFIDF on every file
@@ -150,7 +149,7 @@ CalculateIDF: ReCalculates the IDF of every term in corpus from the
     This has a flag to specify whetherto recalculate IDF using the
     plaintet from every doc in the corpus or just by adding the TF from
     Files without the InIDFFlag set (this then updates the flag)
-RemoveFile: Command to remove File from application storage
+\/ RemoveFile: Command to remove File from application storage
 
 
 This makes it so you can upload a file and flag it to be part of the corpus.
@@ -189,8 +188,8 @@ algorithm ReProcessFile can be called
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1248</x>
-      <y>636</y>
+      <x>1284</x>
+      <y>576</y>
       <w>492</w>
       <h>180</h>
     </coordinates>
@@ -205,8 +204,8 @@ TFIDFWeight: TF-IDF weight of a given sentence in a file
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>648</x>
-      <y>636</y>
+      <x>684</x>
+      <y>576</y>
       <w>468</w>
       <h>180</h>
     </coordinates>
@@ -222,8 +221,8 @@ IDF: Float - The IDF of the specific term
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1104</x>
-      <y>144</y>
+      <x>1140</x>
+      <y>84</y>
       <w>168</w>
       <h>60</h>
     </coordinates>
@@ -236,8 +235,8 @@ m2=*
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1464</x>
-      <y>516</y>
+      <x>1500</x>
+      <y>456</y>
       <w>48</w>
       <h>144</h>
     </coordinates>
