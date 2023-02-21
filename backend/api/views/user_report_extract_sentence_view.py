@@ -24,8 +24,9 @@ class UserReportExtractSentenceView(APIView, LimitOffsetPagination):
         serializer = SentenceSerializer(results, many=True)
         return self.get_paginated_response(serializer.data)
 
+    @staticmethod
     def _check_user_is_present_and_has_access_to_given_report(
-        self, request, report_pk: int
+        request, report_pk: int
     ) -> tuple[Response, None] | tuple[None, Report]:
         """
         Method to check if a user is present and has access to a given report
@@ -48,7 +49,7 @@ class UserReportExtractSentenceView(APIView, LimitOffsetPagination):
                 None,
             )
         try:
-            report = Report.objects.get(pk=report_pk, user=self.request.user.id)
+            report = Report.objects.get(pk=report_pk, user=request.user.id)
             return None, report
         except Report.DoesNotExist:
             return (
