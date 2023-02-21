@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 """Module to contain File Model and associated methods"""
+import xml.etree.ElementTree as ET
 
+from api.grobid_tfidf_code.main import extract_text_from_element_tree
 from api.managers.report_manager import ReportManager
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.utils import timezone
 
 
 class Report(models.Model):
@@ -22,3 +25,9 @@ class Report(models.Model):
     in_idf_flag = models.BooleanField(default=False, null=False)
     plaintext_datetime = models.DateTimeField(null=True)
     sentence_datetime = models.DateTimeField(null=True)
+
+    def extract_plaintext(self) -> None:
+        """Method to extract plaintext from tei_xml and store it in the Report Body"""
+        self.plaintext = extract_text_from_element_tree(ET.fromstring(self.tei_xml))
+        self.save()
+        self.plaintext_datetime = timezone.now()

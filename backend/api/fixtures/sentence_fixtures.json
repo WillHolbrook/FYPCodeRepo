@@ -1,0 +1,65 @@
+[
+  {
+    "model": "api.sentence",
+    "pk": 1,
+    "fields": {
+      "parent_report": 1,
+      "text": ".",
+      "tf_idf_weight": 0.0
+    }
+  },
+  {
+    "model": "api.sentence",
+    "pk": 2,
+    "fields": {
+      "parent_report": 1,
+      "text": "Final Year Project Repo for William Holbrook.",
+      "tf_idf_weight": 0.0
+    }
+  },
+  {
+    "model": "api.sentence",
+    "pk": 3,
+    "fields": {
+      "parent_report": 1,
+      "text": "Final Year Project Repo for William Holbrook.",
+      "tf_idf_weight": 0.0
+    }
+  },
+  {
+    "model": "api.sentence",
+    "pk": 4,
+    "fields": {
+      "parent_report": 1,
+      "text": "4743053FB8136FBC9B33B55B41790CD2.",
+      "tf_idf_weight": 0.0
+    }
+  },
+  {
+    "model": "api.sentence",
+    "pk": 5,
+    "fields": {
+      "parent_report": 1,
+      "text": "GROBID - A machine learning software for extracting information from scholarly documents.",
+      "tf_idf_weight": 0.0
+    }
+  },
+  {
+    "model": "api.sentence",
+    "pk": 6,
+    "fields": {
+      "parent_report": 1,
+      "text": "pip install pre-commit.",
+      "tf_idf_weight": 0.0
+    }
+  },
+  {
+    "model": "api.sentence",
+    "pk": 7,
+    "fields": {
+      "parent_report": 1,
+      "text": "Then install the hooks specified in .pre-commit-config.yaml by running pre-commit install Further details can be found here Python pre-commit hooks are set up to only run on the \"backend\" directory and \"JavaScript\" are only set up for the frontend directory.",
+      "tf_idf_weight": 0.0
+    }
+  }
+]

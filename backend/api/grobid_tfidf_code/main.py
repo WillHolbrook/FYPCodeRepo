@@ -59,7 +59,7 @@ def extract_text_from_xml_file(
 
 def extract_text_from_element_tree(root: ET.Element) -> str:
     text: str = "".join(root.itertext())
-    return re.sub(r"\s*?(\n)\s*", "\n", text)
+    return re.sub(r"\s*?(\n)\s*", ".\n", text)
 
 
 def print_datetime_name_and_paths_tab_separated(root_folder_path: Path):
