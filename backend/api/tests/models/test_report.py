@@ -20,7 +20,7 @@ class ReportTestCase(TestCase):
     """
 
     @staticmethod
-    def _load_test_pdf(
+    def load_test_pdf(
         path: Path = TEST_RESOURCES_ROOT.joinpath(Path("test.pdf")),
     ) -> File:
         """Method to load the test pdf used across multiple tests"""
@@ -29,7 +29,7 @@ class ReportTestCase(TestCase):
     def test_report_creation(self):
         """Test to see if a Report can be created"""
         number_of_reports = Report.objects.count()
-        Report.objects.create(self._load_test_pdf())
+        Report.objects.create(self.load_test_pdf())
         self.assertEqual(
             Report.objects.count(),
             number_of_reports + 1,
@@ -38,7 +38,7 @@ class ReportTestCase(TestCase):
 
     def test_tei_xml_extraction(self):
         """Test to see if correct tei_xml can be extracted from a file"""
-        report = Report.objects.create(self._load_test_pdf())
+        report = Report.objects.create(self.load_test_pdf())
 
         with open(
             TEST_RESOURCES_ROOT.joinpath(Path("test.tei.xml")), encoding="utf-8"
@@ -59,7 +59,7 @@ class ReportTestCase(TestCase):
 
     def test_upload_without_user_set(self):
         """Test to see if report can be created without user link"""
-        report = Report.objects.create(self._load_test_pdf())
+        report = Report.objects.create(self.load_test_pdf())
 
         self.assertIsNone(report.user)
 
@@ -74,8 +74,8 @@ class ReportTestCase(TestCase):
         Returns:
             A tuple of the two created reports
         """
-        report1 = Report.objects.create(self._load_test_pdf(), user=user)
-        report2 = Report.objects.create(self._load_test_pdf(), user=user)
+        report1 = Report.objects.create(self.load_test_pdf(), user=user)
+        report2 = Report.objects.create(self.load_test_pdf(), user=user)
 
         reports = user.reports.all()
 
@@ -100,7 +100,7 @@ class ReportTestCase(TestCase):
     def test_upload_time(self):
         """Test to see if the upload time is set correctly with a 10-second margin of error"""
         now = timezone.now()
-        report = Report.objects.create(self._load_test_pdf())
+        report = Report.objects.create(self.load_test_pdf())
 
         self.assertGreater(
             report.upload_datetime, now - timedelta(seconds=DATETIME_TEST_LEEWAY)
@@ -111,7 +111,7 @@ class ReportTestCase(TestCase):
 
     def test_plaintext_extraction(self):
         """Test to see if the plaintext is extracted and stored in a report object"""
-        report = Report.objects.create(self._load_test_pdf())
+        report = Report.objects.create(self.load_test_pdf())
         report.extract_plaintext()
         test_text = extract_text_from_element_tree(ET.fromstring(report.tei_xml))
 
@@ -119,7 +119,7 @@ class ReportTestCase(TestCase):
 
     def test_plaintext_extraction_time(self):
         """Test to see if the plaintext extraction time is appropriately updated"""
-        report = Report.objects.create(self._load_test_pdf())
+        report = Report.objects.create(self.load_test_pdf())
         now = timezone.now()
         report.extract_plaintext()
 
