@@ -1,0 +1,47 @@
+[
+  {
+    "model": "api.report",
+    "pk": 1,
+    "fields": {
+      "user": 2,
+      "tei_xml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<TEI xml:space=\"preserve\" xmlns=\"http://www.tei-c.org/ns/1.0\" \nxmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" \nxsi:schemaLocation=\"http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd\"\n xmlns:xlink=\"http://www.w3.org/1999/xlink\">\n\t<teiHeader xml:lang=\"en\">\n\t\t<fileDesc>\n\t\t\t<titleStmt>\n\t\t\t\t<title level=\"a\" type=\"main\">Final Year Project Repo for William Holbrook</title>\n\t\t\t</titleStmt>\n\t\t\t<publicationStmt>\n\t\t\t\t<publisher/>\n\t\t\t\t<availability status=\"unknown\"><licence/></availability>\n\t\t\t</publicationStmt>\n\t\t\t<sourceDesc>\n\t\t\t\t<biblStruct>\n\t\t\t\t\t<analytic>\n\t\t\t\t\t\t<title level=\"a\" type=\"main\">Final Year Project Repo for William Holbrook</title>\n\t\t\t\t\t</analytic>\n\t\t\t\t\t<monogr>\n\t\t\t\t\t\t<imprint>\n\t\t\t\t\t\t\t<date/>\n\t\t\t\t\t\t</imprint>\n\t\t\t\t\t</monogr>\n\t\t\t\t\t<idno type=\"MD5\">4743053FB8136FBC9B33B55B41790CD2</idno>\n\t\t\t\t</biblStruct>\n\t\t\t</sourceDesc>\n\t\t</fileDesc>\n\t\t<encodingDesc>\n\t\t\t<appInfo>\n\t\t\t\t<application version=\"0.7.2\" ident=\"GROBID\" when=\"2023-02-21T11:09+0000\">\n\t\t\t\t\t<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>\n\t\t\t\t\t<ref target=\"https://github.com/kermitt2/grobid\"/>\n\t\t\t\t</application>\n\t\t\t</appInfo>\n\t\t</encodingDesc>\n\t\t<profileDesc>\n\t\t\t<textClass>\n\t\t\t\t<keywords>pip install pre-commit</keywords>\n\t\t\t</textClass>\n\t\t\t<abstract>\n<div xmlns=\"http://www.tei-c.org/ns/1.0\"><p>Then install the hooks specified in .pre-commit-config.yaml by running pre-commit install Further details can be found here Python pre-commit hooks are set up to only run on the \"backend\" directory and \"JavaScript\" are only set up for the frontend directory</p></div>\n\t\t\t</abstract>\n\t\t</profileDesc>\n\t</teiHeader>\n\t<text xml:lang=\"en\">\n\t\t<body/>\n\t\t<back>\n\t\t\t<div type=\"references\">\n\n\t\t\t\t<listBibl/>\n\t\t\t</div>\n\t\t</back>\n\t</text>\n</TEI>\n",
+      "plaintext": null,
+      "upload_datetime": "2023-02-21T11:09:13.713Z",
+      "last_modified": "2023-02-21T11:09:13.713Z",
+      "corpus_flag": true,
+      "in_idf_flag": false,
+      "plaintext_datetime": null,
+      "sentence_datetime": null
+    }
+  },
+  {
+    "model": "api.report",
+    "pk": 2,
+    "fields": {
+      "user": 2,
+      "tei_xml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<TEI xml:space=\"preserve\" xmlns=\"http://www.tei-c.org/ns/1.0\" \nxmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" \nxsi:schemaLocation=\"http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd\"\n xmlns:xlink=\"http://www.w3.org/1999/xlink\">\n\t<teiHeader xml:lang=\"en\">\n\t\t<fileDesc>\n\t\t\t<titleStmt>\n\t\t\t\t<title level=\"a\" type=\"main\">Final Year Project Repo for William Holbrook</title>\n\t\t\t</titleStmt>\n\t\t\t<publicationStmt>\n\t\t\t\t<publisher/>\n\t\t\t\t<availability status=\"unknown\"><licence/></availability>\n\t\t\t</publicationStmt>\n\t\t\t<sourceDesc>\n\t\t\t\t<biblStruct>\n\t\t\t\t\t<analytic>\n\t\t\t\t\t\t<title level=\"a\" type=\"main\">Final Year Project Repo for William Holbrook</title>\n\t\t\t\t\t</analytic>\n\t\t\t\t\t<monogr>\n\t\t\t\t\t\t<imprint>\n\t\t\t\t\t\t\t<date/>\n\t\t\t\t\t\t</imprint>\n\t\t\t\t\t</monogr>\n\t\t\t\t\t<idno type=\"MD5\">4743053FB8136FBC9B33B55B41790CD2</idno>\n\t\t\t\t</biblStruct>\n\t\t\t</sourceDesc>\n\t\t</fileDesc>\n\t\t<encodingDesc>\n\t\t\t<appInfo>\n\t\t\t\t<application version=\"0.7.2\" ident=\"GROBID\" when=\"2023-02-21T11:09+0000\">\n\t\t\t\t\t<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>\n\t\t\t\t\t<ref target=\"https://github.com/kermitt2/grobid\"/>\n\t\t\t\t</application>\n\t\t\t</appInfo>\n\t\t</encodingDesc>\n\t\t<profileDesc>\n\t\t\t<textClass>\n\t\t\t\t<keywords>pip install pre-commit</keywords>\n\t\t\t</textClass>\n\t\t\t<abstract>\n<div xmlns=\"http://www.tei-c.org/ns/1.0\"><p>Then install the hooks specified in .pre-commit-config.yaml by running pre-commit install Further details can be found here Python pre-commit hooks are set up to only run on the \"backend\" directory and \"JavaScript\" are only set up for the frontend directory</p></div>\n\t\t\t</abstract>\n\t\t</profileDesc>\n\t</teiHeader>\n\t<text xml:lang=\"en\">\n\t\t<body/>\n\t\t<back>\n\t\t\t<div type=\"references\">\n\n\t\t\t\t<listBibl/>\n\t\t\t</div>\n\t\t</back>\n\t</text>\n</TEI>\n",
+      "plaintext": null,
+      "upload_datetime": "2023-02-21T11:09:19.661Z",
+      "last_modified": "2023-02-21T11:09:19.661Z",
+      "corpus_flag": true,
+      "in_idf_flag": false,
+      "plaintext_datetime": null,
+      "sentence_datetime": null
+    }
+  },
+  {
+    "model": "api.report",
+    "pk": 3,
+    "fields": {
+      "user": 1,
+      "tei_xml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<TEI xml:space=\"preserve\" xmlns=\"http://www.tei-c.org/ns/1.0\" \nxmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" \nxsi:schemaLocation=\"http://www.tei-c.org/ns/1.0 https://raw.githubusercontent.com/kermitt2/grobid/master/grobid-home/schemas/xsd/Grobid.xsd\"\n xmlns:xlink=\"http://www.w3.org/1999/xlink\">\n\t<teiHeader xml:lang=\"en\">\n\t\t<fileDesc>\n\t\t\t<titleStmt>\n\t\t\t\t<title level=\"a\" type=\"main\">Final Year Project Repo for William Holbrook</title>\n\t\t\t</titleStmt>\n\t\t\t<publicationStmt>\n\t\t\t\t<publisher/>\n\t\t\t\t<availability status=\"unknown\"><licence/></availability>\n\t\t\t</publicationStmt>\n\t\t\t<sourceDesc>\n\t\t\t\t<biblStruct>\n\t\t\t\t\t<analytic>\n\t\t\t\t\t\t<title level=\"a\" type=\"main\">Final Year Project Repo for William Holbrook</title>\n\t\t\t\t\t</analytic>\n\t\t\t\t\t<monogr>\n\t\t\t\t\t\t<imprint>\n\t\t\t\t\t\t\t<date/>\n\t\t\t\t\t\t</imprint>\n\t\t\t\t\t</monogr>\n\t\t\t\t\t<idno type=\"MD5\">4743053FB8136FBC9B33B55B41790CD2</idno>\n\t\t\t\t</biblStruct>\n\t\t\t</sourceDesc>\n\t\t</fileDesc>\n\t\t<encodingDesc>\n\t\t\t<appInfo>\n\t\t\t\t<application version=\"0.7.2\" ident=\"GROBID\" when=\"2023-02-21T11:10+0000\">\n\t\t\t\t\t<desc>GROBID - A machine learning software for extracting information from scholarly documents</desc>\n\t\t\t\t\t<ref target=\"https://github.com/kermitt2/grobid\"/>\n\t\t\t\t</application>\n\t\t\t</appInfo>\n\t\t</encodingDesc>\n\t\t<profileDesc>\n\t\t\t<textClass>\n\t\t\t\t<keywords>pip install pre-commit</keywords>\n\t\t\t</textClass>\n\t\t\t<abstract>\n<div xmlns=\"http://www.tei-c.org/ns/1.0\"><p>Then install the hooks specified in .pre-commit-config.yaml by running pre-commit install Further details can be found here Python pre-commit hooks are set up to only run on the \"backend\" directory and \"JavaScript\" are only set up for the frontend directory</p></div>\n\t\t\t</abstract>\n\t\t</profileDesc>\n\t</teiHeader>\n\t<text xml:lang=\"en\">\n\t\t<body/>\n\t\t<back>\n\t\t\t<div type=\"references\">\n\n\t\t\t\t<listBibl/>\n\t\t\t</div>\n\t\t</back>\n\t</text>\n</TEI>\n",
+      "plaintext": null,
+      "upload_datetime": "2023-02-21T11:10:27.247Z",
+      "last_modified": "2023-02-21T11:10:27.248Z",
+      "corpus_flag": true,
+      "in_idf_flag": false,
+      "plaintext_datetime": null,
+      "sentence_datetime": null
+    }
+  }
+]
