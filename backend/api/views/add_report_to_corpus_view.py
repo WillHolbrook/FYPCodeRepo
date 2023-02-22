@@ -46,4 +46,4 @@ class AddReportToCorpusView(APIView):
         new_report.user = None
         new_report.save()
 
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response({"report_pk": new_report.pk}, status=status.HTTP_200_OK)
