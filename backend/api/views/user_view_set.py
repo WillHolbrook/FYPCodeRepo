@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Module fo the UserViewSet"""
 
-from api.serializers.serializers import UserSerializer
+from api.serializers.user_serializer import UserSerializer
 from django.contrib.auth import get_user_model
 from rest_framework import viewsets
 from rest_framework.permissions import AllowAny
