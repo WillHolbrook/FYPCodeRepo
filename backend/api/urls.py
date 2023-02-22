@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """Template Docstring"""
+from api.views.add_report_to_corpus_view import AddReportToCorpusView
 from api.views.user_report_extract_sentence_view import UserReportExtractSentenceView
 from api.views.user_report_upload_view import UserReportUploadView
 from api.views.user_report_view import ReportViewSet
@@ -17,6 +18,11 @@ api_patterns = [
         "report_extract_sentence/(?P<report_pk>[0-9]*)",
         UserReportExtractSentenceView.as_view(),
         name="extract_sentence",
+    ),
+    re_path(
+        "add_to_corpus/(?P<report_pk>[0-9]*)",
+        AddReportToCorpusView.as_view(),
+        name="add_to_corpus",
     ),
 ]
 

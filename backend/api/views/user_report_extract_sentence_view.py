@@ -25,7 +25,7 @@ class UserReportExtractSentenceView(APIView, LimitOffsetPagination):
         return self.get_paginated_response(serializer.data)
 
     @staticmethod
-    def _check_user_is_present_and_has_access_to_given_report(
+    def check_user_is_present_and_has_access_to_given_report(
         request, report_pk: int
     ) -> tuple[Response, None] | tuple[None, Report]:
         """
@@ -72,7 +72,7 @@ class UserReportExtractSentenceView(APIView, LimitOffsetPagination):
         Returns:
             A paginated response of the extracted sentences if the user owns the given report
         """
-        response, report = self._check_user_is_present_and_has_access_to_given_report(
+        response, report = self.check_user_is_present_and_has_access_to_given_report(
             request, report_pk
         )
         if report is None:
@@ -98,7 +98,7 @@ class UserReportExtractSentenceView(APIView, LimitOffsetPagination):
         Returns:
             A paginated response of the sentences if the user owns the given report
         """
-        response, report = self._check_user_is_present_and_has_access_to_given_report(
+        response, report = self.check_user_is_present_and_has_access_to_given_report(
             request, report_pk
         )
         if report is None:
