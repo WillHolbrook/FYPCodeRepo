@@ -78,8 +78,9 @@ class UserReportExtractSentenceView(APIView, LimitOffsetPagination):
         if report is None:
             return response
 
-        # Extract the plaintext to make sure it's up to date
-        report.extract_plaintext()
+        # Extract the plaintext if it isn't already extracted
+        if report.plaintext is None:
+            report.extract_plaintext()
 
         # Delete all existing sentences
         report.sentences.all().delete()
