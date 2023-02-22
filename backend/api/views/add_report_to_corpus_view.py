@@ -37,9 +37,6 @@ class AddReportToCorpusView(APIView):
         if report is None:
             return response
 
-        # Extract the plaintext to make sure it's up-to-date
-        report.extract_plaintext()
-
         new_report: Report = report
         new_report.pk = None
         new_report.corpus_flag = True
