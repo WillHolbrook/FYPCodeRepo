@@ -29,5 +29,5 @@ class Report(models.Model):
     def extract_plaintext(self) -> None:
         """Method to extract plaintext from tei_xml and store it in the Report Body"""
         self.plaintext = extract_text_from_element_tree(ET.fromstring(self.tei_xml))
-        self.save()
         self.plaintext_datetime = timezone.now()
+        self.save()
