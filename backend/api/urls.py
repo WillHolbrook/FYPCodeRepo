@@ -2,6 +2,7 @@
 """Template Docstring"""
 from api.views.add_report_to_corpus_view import AddReportToCorpusView
 from api.views.extract_plaintext_view import ExtractPlaintextView
+from api.views.profile_view import ProfileView
 from api.views.user_report_extract_sentence_view import UserReportExtractSentenceView
 from api.views.user_report_upload_view import UserReportUploadView
 from api.views.user_report_view import ReportViewSet
@@ -30,6 +31,7 @@ api_patterns = [
         ExtractPlaintextView.as_view(),
         name="extract_plaintext",
     ),
+    re_path("profile", ProfileView.as_view(), name="profile"),
 ]
 
 

@@ -39,8 +39,6 @@ class Profile(models.Model):
 
     def save(self, *args, **kwargs):
         if self.profile_image:
-            print(self.profile_image.name)
-            print(type(self.profile_image))
             image = Image.open(self.profile_image)
             image = image.convert("RGB")
             image = image.resize(Profile.profile_image_size, Image.ANTIALIAS)

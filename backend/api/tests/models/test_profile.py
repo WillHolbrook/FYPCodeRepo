@@ -33,9 +33,10 @@ class ProfileTestCase(TestCase):
         created_user.delete()
 
     @staticmethod
-    def _load_test_image(
+    def load_test_image(
         path: Path = TEST_RESOURCES_ROOT.joinpath(Path("./test.jpg")),
     ) -> InMemoryUploadedFile:
+        """Method to load a test image into memory"""
         image = Image.open(path)
         output = io.BytesIO()
         image.save(output, format="JPEG", quality=85)
@@ -54,7 +55,7 @@ class ProfileTestCase(TestCase):
         created_user = get_user_model().objects.create_user("user3", "password")
         created_profile: Profile = Profile.objects.get(user=created_user.id)
 
-        created_profile.profile_image = self._load_test_image()
+        created_profile.profile_image = self.load_test_image()
         created_profile.save()
 
         retrieved_profile = Profile.objects.get(user=created_user.id)
@@ -66,7 +67,7 @@ class ProfileTestCase(TestCase):
         created_user = get_user_model().objects.create_user("user4", "password")
         created_profile: Profile = Profile.objects.get(user=created_user.id)
 
-        created_profile.profile_image = self._load_test_image()
+        created_profile.profile_image = self.load_test_image()
         created_profile.save()
 
         retrieved_profile = Profile.objects.get(user=created_user.id)
