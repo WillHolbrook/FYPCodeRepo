@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Module for AddReportToCorpusView"""
 from api.models.report import Report
-from api.views.user_report_extract_sentence_view import UserReportExtractSentenceView
+from api.views.auth_utils import check_user_is_present_and_has_access_to_given_report
 from rest_framework import status
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
@@ -27,11 +27,7 @@ class AddReportToCorpusView(APIView):
         Returns:
             status.HTTP_204_NO_CONTENT if the report is copied and added to the database
         """
-
-        (
-            response,
-            report,
-        ) = UserReportExtractSentenceView.check_user_is_present_and_has_access_to_given_report(
+        (response, report) = check_user_is_present_and_has_access_to_given_report(
             request, report_pk
         )
         if report is None:

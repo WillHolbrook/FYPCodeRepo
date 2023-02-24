@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Module for ExtractPlaintextView"""
 from api.serializers.user_report_details_serializer import ReportDetailSerializer
-from api.views.user_report_extract_sentence_view import UserReportExtractSentenceView
+from api.views.auth_utils import check_user_is_present_and_has_access_to_given_report
 from rest_framework import status
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
@@ -27,11 +27,7 @@ class ExtractPlaintextView(APIView):
         Returns:
             the updated file
         """
-
-        (
-            response,
-            report,
-        ) = UserReportExtractSentenceView.check_user_is_present_and_has_access_to_given_report(
+        (response, report) = check_user_is_present_and_has_access_to_given_report(
             request, report_pk
         )
         if report is None:
@@ -39,5 +35,4 @@ class ExtractPlaintextView(APIView):
 
         # Extract the plaintext to make sure it's up-to-date
         report.extract_plaintext()
-
         return Response(ReportDetailSerializer(report).data, status=status.HTTP_200_OK)
