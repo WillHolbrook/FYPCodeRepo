@@ -42,6 +42,8 @@ jobs:
       if: always()
       run: |
         python -m coverage run manage.py test
+    - name: Generate Coverage Report
+      run: |
         coverage report
         coverage xml -o ./artifacts/coverage_report.xml
     - name: Upload Coverage Report
