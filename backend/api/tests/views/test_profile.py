@@ -26,7 +26,7 @@ class TestProfileViewCase(APITestCase):
         response = self.client.post(reverse("profile"), {"profile_image": image})
 
         self.assertEqual(status.HTTP_200_OK, response.status_code)
-        self.assertIsNone(response.data["profile_image"])
+        self.assertIsNotNone(response.data["profile_image"])
 
     def test_non_logged_in_user_profile_update(self):
         """Test for updating a profile without being logged in"""
@@ -40,7 +40,7 @@ class TestProfileViewCase(APITestCase):
         """Test for retrieving a profile"""
         response = self.client.get(reverse("profile"))
         self.assertEqual(status.HTTP_200_OK, response.status_code)
-        self.assertIsNone(response.data["profile_image"])
+        self.assertIsNotNone(response.data["profile_image"])
 
     def test_non_logged_in_user_profile_retrieval(self):
         """Test for retrieving a profile without being logged in"""

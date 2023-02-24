@@ -97,14 +97,14 @@ class GrobidClient(ApiClient):
             print(
                 "GROBID server does not appear up and running, the connection to the server failed"
             )
-            raise ServerUnavailableException
+            raise ServerUnavailableException()
 
         status = r.status_code
 
         if status != 200:
-            print("GROBID server does not appear up and running " + str(status))
-        else:
-            print("GROBID server is up and running")
+            raise ServerUnavailableException(
+                "GROBID server does not appear up and running " + str(status)
+            )
 
     def process(
         self,
