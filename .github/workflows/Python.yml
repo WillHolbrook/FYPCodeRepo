@@ -80,9 +80,8 @@ jobs:
         DockerRegistry: https://registry.hub.docker.com
         RegistryImage: willholbrook
         ImageName: analyst_report_summarizer
-        Tag: develop
       run: |
         echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login $DockerRegistry --username ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
-        docker build --tag $RegistryImage/$ImageName:$Tag --file="compose/backend/docker/Dockerfile.apache" .
-        docker push $RegistryImage/$ImageName:$Tag
+        docker build --tag $RegistryImage/$ImageName --file="compose/backend/docker/Dockerfile.apache" .
+        docker push $RegistryImage/$ImageName
         
