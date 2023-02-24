@@ -2,9 +2,9 @@ name: python-workflow
 run-name: python-workflow
 on:
   push:
-    branches: [ develop, 4-set-up-build-and-test-cicd-pipeline-for-python ]
+    branches: [ develop ]
   pull_request:
-    branches: [ develop, 4-set-up-build-and-test-cicd-pipeline-for-python ]
+    branches: [ develop ]
 jobs:
   python-ci:
     runs-on: ubuntu-latest
