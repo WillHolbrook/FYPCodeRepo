@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 """Module for UserReportExtractSentenceView"""
+from __future__ import annotations
+
 from api.models.report import Report
 from api.models.sentence import Sentence
 from api.serializers.sentence_serializer import SentenceSerializer
