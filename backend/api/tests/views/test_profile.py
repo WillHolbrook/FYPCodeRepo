@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# pylint: disable=duplicate-code
 """Module to test Profile updating and retrieval API"""
 from api.tests.models.test_profile import ProfileTestCase
 from django.contrib.auth import get_user_model

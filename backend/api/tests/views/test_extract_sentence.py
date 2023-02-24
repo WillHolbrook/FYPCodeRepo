@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# pylint: disable=duplicate-code
 """Module to test ExtractSentence API"""
 from api.models.report import Report
 from django.contrib.auth import get_user_model

@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# pylint: disable=duplicate-code
 """Module for testing Report model"""
 import xml.etree.ElementTree as ET
 from datetime import timedelta
