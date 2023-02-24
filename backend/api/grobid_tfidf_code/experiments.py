@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+# pylint: skip-file
+from __future__ import annotations
+
 import string
 from datetime import datetime
 from functools import wraps

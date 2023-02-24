@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 """Module for UserReportExtractSentenceView"""
-from api.models.report import Report
+from __future__ import annotations
+
 from api.models.sentence import Sentence
 from api.serializers.sentence_serializer import SentenceSerializer
+from api.views.auth_utils import check_user_is_present_and_has_access_to_given_report
 from django.db.models import QuerySet
-from rest_framework import status
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
 from rest_framework.views import APIView
 
 
@@ -24,42 +24,6 @@ class UserReportExtractSentenceView(APIView, LimitOffsetPagination):
         serializer = SentenceSerializer(results, many=True)
         return self.get_paginated_response(serializer.data)
 
-    @staticmethod
-    def check_user_is_present_and_has_access_to_given_report(
-        request, report_pk: int
-    ) -> tuple[Response, None] | tuple[None, Report]:
-        """
-        Method to check if a user is present and has access to a given report
-
-        Args:
-            request:
-            report_pk: The Primary Key of the Report to extract
-
-        Returns:
-            error Response, None - if the user isn't provided or the specified report
-                doesn't exist/they don't own the report
-            None, Report - If the user is provided, and they have access to the specified report
-        """
-        if request.user.is_anonymous:
-            return (
-                Response(
-                    data={"message": "User can't be anonymous"},
-                    status=status.HTTP_401_UNAUTHORIZED,
-                ),
-                None,
-            )
-        try:
-            report = Report.objects.get(pk=report_pk, user=request.user.id)
-            return None, report
-        except Report.DoesNotExist:
-            return (
-                Response(
-                    data={"message": "Report doesn't exist"},
-                    status=status.HTTP_404_NOT_FOUND,
-                ),
-                None,
-            )
-
     def post(self, request, report_pk):
         """
         Method executed when a post request is received
@@ -72,7 +36,7 @@ class UserReportExtractSentenceView(APIView, LimitOffsetPagination):
         Returns:
             A paginated response of the extracted sentences if the user owns the given report
         """
-        response, report = self.check_user_is_present_and_has_access_to_given_report(
+        (response, report) = check_user_is_present_and_has_access_to_given_report(
             request, report_pk
         )
         if report is None:
@@ -99,7 +63,7 @@ class UserReportExtractSentenceView(APIView, LimitOffsetPagination):
         Returns:
             A paginated response of the sentences if the user owns the given report
         """
-        response, report = self.check_user_is_present_and_has_access_to_given_report(
+        (response, report) = check_user_is_present_and_has_access_to_given_report(
             request, report_pk
         )
         if report is None:

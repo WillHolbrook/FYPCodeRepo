@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# pylint: disable=duplicate-code
 """Module for testing Sentence model"""
 from datetime import timedelta
 from pathlib import Path

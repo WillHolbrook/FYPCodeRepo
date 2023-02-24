@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# pylint: skip-file
 """ Generic API Client """
 import json
 from copy import deepcopy

@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# pylint: disable=duplicate-code
 """Module to test extract plaintext API"""
 from api.models.report import Report
 from api.tests.models.test_sentence import SentenceTestCase

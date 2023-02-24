@@ -154,9 +154,9 @@ REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
 }
 
-MEDIA_ROOT = Path("/media").resolve()
+MEDIA_ROOT = BASE_DIR.joinpath("./media")
 
-TEST_RESOURCES_ROOT = Path("./api/tests/resources/")
+TEST_RESOURCES_ROOT = BASE_DIR.joinpath("./api/tests/resources/")
 
 GROBID_CONFIG = {
     "grobid_server": "https://grobid.willholbrook.com",

@@ -3,6 +3,7 @@
 from api.models.report import Report
 from api.serializers.user_report_details_serializer import ReportDetailSerializer
 from api.serializers.user_report_list_serializer import ReportListSerializer
+from api.views.auth_utils import check_user_not_anon
 from rest_framework import mixins, status, viewsets
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
@@ -35,14 +36,9 @@ class ReportViewSet(
         return super().get_serializer_class()
 
     def destroy(self, request, *args, **kwargs):
-        if request.user.is_anonymous:
-            return (
-                Response(
-                    data={"message": "User can't be anonymous"},
-                    status=status.HTTP_401_UNAUTHORIZED,
-                ),
-                None,
-            )
+        user_anon_resp = check_user_not_anon(request)
+        if user_anon_resp:
+            return user_anon_resp
         instance = self.get_object()
         if request.user == instance.user:
             self.perform_destroy(instance)

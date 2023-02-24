@@ -254,3 +254,4 @@ fabric.properties
 /resources/output_txt
 
 /django-angularjs-web-development/
+/backend/media/
