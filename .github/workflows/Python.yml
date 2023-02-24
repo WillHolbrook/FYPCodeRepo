@@ -3,8 +3,14 @@ run-name: python-workflow
 on:
   push:
     branches: [ develop ]
+    paths:
+      - backend/**
+      - compose/backend/**
   pull_request:
     branches: [ develop ]
+    paths:
+      - backend/**
+      - compose/backend/**
 jobs:
   python-ci:
     runs-on: ubuntu-latest
