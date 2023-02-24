@@ -30,7 +30,7 @@ jobs:
         
     - name: Lint with PyLint
       run: |
-        pylint $(git ls-files -- '*.py' ':!:*/migrations/*' ':!:*/migrations/*' ':!:manage.py') --load-plugins=pylint_django --django-settings-module=analyst_report_summarizer.settings --disable=wrong-import-order 2>&1 | tee artifacts/lint_out.txt
+        pylint $(git ls-files -- '*.py' ':!:*/migrations/*' ':!:*/migrations/*' ':!:manage.py') --load-plugins=pylint_django --django-settings-module=analyst_report_summarizer.settings --disable=wrong-import-order &> | tee artifacts/lint_out.txt
     - name: Upload Lint Artifact
       uses: actions/upload-artifact@v3
       with:
@@ -39,7 +39,7 @@ jobs:
     
     - name: Run Unit Tests
       run: |
-        python -m coverage run manage.py test 2>&1 | tee artifacts/unit_tests_out.txt
+        python -m coverage run manage.py test &> | tee artifacts/unit_tests_out.txt
         coverage report
         coverage xml -o ./artifacts/coverage_report.xml
     - name: Upload Test Artifact
