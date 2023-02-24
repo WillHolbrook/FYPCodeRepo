@@ -58,6 +58,7 @@ jobs:
         filename: backend/artifacts/coverage_report.xml
         badge: true
         format: markdown
+        output: both
         
     - name: Add Coverage PR Comment
       uses: marocchino/sticky-pull-request-comment@v2
