@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# pylint: skip-file
 import re
 import xml.etree.ElementTree as ET
 from datetime import datetime
