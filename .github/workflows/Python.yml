@@ -29,4 +29,4 @@ jobs:
         
     - name: Lint with PyLint
       run: |
-        pylint $(git ls-files '*.py' --exclude="**/migrations/**") --load-plugins=pylint_django --django-settings-module=analyst_report_summarizer.settings --disable=wrong-import-order
+        pylint $(git ls-files -- '*.py' ':!:*/migrations/*' ':!:*/migrations/*' ':!:*/manage.py') --load-plugins=pylint_django --django-settings-module=analyst_report_summarizer.settings --disable=wrong-import-order
