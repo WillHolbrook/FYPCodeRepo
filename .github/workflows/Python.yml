@@ -70,3 +70,15 @@ jobs:
       if: always()
       run: |
         python manage.py check --deploy --fail-level ERROR
+        
+    - name: Build Docker Image
+      env:
+        DockerRegistry: https://registry.hub.docker.com
+        RegistryImage: willholbrook
+        ImageName: analyst_report_summarizer
+        Tag: develop
+      run: |
+        echo "${{ DOCKER_HUB_TOKEN }}" | docker login $DockerRegistry --username ${{ DOCKER_HUB_USERNAME }} --password-stdin
+        docker build --tag $RegistryImage/$ImageName:$Tag --file="compose/backend/docker/Dockerfile.apache" .
+        docker push $RegistryImage/$ImageName:$Tag
+        
