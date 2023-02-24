@@ -41,7 +41,7 @@ jobs:
     - name: Run Unit Tests
       if: always()
       run: |
-        python -m coverage run manage.py test &>
+        python -m coverage run manage.py test
         coverage report
         coverage xml -o ./artifacts/coverage_report.xml
     - name: Upload Coverage Report
