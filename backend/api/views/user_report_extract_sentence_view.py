@@ -5,6 +5,7 @@ from __future__ import annotations
 from api.models.report import Report
 from api.models.sentence import Sentence
 from api.serializers.sentence_serializer import SentenceSerializer
+from api.views.auth_utils import check_user_not_anon
 from django.db.models import QuerySet
 from rest_framework import status
 from rest_framework.authentication import TokenAuthentication
@@ -42,14 +43,9 @@ class UserReportExtractSentenceView(APIView, LimitOffsetPagination):
                 doesn't exist/they don't own the report
             None, Report - If the user is provided, and they have access to the specified report
         """
-        if request.user.is_anonymous:
-            return (
-                Response(
-                    data={"message": "User can't be anonymous"},
-                    status=status.HTTP_401_UNAUTHORIZED,
-                ),
-                None,
-            )
+        user_anon_resp = check_user_not_anon(request)
+        if user_anon_resp:
+            return user_anon_resp, None
         try:
             report = Report.objects.get(pk=report_pk, user=request.user.id)
             return None, report
