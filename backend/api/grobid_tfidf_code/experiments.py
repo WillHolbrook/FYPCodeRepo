@@ -1,45 +1,39 @@
 # -*- coding: utf-8 -*-
-# pylint: skip-file
-from __future__ import annotations
-
+"""Module Containing functions used in calculation of tf_idf"""
 import string
 from datetime import datetime
 from functools import wraps
 from multiprocessing.pool import Pool
-from multiprocessing.spawn import freeze_support
 from pathlib import Path
+from typing import Dict, List, Set, Tuple, Union
 
-import nltk
 import numpy as np
+from api.models.report import Report
 from nltk import PorterStemmer, word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem.api import StemmerI
 
 
-def print_dict_ordered_on_keys(d: dict, reverse: bool = True) -> None:
+def print_dict_ordered_on_keys(dictionary: dict, reverse: bool = True) -> None:
     """
     Prints a dictionary ordered based on the keys
 
     Args:
-        d: the dictionary to predict
+        dictionary: the dictionary to print
         reverse: a flag to say whether to reverse the sort or not
 
     Returns:
         None
     """
-    print(
-        {
-            term: frequency
-            for term, frequency in sorted(
-                d.items(), key=lambda x: x[1], reverse=reverse
-            )
-        }
-    )
+    print(dict(sorted(dictionary.items(), key=lambda x: x[1], reverse=reverse)))
 
 
 def log_time(func):
+    """Method to print the execution time of the wrapped function"""
+
     @wraps(func)
     def timeit_wrapper(*args, **kwargs):
+        """Time wrapper function"""
         start_time = datetime.now()
         result = func(*args, **kwargs)
         end_time = datetime.now()
@@ -50,11 +44,22 @@ def log_time(func):
     return timeit_wrapper
 
 
+def extract_terms(
+    report_id,
+    stemmer: StemmerI = PorterStemmer(),
+) -> Union[List[str], Set[str]]:
+    """Function to extract the unique terms used in a report"""
+    report = Report.objects.get(pk=report_id)
+    if report.plaintext is None:
+        report.extract_plaintext()
+    return preprocess_text(report.plaintext, stemmer=stemmer)
+
+
 def preprocess_text(
-    text_or_filepath: str | Path,
+    text_or_filepath: Union[str, Path],
     stemmer: StemmerI = PorterStemmer(),
     as_list: bool = False,
-) -> list[str] | set[str]:
+) -> Union[List[str], Set[str]]:
     """
     Pre-processes text by:
         removing punctuation
@@ -63,9 +68,12 @@ def preprocess_text(
         stemming tokens to common roots
 
     Args:
-        text_or_filepath: the text or the filepath to the file containing the text to run pre-processing on
-        stemmer: the stemmer to use if not given a default stemmer of the nltk.stem.porter.PorterStemmer is used
-        as_list: if true will calculate and return values as a list else will calculate and return as a set
+        text_or_filepath: the text or the filepath to the file
+            containing the text to run pre-processing on
+        stemmer: the stemmer to use if not given a default stemmer
+            of the nltk.stem.porter.PorterStemmer is used
+        as_list: if true will calculate and return values as a
+            list else will calculate and return as a set
 
     Returns:
         Either a list or a set of all pre-processed tokens in the text
@@ -108,10 +116,29 @@ def preprocess_text(
     return doc_tokens
 
 
+def flatten_num_tokens(tokens_list: List[Set[str]]) -> Dict[str, int]:
+    """
+    Method to count term document frequency from a list of set of terms in each document
+    Args:
+        tokens_list:
+
+    Returns:
+        A dict from term to document frequency of that term
+    """
+    term_doc_count = {}
+    for doc_tokens in tokens_list:
+        for token in doc_tokens:
+            if token in term_doc_count:
+                term_doc_count[token] += 1
+            else:
+                term_doc_count[token] = 1
+    return term_doc_count
+
+
 @log_time
 def calculate_idf_for_corpus(
     root_folder_path: Path,
-) -> tuple[dict[str, int], dict[str, float], int]:
+) -> Tuple[Dict[str, int], Dict[str, float], int]:
     """
     calculates the idf of terms from all .txt files beneath the folder path given
 
@@ -124,7 +151,7 @@ def calculate_idf_for_corpus(
         2. A dictionary from term to count of number of documents it occurs in
         3. The count of number of documents analyzed
     """
-    term_doc_count = dict()
+    term_doc_count = {}
     num_docs = 0
     for filepath in root_folder_path.rglob("*.txt"):
         if filepath.is_file():
@@ -147,7 +174,7 @@ def calculate_idf_for_corpus(
 @log_time
 def calculate_idf_for_corpus_parallel(
     root_folder_path: Path, max_num_processes: int = 8
-) -> tuple[dict[str, int], dict[str, float], int]:
+) -> Tuple[Dict[str, int], Dict[str, float], int]:
     """
     calculates the idf of terms from all .txt files beneath the folder path given in parallel
 
@@ -161,7 +188,6 @@ def calculate_idf_for_corpus_parallel(
         2. A dictionary from term to count of number of documents it occurs in
         3. The count of number of documents analyzed
     """
-    term_doc_count = dict()
     filepaths = [
         filepath for filepath in root_folder_path.rglob("*.txt") if filepath.is_file()
     ]
@@ -170,44 +196,11 @@ def calculate_idf_for_corpus_parallel(
 
     if num_processes > 0:
         with Pool(num_processes) as pool:
-            doc_tokens_list: list[set[str]] = pool.map(preprocess_text, filepaths)
+            doc_tokens_list: List[Set[str]] = pool.map(preprocess_text, filepaths)
 
-    for doc_tokens in doc_tokens_list:
-        for token in doc_tokens:
-            if token in term_doc_count:
-                term_doc_count[token] += 1
-            else:
-                term_doc_count[token] = 1
+    term_doc_count = flatten_num_tokens(doc_tokens_list)
 
     idf = {
         term: np.log(num_docs / frequency) for term, frequency in term_doc_count.items()
     }
     return idf, term_doc_count, num_docs
-
-
-def main():
-    nltk.download("punkt", quiet=True)
-    nltk.download("stopwords", quiet=True)
-
-    freeze_support()
-    root_folder_path = Path("../../../../FilestoreRepo/FTSE100Info/txtReports/3i_group")
-    idf_s, term_count_s, num_docs_s = calculate_idf_for_corpus(root_folder_path)
-    print_dict_ordered_on_keys(idf_s)
-    print_dict_ordered_on_keys(term_count_s)
-
-    print("\n======================================================================\n")
-
-    idf_p, term_count_p, num_docs_p = calculate_idf_for_corpus_parallel(
-        root_folder_path, max_num_processes=8
-    )
-    print_dict_ordered_on_keys(idf_p)
-    print_dict_ordered_on_keys(term_count_p)
-    print(f"Number of docs processed {num_docs_p}")
-
-    print(f"idf_s == idf_p is {idf_s == idf_p}")
-    print(f"term_count_s == term_count_p is {term_count_s == term_count_p}")
-    print(f"num_docs_s == num_docs_p is {num_docs_s == num_docs_p}")
-
-
-if __name__ == "__main__":
-    main()

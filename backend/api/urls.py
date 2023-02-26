@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Template Docstring"""
 from api.views.add_report_to_corpus_view import AddReportToCorpusView
+from api.views.calculate_idf_view import CalculateIDF
 from api.views.extract_plaintext_view import ExtractPlaintextView
 from api.views.profile_view import ProfileView
 from api.views.user_report_extract_sentence_view import UserReportExtractSentenceView
@@ -32,6 +33,7 @@ api_patterns = [
         name="extract_plaintext",
     ),
     re_path("profile", ProfileView.as_view(), name="profile"),
+    re_path("calculate_idf", CalculateIDF.as_view(), name="calculate_idf"),
 ]
 
 
