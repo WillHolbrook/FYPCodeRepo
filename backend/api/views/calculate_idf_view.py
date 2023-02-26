@@ -1,10 +1,19 @@
 # -*- coding: utf-8 -*-
 """Module for CalculateIDF"""
+import platform
 from multiprocessing.pool import Pool
 from typing import List, Set, Tuple
 
 import numpy as np
-from api.grobid_tfidf_code.experiments import flatten_num_tokens, preprocess_report
+from analyst_report_summarizer.settings import (
+    DEFAULT_MAX_PROCESSES,
+    MIN_REPORTS_MULTIPROCESSING,
+)
+from api.grobid_tfidf_code.experiments import (
+    flatten_num_tokens,
+    preprocess_report,
+    preprocess_text,
+)
 from api.models.report import Report
 from api.models.term_idf import TermIDF
 from rest_framework import status
@@ -31,24 +40,28 @@ class CalculateIDF(APIView):
         Returns:
             status. if the report is copied and added to the database
         """
-        num_terms, num_reports = self.calculate_idf_for_corpus_parallel_django()
+        num_terms, num_reports = self.calculate_idf_for_corpus()
+        response_dict = {"num_terms": num_terms, "num_reports": num_reports}
+        if platform.system() == "Windows":
+            response_dict["warning"] = (
+                "Server is running on Windows consider running on "
+                "Linux to make use of multiprocessing"
+            )
 
         return Response(
-            {"num_terms": num_terms, "num_reports": num_reports},
+            response_dict,
             status=status.HTTP_200_OK,
         )
 
     @staticmethod
-    def calculate_idf_for_corpus_parallel_django(
-        max_num_processes: int = 8,
+    def calculate_idf_for_corpus(
+        max_num_processes: int = DEFAULT_MAX_PROCESSES,
     ) -> Tuple[int, int]:
         """
         calculates the idf of terms from all Report objects marked with the in corpus flag
 
         Args:
             max_num_processes: the maximum number of processes used in calculations
-            max_reports_in_memory: the maximum number of report plaintext in memory at once
-
 
         Returns:
             A tuple of:
@@ -63,13 +76,28 @@ class CalculateIDF(APIView):
 
         num_processes = min(max_num_processes, num_docs)
 
-        if num_processes > 0:
-            with Pool(num_processes) as pool:
-                doc_tokens_list: List[Set[str]] = pool.map(
-                    preprocess_report, corpus_report_ids
-                )
+        if platform.system() == "Windows" or num_docs < MIN_REPORTS_MULTIPROCESSING:
+            doc_tokens = {}
+            for report_id in corpus_report_ids:
+                report = Report.objects.get(pk=report_id)
+                if report.plaintext is None:
+                    report.extract_plaintext()
+                individual_doc_tokens = preprocess_text(report.plaintext, as_list=False)
+                for token in individual_doc_tokens:
+                    if token in doc_tokens:
+                        doc_tokens[token] += 1
+                    else:
+                        doc_tokens[token] = 1
+        elif platform.system() == "Linux":
+            if num_processes > 0:
+                with Pool(num_processes) as pool:
+                    doc_tokens_list: List[Set[str]] = pool.map(
+                        preprocess_report, corpus_report_ids
+                    )
 
-        doc_tokens = flatten_num_tokens(doc_tokens_list)
+            doc_tokens = flatten_num_tokens(doc_tokens_list)
+        else:
+            raise OSError("Not running on Linux or Windows platform")
 
         idf_models: List[TermIDF] = []
         for term, frequency in doc_tokens.items():
