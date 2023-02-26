@@ -37,7 +37,8 @@ repos:
                       "-rn", # Only display messages
                       "-sn", # Don't display the score
                       "--load-plugins=pylint_django", # Load Django extension to avoid Django related issues
-                      "--django-settings-module=analyst_report_summarizer.settings" # Needed for above plugin
+                      "--django-settings-module=analyst_report_summarizer.settings", # Needed for above plugin
+                      "--good-names=i,j,k,pk,f,x,y"
                   ]
                 exclude: .*/migrations/.*
     -   repo: https://github.com/pre-commit/mirrors-prettier
