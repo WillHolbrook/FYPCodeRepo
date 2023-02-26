@@ -28,8 +28,8 @@ fontsize=14
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>684</x>
-      <y>48</y>
+      <x>648</x>
+      <y>0</y>
       <w>468</w>
       <h>120</h>
     </coordinates>
@@ -45,8 +45,8 @@ Delete: Removes the User and the associated profile</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>684</x>
-      <y>264</y>
+      <x>648</x>
+      <y>216</y>
       <w>468</w>
       <h>228</h>
     </coordinates>
@@ -69,8 +69,8 @@ RegenKey2: Regenerates Key2 with a new value
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>900</x>
-      <y>156</y>
+      <x>864</x>
+      <y>108</y>
       <w>48</w>
       <h>132</h>
     </coordinates>
@@ -83,8 +83,8 @@ m2=1
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1284</x>
-      <y>48</y>
+      <x>1248</x>
+      <y>0</y>
       <w>492</w>
       <h>420</h>
     </coordinates>
@@ -111,8 +111,8 @@ Delete: File and associated sentences</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>36</x>
-      <y>48</y>
+      <x>0</x>
+      <y>0</y>
       <w>600</w>
       <h>1248</h>
     </coordinates>
@@ -123,11 +123,11 @@ RegenKey1: Regenerates Key1 with a new value
     and invalidates the old value
 RegenKey2: Regenerates Key2 with a new value
     and invalidates the old value
-CRUDProfileImage: CRUD profile image
+\/ CRUDProfileImage: CRUD profile image
 --
 \/ UploadFile: Uploads a new analyst report and processes the file
     extracting the relevant information and sentences.
-ReProcessFile: Runs the new updated algorithm on a specific File object
+\/ ReProcessFile: Runs the new updated algorithm on a specific File object
     to generate the new plaintext from the already extracted TEIXML.
 ReProcessAll: Calling this is equivalent to calling ReProcessFile on
 	every stored File object
@@ -142,8 +142,8 @@ ReProcessAll: Calling this is equivalent to calling ReProcessFile on
 ExtractAllSentenceTFIDF: calls ExtractSentenceTFIDF on every file
     associated with a user to get new sentences through a new method
     but doesn't return any of the extracted sentences
-AddToCorpus: Adds a file previously uploaded by a user to the corpus
-CalculateIDF: ReCalculates the IDF of every term in corpus from the
+\/ AddToCorpus: Adds a file previously uploaded by a user to the corpus
+\/ CalculateIDF: ReCalculates the IDF of every term in corpus from the
     extracted file plaintext.
     (The corpus is decided by which files are flagged as in the corpus)
     This has a flag to specify whetherto recalculate IDF using the
@@ -188,8 +188,8 @@ algorithm ReProcessFile can be called
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1284</x>
-      <y>576</y>
+      <x>1248</x>
+      <y>528</y>
       <w>492</w>
       <h>180</h>
     </coordinates>
@@ -204,8 +204,8 @@ TFIDFWeight: TF-IDF weight of a given sentence in a file
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>684</x>
-      <y>576</y>
+      <x>648</x>
+      <y>528</y>
       <w>468</w>
       <h>180</h>
     </coordinates>
@@ -221,8 +221,8 @@ IDF: Float - The IDF of the specific term
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1140</x>
-      <y>84</y>
+      <x>1104</x>
+      <y>36</y>
       <w>168</w>
       <h>60</h>
     </coordinates>
@@ -235,8 +235,8 @@ m2=*
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1500</x>
-      <y>456</y>
+      <x>1464</x>
+      <y>408</y>
       <w>48</w>
       <h>144</h>
     </coordinates>
