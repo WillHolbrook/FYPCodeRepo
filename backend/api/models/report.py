@@ -21,7 +21,7 @@ class Report(models.Model):
     plaintext = models.TextField(null=True, default=None)
     upload_datetime = models.DateTimeField(auto_now_add=True, null=False)
     last_modified = models.DateTimeField(auto_now=True, null=False)
-    corpus_flag = models.BooleanField(default=True, null=False)
+    corpus_flag = models.BooleanField(default=False, null=False)
     in_idf_flag = models.BooleanField(default=False, null=False)
     plaintext_datetime = models.DateTimeField(null=True)
     sentence_datetime = models.DateTimeField(null=True)
