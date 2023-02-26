@@ -10,8 +10,8 @@ from analyst_report_summarizer.settings import (
     MIN_REPORTS_MULTIPROCESSING,
 )
 from api.grobid_tfidf_code.experiments import (
+    extract_terms,
     flatten_num_tokens,
-    preprocess_report,
     preprocess_text,
 )
 from api.models.report import Report
@@ -92,7 +92,7 @@ class CalculateIDF(APIView):
             if num_processes > 0:
                 with Pool(num_processes) as pool:
                     doc_tokens_list: List[Set[str]] = pool.map(
-                        preprocess_report, corpus_report_ids
+                        extract_terms, corpus_report_ids
                     )
 
             doc_tokens = flatten_num_tokens(doc_tokens_list)

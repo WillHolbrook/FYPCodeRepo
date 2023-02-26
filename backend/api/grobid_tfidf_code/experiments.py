@@ -1,15 +1,12 @@
 # -*- coding: utf-8 -*-
-# pylint: skip-file
-
+"""Module Containing functions used in calculation of tf_idf"""
 import string
 from datetime import datetime
 from functools import wraps
 from multiprocessing.pool import Pool
-from multiprocessing.spawn import freeze_support
 from pathlib import Path
 from typing import Dict, List, Set, Tuple, Union
 
-import nltk
 import numpy as np
 from api.models.report import Report
 from nltk import PorterStemmer, word_tokenize
@@ -17,30 +14,26 @@ from nltk.corpus import stopwords
 from nltk.stem.api import StemmerI
 
 
-def print_dict_ordered_on_keys(d: dict, reverse: bool = True) -> None:
+def print_dict_ordered_on_keys(dictionary: dict, reverse: bool = True) -> None:
     """
     Prints a dictionary ordered based on the keys
 
     Args:
-        d: the dictionary to predict
+        dictionary: the dictionary to print
         reverse: a flag to say whether to reverse the sort or not
 
     Returns:
         None
     """
-    print(
-        {
-            term: frequency
-            for term, frequency in sorted(
-                d.items(), key=lambda x: x[1], reverse=reverse
-            )
-        }
-    )
+    print(dict(sorted(dictionary.items(), key=lambda x: x[1], reverse=reverse)))
 
 
 def log_time(func):
+    """Method to print the execution time of the wrapped function"""
+
     @wraps(func)
     def timeit_wrapper(*args, **kwargs):
+        """Time wrapper function"""
         start_time = datetime.now()
         result = func(*args, **kwargs)
         end_time = datetime.now()
@@ -51,10 +44,11 @@ def log_time(func):
     return timeit_wrapper
 
 
-def preprocess_report(
+def extract_terms(
     report_id,
     stemmer: StemmerI = PorterStemmer(),
 ) -> Union[List[str], Set[str]]:
+    """Function to extract the unique terms used in a report"""
     report = Report.objects.get(pk=report_id)
     if report.plaintext is None:
         report.extract_plaintext()
@@ -74,9 +68,12 @@ def preprocess_text(
         stemming tokens to common roots
 
     Args:
-        text_or_filepath: the text or the filepath to the file containing the text to run pre-processing on
-        stemmer: the stemmer to use if not given a default stemmer of the nltk.stem.porter.PorterStemmer is used
-        as_list: if true will calculate and return values as a list else will calculate and return as a set
+        text_or_filepath: the text or the filepath to the file
+            containing the text to run pre-processing on
+        stemmer: the stemmer to use if not given a default stemmer
+            of the nltk.stem.porter.PorterStemmer is used
+        as_list: if true will calculate and return values as a
+            list else will calculate and return as a set
 
     Returns:
         Either a list or a set of all pre-processed tokens in the text
@@ -154,7 +151,7 @@ def calculate_idf_for_corpus(
         2. A dictionary from term to count of number of documents it occurs in
         3. The count of number of documents analyzed
     """
-    term_doc_count = dict()
+    term_doc_count = {}
     num_docs = 0
     for filepath in root_folder_path.rglob("*.txt"):
         if filepath.is_file():
