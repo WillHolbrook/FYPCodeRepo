@@ -58,7 +58,12 @@ class SentenceManager(Manager):
         report_tokens = preprocess_text(report.plaintext, as_list=True)
         term_frequency_dict = flatten_num_tokens([report_tokens])
         for term, frequency in term_frequency_dict.items():
-            self.tf_idf_dict[term] = frequency * TermIDF.objects.get(term=term).idf
+            try:
+                term_idf_model = TermIDF.objects.get(term=term)
+            except TermIDF.DoesNotExist:
+                term_idf_model = None
+            term_idf = term_idf_model.idf if term_idf_model else 0.0
+            self.tf_idf_dict[term] = frequency * term_idf
 
         for sentence in sentences:
             self.create(
