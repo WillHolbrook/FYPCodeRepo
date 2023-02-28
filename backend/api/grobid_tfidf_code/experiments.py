@@ -5,7 +5,7 @@ from datetime import datetime
 from functools import wraps
 from multiprocessing.pool import Pool
 from pathlib import Path
-from typing import Dict, List, Set, Tuple, Union
+from typing import Dict, Iterable, List, Set, Tuple, Union
 
 import numpy as np
 from api.models.report import Report
@@ -116,7 +116,7 @@ def preprocess_text(
     return doc_tokens
 
 
-def flatten_num_tokens(tokens_list: List[Set[str]]) -> Dict[str, int]:
+def flatten_num_tokens(tokens_list: List[Iterable[str]]) -> Dict[str, int]:
     """
     Method to count term document frequency from a list of set of terms in each document
     Args:

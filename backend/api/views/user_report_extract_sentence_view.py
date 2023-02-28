@@ -49,7 +49,9 @@ class UserReportExtractSentenceView(APIView, LimitOffsetPagination):
         # Delete all existing sentences
         report.sentences.all().delete()
         sentences = Sentence.objects.extract_sentences(report)
-        return self._get_paginated_sentence(request, sentences)
+        return self._get_paginated_sentence(
+            request, sentences.order_by("-tf_idf_weight")
+        )
 
     def get(self, request, report_pk):
         """
@@ -68,4 +70,6 @@ class UserReportExtractSentenceView(APIView, LimitOffsetPagination):
         )
         if report is None:
             return response
-        return self._get_paginated_sentence(request, report.sentences.all())
+        return self._get_paginated_sentence(
+            request, report.sentences.all().order_by("tf_idf_weight")
+        )
