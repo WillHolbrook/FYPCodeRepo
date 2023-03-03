@@ -9,15 +9,12 @@ function ApiComp() {
 
   useEffect(() => {
     if (token.rs_token) {
-      console.log(token.rs_token);
       axapi.defaults.headers.common[
         "Authorization"
       ] = `Token ${token.rs_token}`;
     } else {
       axapi.defaults.headers.common["Authorization"] = null;
-      console.log(window.location.pathname);
       if (window.location.pathname !== "/") {
-        console.log(window.location.pathname);
         window.location.href = "/";
       }
     }

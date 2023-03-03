@@ -80,7 +80,6 @@ function PassRequire(props) {
     let all_passed = true;
     requirement_tuples.forEach((requirement_tuple) => {
       const pass = props.password ? props.password : "";
-      console.log(pass);
       if (!requirement_tuple[1](pass)) {
         all_passed = false;
         return false;
@@ -99,7 +98,10 @@ function PassRequire(props) {
       <ul>
         {requirement_tuples.map((requirement_tuple) => {
           return (
-            <li className={bool_to_class(requirement_tuple[1](props.password))}>
+            <li
+              className={bool_to_class(requirement_tuple[1](props.password))}
+              key={requirement_tuple[0]}
+            >
               {requirement_tuple[0]}
             </li>
           );

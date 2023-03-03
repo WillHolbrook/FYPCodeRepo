@@ -3,7 +3,6 @@ import ApiComp from "./components/api-component";
 import Auth from "./components/auth";
 import NavBar from "./components/nav-bar";
 import "./index.css";
-import reportWebVitals from "./reportWebVitals";
 import React from "react";
 import { CookiesProvider } from "react-cookie";
 import ReactDOM from "react-dom/client";
@@ -16,7 +15,7 @@ function Router() {
       element: <Auth />,
     },
     {
-      path: "/movies",
+      path: "/homepage/",
       element: <App />,
     },
   ]);
@@ -36,8 +35,3 @@ function Router() {
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<Router />);
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
