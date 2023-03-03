@@ -5,9 +5,7 @@ import { useCookies } from "react-cookie";
 function ProfileToken(props) {
   const [token] = useCookies(["rs_token"]);
   const [username, setUsername] = useState(null);
-  const [profileImageUrl, setProfileImageUrl] = useState(
-    "%PUBLIC_URL%/logo512.png"
-  );
+  const [profileImageUrl, setProfileImageUrl] = useState("/logo512.png");
   const max_username_length = 16;
 
   useEffect(() => {
