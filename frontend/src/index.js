@@ -24,8 +24,8 @@ function Router() {
     <React.StrictMode>
       <CookiesProvider>
         <div className={"top-level"}>
-          <NavBar />
           <ApiComp />
+          <NavBar />
           <RouterProvider router={router} />
         </div>
       </CookiesProvider>
