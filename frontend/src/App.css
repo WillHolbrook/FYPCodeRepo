@@ -9,12 +9,6 @@
   padding: 20px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-header {
   font-size: calc(10px + 2vmin);
   text-align: center;
@@ -37,16 +31,16 @@
   height: calc(10px + 6vh);
   display: flex;
   justify-content: center;
-  padding: 0.2rem calc((100vw - 1000px) / 2);
   z-index: 12;
+  overflow: clip;
 }
 
 .title {
   font-size: calc(10px + 2vmin);
-  /*font-size: 10px;*/
   padding: 0;
   margin: auto;
   font-weight: bold;
+  text-align: center;
 }
 
 label {
@@ -94,43 +88,9 @@ button:disabled {
   color: purple;
 }
 
-.rate-container {
-  margin-top: 20px;
-  border-top: 2px solid purple;
-}
-
-.rate-container .fa-star {
-  font-size: 1.8rem;
-  cursor: pointer;
-}
-
-.movie-item {
-  display: grid;
-  grid-template-columns: 1fr auto auto;
-}
-
-.movie-item svg {
-  font-size: 1.2rem;
-  margin: 16px 5px;
-}
-
-.movie-list-title {
-  cursor: pointer;
-}
-
 .hover:hover {
   color: purple;
   cursor: pointer;
-}
-
-.fa-trash {
-  color: darkred;
-}
-
-h1 .fa-film {
-  color: white;
-  transform: rotate(45deg);
-  padding: 10px;
 }
 
 .fa-right-from-bracket {
@@ -154,4 +114,28 @@ a {
 
 .check-failed {
   color: #cc0000;
+}
+
+.profile-token {
+  display: flex;
+  min-width: 20%;
+  justify-content: flex-end;
+}
+
+.profile-picture {
+  height: calc(5px + 6vh);
+  width: calc(5px + 6vh);
+  margin-top: auto;
+  margin-bottom: auto;
+  padding: 0 5px 0 0;
+  border-radius: 50%;
+
+}
+
+.profile-token-username {
+  margin-top: auto;
+  margin-bottom: auto;
+  font-size: calc(5px + 2vmin);
+  padding: 0 5px 0 0;
+  font-weight: bold;
 }
