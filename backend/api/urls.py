@@ -35,7 +35,7 @@ api_patterns = [
     ),
     re_path("profile", ProfileView.as_view(), name="profile"),
     re_path("calculate_idf", CalculateIDF.as_view(), name="calculate_idf"),
-    re_path("user", MyUserView.as_view(), name="my_user")
+    re_path("user", MyUserView.as_view(), name="my_user"),
 ]
 
 

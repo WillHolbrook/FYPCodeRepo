@@ -1,10 +1,7 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=duplicate-code
 """Module to test Report Upload API"""
-from api.models.report import Report
-from api.tests.models.test_report import ReportTestCase
 from django.contrib.auth import get_user_model
-from django.core.files import File
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.authtoken.models import Token
@@ -28,7 +25,10 @@ class TestReportUpload(APITestCase):
         response = self.client.get(reverse("my_user"))
         self.assertEqual(1, response.data["id"])
         self.assertEqual("test_superuser_username", response.data["username"])
-        self.assertEqual(r"/profile_pictures/2023/02/test_YbbfNKm.jpg", response.data["profile"]["profile_image"])
+        self.assertEqual(
+            r"/profile_pictures/2023/02/test_YbbfNKm.jpg",
+            response.data["profile"]["profile_image"],
+        )
 
     def test_non_logged_in_user(self):
         """Test for uploading a report without being logged in"""
