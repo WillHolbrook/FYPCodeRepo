@@ -96,7 +96,6 @@ function PassRequire(props) {
       props.setPasswordValid(false);
     }
   }, [props, requirementTuples]);
-  console.log(props.reTypedPassword);
 
   return (
     <div className={"pass-require"}>
