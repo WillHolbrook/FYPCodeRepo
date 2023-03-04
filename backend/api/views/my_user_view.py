@@ -24,15 +24,15 @@ class MyUserView(APIView):
     def put(self, request):
         """Method to update user details"""
         check_user_not_anon(request)
-        serializer = UserSerializer(data=request.data)
-        if serializer.is_valid():
+        if request.data.get("password") is not None:
             user: get_user_model() = request.user
-            user.set_password(serializer.validated_data["password"])
-            user.username = serializer.validated_data["username"]
+            user.set_password(request.data.get("password"))
+            if request.data.get("username") is not None:
+                user.username = request.data.get("username")
             user.save()
-            return Response(data=serializer.data, status=status.HTTP_200_OK)
+            return Response(data=UserSerializer(user).data, status=status.HTTP_200_OK)
         return Response(
-            data=serializer.errors,
+            data={"error": "password must not be none"},
             status=status.HTTP_400_BAD_REQUEST,
         )
 
