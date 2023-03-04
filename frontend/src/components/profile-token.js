@@ -5,7 +5,10 @@ import { useCookies } from "react-cookie";
 function ProfileToken(props) {
   const [token] = useCookies(["rs_token"]);
   const [username, setUsername] = useState(null);
-  const [profileImageUrl, setProfileImageUrl] = useState("/logo512.png");
+  const default_profile_image_url = "/logo512.png";
+  const [profileImageUrl, setProfileImageUrl] = useState(
+    default_profile_image_url
+  );
   const max_username_length = 16;
 
   const goToProfilePage = () => {
@@ -23,11 +26,16 @@ function ProfileToken(props) {
           } else {
             setUsername(resp.data.username);
           }
-          setProfileImageUrl(
-            `${
-              axapi.defaults.baseURL
-            }${resp.data.profile.profile_image.substring(1)}` //Used to strip leading `/` from profile image url
-          );
+          if (
+            resp.data.profile.profile_image &&
+            resp.data.profile.profile_image[0] === "/"
+          ) {
+            setProfileImageUrl(
+              `${
+                axapi.defaults.baseURL
+              }${resp.data.profile.profile_image.substring(1)}` //Used to strip leading `/` from profile image url
+            );
+          }
         } else {
           console.log("Error", resp);
         }
