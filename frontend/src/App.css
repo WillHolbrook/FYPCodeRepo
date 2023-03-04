@@ -10,14 +10,37 @@
 }
 
 .App-header {
-  font-size: calc(10px + 2vmin);
+  font-size: 2rem;
   text-align: center;
+}
+
+.App-header h2 {
+  font-size: 2rem;
+  margin-bottom: 0;
+  margin-top: 0.5rem;
+}
+
+.App-header h1 {
+  font-size: 3rem;
+}
+
+.App-header span {
+  font-size: 1rem;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.seperator-bar {
+  height: 100%;
+  background: white;
+  border-radius: 25px;
 }
 
 .layout {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 3px 1fr;
   grid-gap: 20px;
+  min-height: calc(100vh - 3.5rem - 40px);
 }
 
 .login-container {
@@ -27,7 +50,7 @@
 
 .profile-container {
   width: 80%;
-  margin: 0 10% 10%;
+  margin: 0 10% 0 10%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -51,7 +74,7 @@
 .nav-bar {
   background-color: #181c29;
   color: white;
-  height: calc(10px + 6vh);
+  height: 3.5rem;
   display: flex;
   justify-content: center;
   z-index: 12;
@@ -59,7 +82,7 @@
 }
 
 .title {
-  font-size: calc(10px + 2vmin);
+  font-size: 2rem;
   padding: 0;
   margin: auto;
   font-weight: bold;
@@ -146,8 +169,8 @@ a {
 }
 
 .profile-picture {
-  height: calc(5px + 6vh);
-  width: calc(5px + 6vh);
+  height: 3rem;
+  width: 3rem;
   margin-top: auto;
   margin-bottom: auto;
   padding: 0 5px 0 0;
@@ -157,7 +180,7 @@ a {
 .profile-token-username {
   margin-top: auto;
   margin-bottom: auto;
-  font-size: calc(5px + 2vmin);
+  font-size: 1rem;
   padding: 0 5px 0 0;
   font-weight: bold;
 }

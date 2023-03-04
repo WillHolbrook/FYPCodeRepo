@@ -1,6 +1,8 @@
 import "./App.css";
+import AnalysisPane from "./components/analysis-pane";
 import Error from "./components/error";
 import Loading from "./components/loading";
+import ReportUpload from "./components/report-upload";
 import { useFetch } from "./hooks/useFetch";
 import React from "react";
 
@@ -24,9 +26,11 @@ function App(props) {
   }
   return (
     <div className={"App"}>
-      <header className="App-header">
-        <h1>Homepage</h1>
-      </header>
+      <div className="layout">
+        <ReportUpload />
+        <div className={"seperator-bar"} />
+        <AnalysisPane />
+      </div>
     </div>
   );
 }
