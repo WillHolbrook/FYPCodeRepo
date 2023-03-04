@@ -5,11 +5,11 @@ import { useCookies } from "react-cookie";
 function ProfileToken(props) {
   const [token] = useCookies(["rs_token"]);
   const [username, setUsername] = useState(null);
-  const default_profile_image_url = "/logo512.png";
+  const defaultProfileImageUrl = "/logo512.png";
   const [profileImageUrl, setProfileImageUrl] = useState(
-    default_profile_image_url
+    defaultProfileImageUrl
   );
-  const max_username_length = 16;
+  const maxUsernameLength = 16;
 
   const goToProfilePage = () => {
     window.location.href = "/profile/";
@@ -19,9 +19,9 @@ function ProfileToken(props) {
     if (token.rs_token) {
       API.getCurrentUser().then((resp) => {
         if (resp.status === 200) {
-          if (resp.data.username.length > max_username_length) {
+          if (resp.data.username.length > maxUsernameLength) {
             setUsername(
-              resp.data.username.substring(0, max_username_length - 3) + "..."
+              resp.data.username.substring(0, maxUsernameLength - 3) + "..."
             );
           } else {
             setUsername(resp.data.username);

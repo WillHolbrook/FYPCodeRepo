@@ -1,26 +1,26 @@
 import React, { useEffect, useMemo } from "react";
 
 function PassRequire(props) {
-  const requirement_tuples = useMemo(() => {
-    const min_pass_len = 8;
-    const max_pass_len = 64;
-    const correct_pass_len = (pass) => {
-      return min_pass_len <= pass.length && pass.length <= max_pass_len;
+  const requirementTuples = useMemo(() => {
+    const minPassLen = 8;
+    const maxPassLen = 64;
+    const correctPassLen = (pass) => {
+      return minPassLen <= pass.length && pass.length <= maxPassLen;
     };
 
-    const contains_uppercase_char = (pass) => {
+    const containsUppercaseChar = (pass) => {
       return /[A-Z]/.test(pass);
     };
 
-    const contains_lowercase_char = (pass) => {
+    const containsLowercaseChar = (pass) => {
       return /[a-z]/.test(pass);
     };
 
-    const contains_number_char = (pass) => {
+    const containsNumberChar = (pass) => {
       return /[0-9]/.test(pass);
     };
 
-    const special_chars = [
+    const specialChars = [
       "~",
       "`",
       "!",
@@ -54,58 +54,72 @@ function PassRequire(props) {
       "?",
       "/",
     ];
-    const contains_special_char = (pass) => {
-      return special_chars.some((char) => {
+    const containsSpecialChar = (pass) => {
+      return specialChars.some((char) => {
         return pass.includes(char);
       });
     };
 
     return [
-      ["Between 8-64 Characters Long", correct_pass_len],
-      ["Contains Uppercase Letter", contains_uppercase_char],
-      ["Contains Lowercase Letter", contains_lowercase_char],
-      ["Contains Number", contains_number_char],
+      ["Between 8-64 Characters Long", correctPassLen],
+      ["Contains Uppercase Letter", containsUppercaseChar],
+      ["Contains Lowercase Letter", containsLowercaseChar],
+      ["Contains Number", containsNumberChar],
       [
-        "Contains Special Character: " + special_chars.join(""),
-        contains_special_char,
+        "Contains Special Character: " + specialChars.join(""),
+        containsSpecialChar,
       ],
     ];
   }, []);
 
-  const bool_to_class = (bool) => {
+  const retypedPasswordSame = (pass, retypedPass) => {
+    return pass === retypedPass;
+  };
+
+  const boolToClass = (bool) => {
     return bool ? "check-passed" : "check-failed";
   };
 
   useEffect(() => {
-    let all_passed = true;
-    requirement_tuples.forEach((requirement_tuple) => {
+    let allPassed = true;
+    requirementTuples.forEach((requirementTuple) => {
       const pass = props.password ? props.password : "";
-      if (!requirement_tuple[1](pass)) {
-        all_passed = false;
+      if (!requirementTuple[1](pass)) {
+        allPassed = false;
         return false;
       }
     });
 
-    if (all_passed) {
+    if (allPassed) {
       props.setPasswordValid(true);
     } else {
       props.setPasswordValid(false);
     }
-  }, [props, requirement_tuples]);
+  }, [props, requirementTuples]);
 
   return (
     <div className={"pass-require"}>
       <ul>
-        {requirement_tuples.map((requirement_tuple) => {
+        {requirementTuples.map((requirementTuple) => {
           return (
             <li
-              className={bool_to_class(requirement_tuple[1](props.password))}
-              key={requirement_tuple[0]}
+              className={boolToClass(requirementTuple[1](props.password))}
+              key={requirementTuple[0]}
             >
-              {requirement_tuple[0]}
+              {requirementTuple[0]}
             </li>
           );
         })}
+        {props.reTypedPassword !== null ? (
+          <li
+            className={boolToClass(
+              retypedPasswordSame(props.password, props.reTypedPassword)
+            )}
+            key={"Passwords are the Same"}
+          >
+            {"Passwords are the Same"}
+          </li>
+        ) : null}
       </ul>
     </div>
   );
