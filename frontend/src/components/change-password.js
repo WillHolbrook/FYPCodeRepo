@@ -1,3 +1,4 @@
+import { API } from "../api-service";
 import PassRequire from "./pass-require";
 import React, { useState } from "react";
 
@@ -8,8 +9,19 @@ function ChangePassword() {
 
   const isDisabled = !passwordValid || password.length === 0;
 
+  const goToProfilePage = () => {
+    window.location.href = "/profile/";
+  };
+
   const changePasswordClicked = () => {
-    console.log("In Change Password");
+    API.updateCurrentUserPassword(password).then((resp) => {
+      if (resp.status === 200) {
+        goToProfilePage();
+      } else {
+        alert("Changing Password Failed Try Again");
+        console.log(`Error: ${resp.data}`);
+      }
+    });
   };
 
   return (

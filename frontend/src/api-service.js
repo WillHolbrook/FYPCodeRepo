@@ -69,6 +69,10 @@ export class API {
     return axapi.get(`api/user/`);
   }
 
+  static updateCurrentUserPassword(password) {
+    return axapi.put(`api/user/`, { password });
+  }
+
   static getSpecificUser(user_id) {
     return axapi.get(`api/users/${user_id}/`);
   }
