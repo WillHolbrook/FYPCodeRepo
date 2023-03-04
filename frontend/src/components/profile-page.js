@@ -25,12 +25,12 @@ function ProfilePage() {
 
   useEffect(() => {
     if (!cookie.default_num_sentences) {
-      setCookie("default_num_sentences", defaultNumSentences);
+      setCookie("default_num_sentences", defaultNumSentences, { path: "/" });
     }
   });
 
   const updateDefaultNumSentences = (newDefaultNumSentences) => {
-    setCookie("default_num_sentences", newDefaultNumSentences);
+    setCookie("default_num_sentences", newDefaultNumSentences, { path: "/" });
   };
 
   const changePassword = () => {
