@@ -30,9 +30,35 @@ class TestReportUpload(APITestCase):
             response.data["profile"]["profile_image"],
         )
 
-    def test_non_logged_in_user(self):
-        """Test for uploading a report without being logged in"""
+    def test_getting_non_logged_in_user(self):
+        """Test for getting user details without being logged in"""
         self.client.logout()
         self.client.credentials()
         response = self.client.get(reverse("my_user"))
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    # TODO # pylint: disable=fixme
+    def test_updating_user_details(self):
+        """Test for updating user details"""
+        response = self.client.put(reverse("my_user"))
+        self.assertTrue(False)
+
+    def test_updating_non_logged_in_user(self):
+        """Test for updating user details without being logged in"""
+        self.client.logout()
+        self.client.credentials()
+        response = self.client.put(reverse("my_user"))
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    # TODO # pylint: disable=fixme
+    def test_deleting_user(self):
+        """Test for updating user details"""
+        response = self.client.delete(reverse("my_user"))
+        self.assertTrue(False)
+
+    def test_deleting_non_logged_in_user(self):
+        """Test for updating user details without being logged in"""
+        self.client.logout()
+        self.client.credentials()
+        response = self.client.delete(reverse("my_user"))
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
