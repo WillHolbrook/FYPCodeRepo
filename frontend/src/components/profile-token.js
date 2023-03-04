@@ -8,6 +8,10 @@ function ProfileToken(props) {
   const [profileImageUrl, setProfileImageUrl] = useState("/logo512.png");
   const max_username_length = 16;
 
+  const goToProfilePage = () => {
+    window.location.href = "/profile/";
+  };
+
   useEffect(() => {
     if (token.rs_token) {
       API.getCurrentUser().then((resp) => {
@@ -22,7 +26,7 @@ function ProfileToken(props) {
           setProfileImageUrl(
             `${
               axapi.defaults.baseURL
-            }${resp.data.profile.profile_image.substring(1)}`
+            }${resp.data.profile.profile_image.substring(1)}` //Used to strip leading `/` from profile image url
           );
         } else {
           console.log("Error", resp);
@@ -32,7 +36,7 @@ function ProfileToken(props) {
   }, [token]);
 
   return (
-    <div className={"profile-token"}>
+    <div className={"profile-token hover"} onClick={goToProfilePage}>
       {username ? (
         <React.Fragment>
           <div className={"profile-token-username"}>{username}</div>
