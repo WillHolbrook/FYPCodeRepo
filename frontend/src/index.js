@@ -2,6 +2,7 @@ import App from "./App";
 import ApiComp from "./components/api-component";
 import Auth from "./components/auth";
 import NavBar from "./components/nav-bar";
+import ProfilePage from "./components/profile-page";
 import "./index.css";
 import React from "react";
 import { CookiesProvider } from "react-cookie";
@@ -17,6 +18,10 @@ function Router() {
     {
       path: "/homepage/",
       element: <App />,
+    },
+    {
+      path: "/profile/",
+      element: <ProfilePage />,
     },
   ]);
 
