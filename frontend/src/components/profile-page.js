@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 
 function ProfilePage() {
-  // eslint-disable-next-line no-unused-vars -- unnecessary variable of setToken is needed for return type
   const [cookie, setCookie, removeCookie] = useCookies([
     "rs_token",
     "default_num_sentences",
