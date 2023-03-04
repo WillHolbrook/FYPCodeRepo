@@ -3,7 +3,8 @@ import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 
 function ProfilePage() {
-  const [token] = useCookies(["rs_token"]);
+  // eslint-disable-next-line no-unused-vars -- unnecessary variable of setToken is needed for return type
+  const [token, setToken, removeToken] = useCookies(["rs_token"]);
   const [username, setUsername] = useState(null);
 
   useEffect(() => {
@@ -18,6 +19,14 @@ function ProfilePage() {
     }
   }, [token]);
 
+  const changePassword = () => {
+    window.location.href = "/change_password/";
+  };
+
+  const logoutUser = () => {
+    removeToken("rs_token", { path: "/" });
+  };
+
   return (
     <div className={"App"}>
       <header className={"App-header"}>
@@ -30,15 +39,17 @@ function ProfilePage() {
         <br />
         <label className={"profile-label"}>Password</label>
         <br />
-        <span className={"profile-span"}>password button</span>
+        <button className={"profile-span"} onClick={changePassword}>
+          Change Password
+        </button>
         <br />
         <label className={"profile-label"}>API Key 1</label>
         <br />
-        <span className={"profile-span"}>apikey1 placeholder</span>
+        <span className={"profile-span"}>TODO apikey1 placeholder</span>
         <br />
         <label className={"profile-label"}>API Key 2</label>
         <br />
-        <span className={"profile-span"}>apikey2 placeholder</span>
+        <span className={"profile-span"}>TODO apikey2 placeholder</span>
         <br />
         <div className={"profile-num-sentences"}>
           <label className={"profile-label"}>Default Number of Sentences</label>
@@ -46,6 +57,10 @@ function ProfilePage() {
             <input type={"number"} min={"1"} max={"99"} defaultValue={"5"} />
           </div>
         </div>
+        <br />
+        <button className={"profile-span"} onClick={logoutUser}>
+          Log Out
+        </button>
       </div>
     </div>
   );
