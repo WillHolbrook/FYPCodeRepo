@@ -22,6 +22,6 @@ from rest_framework.authtoken.views import obtain_auth_token
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("auth/", obtain_auth_token),
+    path("auth/", obtain_auth_token, name="auth"),
     path("api/", include("api.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
