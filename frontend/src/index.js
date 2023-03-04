@@ -1,6 +1,7 @@
 import App from "./App";
 import ApiComp from "./components/api-component";
 import Auth from "./components/auth";
+import ChangePassword from "./components/change-password";
 import NavBar from "./components/nav-bar";
 import ProfilePage from "./components/profile-page";
 import "./index.css";
@@ -22,6 +23,10 @@ function Router() {
     {
       path: "/profile/",
       element: <ProfilePage />,
+    },
+    {
+      path: "/change_password/",
+      element: <ChangePassword />,
     },
   ]);
 
