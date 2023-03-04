@@ -4,11 +4,15 @@ import { useCookies } from "react-cookie";
 
 function ProfilePage() {
   // eslint-disable-next-line no-unused-vars -- unnecessary variable of setToken is needed for return type
-  const [token, setToken, removeToken] = useCookies(["rs_token"]);
+  const [cookie, setCookie, removeCookie] = useCookies([
+    "rs_token",
+    "default_num_sentences",
+  ]);
   const [username, setUsername] = useState(null);
+  const defaultNumSentences = 5;
 
   useEffect(() => {
-    if (token.rs_token) {
+    if (cookie.rs_token) {
       API.getCurrentUser().then((resp) => {
         if (resp.status === 200) {
           setUsername(resp.data.username);
@@ -17,14 +21,24 @@ function ProfilePage() {
         }
       });
     }
-  }, [token]);
+  }, [cookie]);
+
+  useEffect(() => {
+    if (!cookie.default_num_sentences) {
+      setCookie("default_num_sentences", defaultNumSentences);
+    }
+  });
+
+  const updateDefaultNumSentences = (newDefaultNumSentences) => {
+    setCookie("default_num_sentences", newDefaultNumSentences);
+  };
 
   const changePassword = () => {
     window.location.href = "/change_password/";
   };
 
   const logoutUser = () => {
-    removeToken("rs_token", { path: "/" });
+    removeCookie("rs_token", { path: "/" });
   };
 
   return (
@@ -54,7 +68,13 @@ function ProfilePage() {
         <div className={"profile-num-sentences"}>
           <label className={"profile-label"}>Default Number of Sentences</label>
           <div style={{ width: "4rem" }}>
-            <input type={"number"} min={"1"} max={"99"} defaultValue={"5"} />
+            <input
+              type={"number"}
+              min={1}
+              max={99}
+              defaultValue={cookie.default_num_sentences}
+              onChange={(evt) => updateDefaultNumSentences(evt.target.value)}
+            />
           </div>
         </div>
         <br />
