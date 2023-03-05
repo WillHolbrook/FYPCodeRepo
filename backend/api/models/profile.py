@@ -20,7 +20,9 @@ class Profile(models.Model):
         get_user_model(), on_delete=models.CASCADE, related_name="profile"
     )
 
-    profile_image = models.ImageField(upload_to="profile_pictures/%Y/%m", default=None)
+    profile_image = models.ImageField(
+        upload_to="profile_pictures/%Y/%m", default=None, null=True
+    )
 
     @receiver(post_save, sender=get_user_model())
     def create_user_profile(
