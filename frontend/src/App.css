@@ -14,6 +14,12 @@
   text-align: center;
 }
 
+.App-subheading {
+  line-height: 0.5;
+  padding-bottom: 10px;
+  font-size: 1rem;
+}
+
 .App-header h2 {
   font-size: 2rem;
   margin-bottom: 0;
@@ -24,11 +30,10 @@
   font-size: 3rem;
 }
 
-.App-header span {
-  font-size: 1rem;
-  margin-bottom: 0;
-  margin-top: 0;
-}
+/*.App-header span {*/
+/*  margin-bottom: 0;*/
+/*  margin-top: 0;*/
+/*}*/
 
 .seperator-bar {
   height: 100%;
@@ -154,6 +159,10 @@ a {
   color: purple;
 }
 
+.hover:hover p {
+  color: purple;
+}
+
 .check-passed {
   color: #009e0f;
 }
@@ -183,4 +192,32 @@ a {
   font-size: 1rem;
   padding: 0 5px 0 0;
   font-weight: bold;
+}
+
+.report-upload {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.file-list {
+  list-style-type: none;
+  padding-left: 0;
+  text-align: center;
+}
+
+.drag-and-drop-container {
+  border: 3px white dashed;
+  border-radius: 5px;
+  height: 100%;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.drag-and-drop-container:hover {
+  background-color: #353a45;
 }
