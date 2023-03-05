@@ -15,7 +15,7 @@
 }
 
 .App-subheading {
-  line-height: 0.5;
+  line-height: 1rem;
   padding-bottom: 10px;
   font-size: 1rem;
 }
@@ -29,11 +29,6 @@
 .App-header h1 {
   font-size: 3rem;
 }
-
-/*.App-header span {*/
-/*  margin-bottom: 0;*/
-/*  margin-top: 0;*/
-/*}*/
 
 .seperator-bar {
   height: 100%;
@@ -131,15 +126,13 @@ button:disabled {
   cursor: not-allowed;
 }
 
-.orange {
-  color: orange;
-}
-
 .purple {
   color: purple;
 }
 
-.hover:hover {
+.hover:hover,
+.hover:hover p,
+.hover:hover a {
   color: purple;
   cursor: pointer;
 }
@@ -149,18 +142,6 @@ button:disabled {
   top: 20px;
   right: 20px;
   font-size: 1.5rem;
-}
-
-a {
-  color: #55c1db;
-}
-
-.hover:hover a {
-  color: purple;
-}
-
-.hover:hover p {
-  color: purple;
 }
 
 .check-passed {
@@ -203,7 +184,6 @@ a {
 .file-list {
   list-style-type: none;
   padding-left: 0;
-  text-align: center;
 }
 
 .drag-and-drop-container {
@@ -216,8 +196,10 @@ a {
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
+  text-align: center;
 }
 
-.drag-and-drop-container:hover {
+.drag-and-drop-container:hover,
+.drag-active {
   background-color: #353a45;
 }

@@ -8,6 +8,20 @@ function ReportUpload(props) {
     // Do something with the files
   }, []);
 
+  const {
+    getRootProps,
+    getInputProps,
+    acceptedFiles,
+    fileRejections,
+    isDragActive,
+  } = useDropzone({
+    onDrop,
+    accept: {
+      "application/pdf": [".pdf"],
+    },
+    maxFiles: 1,
+  });
+
   const cropFilePath = (filepath) => {
     const maxFilePath = 23;
     if (filepath.length <= maxFilePath) {
@@ -21,8 +35,18 @@ function ReportUpload(props) {
     }
   };
 
-  const { getRootProps, getInputProps, acceptedFiles, isDragActive } =
-    useDropzone({ onDrop });
+  const rejectedFiles = fileRejections.map(({ file, errors }) => {
+    return (
+      <li key={file.path}>
+        Error: {cropFilePath(file.path)} - {file.size} bytes
+        <ul>
+          {errors.map((e) => (
+            <li key={e.code}>{e.message}</li>
+          ))}
+        </ul>
+      </li>
+    );
+  });
 
   const files = acceptedFiles.map((file) => (
     <li style={{ paddingRight: 0 }} key={file.path}>
@@ -41,21 +65,29 @@ function ReportUpload(props) {
           </span>
         </div>
       </header>
-      <div className={"drag-and-drop-container hover"} {...getRootProps()}>
-        <input className="input-zone" {...getInputProps()} />
-        <div className="text-center">
-          {isDragActive ? (
-            <p>Drop the files here ...</p>
-          ) : (
-            <p>
-              Drag 'n' drop some files here, or click to select files{" "}
-              <FontAwesomeIcon icon={faFileArrowUp} />
-            </p>
-          )}
-        </div>
+      <div
+        className={
+          "drag-and-drop-container hover" +
+          (isDragActive ? " drag-active purple" : "")
+        }
+        {...getRootProps()}
+      >
+        <input className={"input-zone"} {...getInputProps()} />
+        {isDragActive ? (
+          <p>Drop a single report here...</p>
+        ) : (
+          <p>
+            Drop a single report pdf here, or click to select a single report{" "}
+          </p>
+        )}
+        <FontAwesomeIcon icon={faFileArrowUp} style={{ fontSize: "5rem" }} />
         <aside>
           <ul className={"file-list"} style={{ listStyleType: "none" }}>
-            {files}
+            {acceptedFiles.length !== 0 ? files : null}
+            {rejectedFiles.length !== 0 ? rejectedFiles : null}
+            {acceptedFiles.length === 0 && rejectedFiles.length === 0 ? (
+              <li>&nbsp;</li>
+            ) : null}
           </ul>
         </aside>
       </div>
