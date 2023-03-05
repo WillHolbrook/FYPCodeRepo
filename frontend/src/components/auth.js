@@ -76,7 +76,7 @@ function Auth() {
         <button
           type="button"
           onClick={() => setIsLoginView(!isLoginView)}
-          className={"hover clickable"}
+          className={"hover"}
         >
           {isLoginView ? (
             <div>You don't already have an account? Register here!</div>
