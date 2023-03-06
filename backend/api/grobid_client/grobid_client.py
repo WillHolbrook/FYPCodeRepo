@@ -288,7 +288,8 @@ class GrobidClient(ApiClient):
         segment_sentences=False,
         pdf_bytes=None,
     ):
-        if pdf_bytes is None:
+        loaded_from_path = pdf_bytes is None
+        if loaded_from_path:
             pdf_bytes = open(pdf_file_path, "rb")
         files = {
             "input": (
@@ -341,8 +342,9 @@ class GrobidClient(ApiClient):
                     segment_sentences,
                 )
         except requests.exceptions.ReadTimeout:
-            pdf_bytes.close()
+            if loaded_from_path:
+                pdf_bytes.close()
             return pdf_file_path, 408, None
-
-        pdf_bytes.close()
+        if loaded_from_path:
+            pdf_bytes.close()
         return pdf_file_path, status, res.text
