@@ -9,38 +9,6 @@ export let axapi = axios.create({
 });
 
 export class API {
-  static updateMovieRating(mov_id, rate) {
-    return axapi.post(
-      `api/movies/${mov_id}/rate_movie/`,
-      { stars: rate + 1 },
-      null
-    );
-  }
-
-  static updateMovie(mov_id, body) {
-    return axapi.put(`api/movies/${mov_id}/`, body, null);
-  }
-
-  static getMyMovieRating(mov_id) {
-    return axapi.get(`api/movies/${mov_id}/rate_movie/`);
-  }
-
-  static getMovie(mov_id) {
-    return axapi.get(`api/movies/${mov_id}/`);
-  }
-
-  static getMovies() {
-    return axapi.get(`api/movies/`);
-  }
-
-  static createMovie(body) {
-    return axapi.post(`api/movies/`, body, null);
-  }
-
-  static deleteMovie(mov_id) {
-    return axapi.delete(`api/movies/${mov_id}/`);
-  }
-
   static loginUser(body) {
     return axapi.post("auth/", body, {
       headers: {
@@ -55,5 +23,63 @@ export class API {
         Authorization: null,
       },
     });
+  }
+
+  static uploadReport(reportFile) {
+    console.log(reportFile);
+    let formData = new FormData();
+    formData.append("uploaded_report", reportFile);
+    return axapi.post("api/report_upload/", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+  }
+
+  static listReports() {
+    return axapi.get("api/reports/");
+  }
+
+  static getReport(report_id) {
+    return axapi.get(`api/reports/${report_id}/`);
+  }
+
+  static deleteReport(report_id) {
+    return axapi.delete(`api/reports/${report_id}/`);
+  }
+
+  static extractSentences(report_id) {
+    return axapi.post(`api/report_extract_sentence/${report_id}/`);
+  }
+
+  static retrieveSentences(report_id, limit = 10, offset = 0) {
+    return axapi.get(
+      `api/report_extract_sentence/${report_id}/?limit=${limit}&offset=${offset}`
+    );
+  }
+
+  static getProfileDetails() {
+    return axapi.get(`api/profile/`);
+  }
+
+  // TODO add passing profile image
+  static updateProfileDetails() {
+    return axapi.post(`api/profile/`);
+  }
+
+  static listUsers() {
+    return axapi.get(`api/users/`);
+  }
+
+  static getCurrentUser() {
+    return axapi.get(`api/user/`);
+  }
+
+  static updateCurrentUserPassword(password) {
+    return axapi.put(`api/user/`, { password });
+  }
+
+  static getSpecificUser(user_id) {
+    return axapi.get(`api/users/${user_id}/`);
   }
 }

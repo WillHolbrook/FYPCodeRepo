@@ -1,7 +1,22 @@
 import React from "react";
 
 function Title() {
-  return <div className={"title"}>Analyst Report Summarizer</div>;
+  let className = "title";
+  if (window.location.pathname !== "/") {
+    className += " hover";
+  }
+
+  const goToProfilePage = () => {
+    if (window.location.pathname !== "/") {
+      window.location.href = "/homepage/";
+    }
+  };
+
+  return (
+    <div className={className} onClick={goToProfilePage}>
+      Analyst Report Summarizer
+    </div>
+  );
 }
 
 export default Title;

@@ -36,7 +36,7 @@ class ProfileView(APIView):
             return Response(ProfileSerializer(profile).data)
 
         return Response(
-            data={"message": "required profile fields aren't provided"},
+            data=serializer.errors,
             status=status.HTTP_400_BAD_REQUEST,
         )
 

@@ -17,6 +17,7 @@ class Report(models.Model):
     user = models.ForeignKey(
         get_user_model(), on_delete=models.CASCADE, related_name="reports", null=True
     )
+    pdf = models.FileField(upload_to=f"reports/{user.primary_key}", null=False)
     tei_xml = models.TextField(null=False)
     plaintext = models.TextField(null=True, default=None)
     upload_datetime = models.DateTimeField(auto_now_add=True, null=False)

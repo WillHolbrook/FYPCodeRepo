@@ -12,14 +12,14 @@ function Auth() {
 
   useEffect(() => {
     if (token.rs_token) {
-      window.location.href = "/movies/";
+      window.location.href = "/homepage/";
     }
   }, [token]);
 
   const loginClicked = () => {
-    API.loginUser({ username, password }).then((resp) =>
-      setToken("rs_token", resp.data.token)
-    );
+    API.loginUser({ username, password }).then((resp) => {
+      setToken("rs_token", resp.data.token);
+    });
   };
 
   const registerClicked = () => {
@@ -76,7 +76,7 @@ function Auth() {
         <button
           type="button"
           onClick={() => setIsLoginView(!isLoginView)}
-          className={"hover clickable"}
+          className={"hover"}
         >
           {isLoginView ? (
             <div>You don't already have an account? Register here!</div>

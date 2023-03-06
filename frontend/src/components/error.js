@@ -3,7 +3,7 @@ import React from "react";
 function Error() {
   return (
     <header className={"App-header"}>
-      <h1>Error Loading Movies</h1>
+      <h1>Error Loading Details</h1>
     </header>
   );
 }

@@ -31,6 +31,6 @@ class UserReportUploadView(APIView):
             report = serializer.save(user=request.user)
             return Response(ReportDetailSerializer(report).data)
         return Response(
-            data={"message": "report file isn't provided"},
+            data=serializer.errors,
             status=status.HTTP_400_BAD_REQUEST,
         )

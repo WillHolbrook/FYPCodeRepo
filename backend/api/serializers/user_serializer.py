@@ -9,14 +9,13 @@ from rest_framework.authtoken.models import Token
 class UserSerializer(serializers.ModelSerializer):
     """Template Docstring"""
 
-    profile = ProfileSerializer()
+    profile = ProfileSerializer(read_only=True)
 
     class Meta:
         model = get_user_model()
         fields = ("id", "username", "password", "profile")
         extra_kwargs = {
             "password": {"write_only": True, "required": True},
-            "profile": {"read_only": True},
         }
         depth = 1
 

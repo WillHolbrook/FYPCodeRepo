@@ -7,7 +7,7 @@ from rest_framework import serializers
 class ProfileSerializer(serializers.ModelSerializer):
     """Serializer for uploading a Profile Picture"""
 
-    profile_image = serializers.ImageField()
+    profile_image = serializers.ImageField(allow_null=True)
 
     class Meta:
         model = Profile

@@ -1,9 +1,10 @@
 import App from "./App";
 import ApiComp from "./components/api-component";
 import Auth from "./components/auth";
+import ChangePassword from "./components/change-password";
 import NavBar from "./components/nav-bar";
+import ProfilePage from "./components/profile-page";
 import "./index.css";
-import reportWebVitals from "./reportWebVitals";
 import React from "react";
 import { CookiesProvider } from "react-cookie";
 import ReactDOM from "react-dom/client";
@@ -16,8 +17,16 @@ function Router() {
       element: <Auth />,
     },
     {
-      path: "/movies",
+      path: "/homepage/",
       element: <App />,
+    },
+    {
+      path: "/profile/",
+      element: <ProfilePage />,
+    },
+    {
+      path: "/change_password/",
+      element: <ChangePassword />,
     },
   ]);
 
@@ -25,8 +34,8 @@ function Router() {
     <React.StrictMode>
       <CookiesProvider>
         <div className={"top-level"}>
-          <NavBar />
           <ApiComp />
+          <NavBar />
           <RouterProvider router={router} />
         </div>
       </CookiesProvider>
@@ -36,8 +45,3 @@ function Router() {
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<Router />);
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
