@@ -25,9 +25,15 @@ export class API {
     });
   }
 
-  // TODO add passing file
-  static uploadReport() {
-    return axapi.post("api/report_upload/");
+  static uploadReport(reportFile) {
+    console.log(reportFile);
+    let formData = new FormData();
+    formData.append("uploaded_report", reportFile);
+    return axapi.post("api/report_upload/", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
   }
 
   static listReports() {

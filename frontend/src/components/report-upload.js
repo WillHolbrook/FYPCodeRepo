@@ -1,3 +1,4 @@
+import { API } from "../api-service";
 import { faFileArrowUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useCallback } from "react";
@@ -5,7 +6,21 @@ import { useDropzone } from "react-dropzone";
 
 function ReportUpload(props) {
   const onDrop = useCallback((acceptedFiles) => {
-    // Do something with the files
+    // TODO show file sent to server and being processed
+    API.uploadReport(acceptedFiles[0])
+      .then((resp) => {
+        // TODO deal with errors
+        // TODO set message to show file uploaded and plaintext extracted now extracting sentences
+        return resp.data.pk;
+      })
+      .then((report_pk) => {
+        API.extractSentences(report_pk).then((resp) => {
+          // TODO visualize num sentences
+          // TODO send sentences to parent element along with link to next page
+          // TODO deal with errors
+          console.log(resp);
+        });
+      });
   }, []);
 
   const {
