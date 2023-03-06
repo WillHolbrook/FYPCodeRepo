@@ -46,26 +46,26 @@ function ProfilePage() {
         <h1>Account Information</h1>
       </header>
       <div className={"profile-container"}>
-        <label className={"profile-label"}>Username</label>
+        <label>Username</label>
         <br />
         <span className={"profile-span"}>{username}</span>
         <br />
-        <label className={"profile-label"}>Password</label>
+        <label>Password</label>
         <br />
         <button className={"profile-span"} onClick={changePassword}>
           Change Password
         </button>
         <br />
-        <label className={"profile-label"}>API Key 1</label>
+        <label>API Key 1</label>
         <br />
         <span className={"profile-span"}>TODO apikey1 placeholder</span>
         <br />
-        <label className={"profile-label"}>API Key 2</label>
+        <label>API Key 2</label>
         <br />
         <span className={"profile-span"}>TODO apikey2 placeholder</span>
         <br />
-        <div className={"profile-num-sentences"}>
-          <label className={"profile-label"}>Default Number of Sentences</label>
+        <div className={"num-sentences"}>
+          <label>Default Number of Sentences</label>
           <div style={{ width: "4rem" }}>
             <input
               type={"number"}

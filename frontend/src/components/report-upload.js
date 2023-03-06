@@ -74,32 +74,28 @@ function ReportUpload(props) {
   ));
 
   return (
-    <div className={"report-upload"}>
-      <header className={"App-header"}>
-        <h2>Summarize Analyst Reports</h2>
-        <div className={"App-subheading"}>
-          <span>
-            Extract important sentences as a summary of the report & extract
-            buy, sell or hold
-          </span>
-        </div>
-      </header>
-      <div
-        className={
-          "drag-and-drop-container hover" +
-          (isDragActive ? " drag-active purple" : "")
-        }
-        {...getRootProps()}
-      >
-        <input className={"input-zone"} {...getInputProps()} />
-        {isDragActive ? (
-          <p>Drop a single report here...</p>
-        ) : (
-          <p>
-            Drop a single report pdf here, or click to select a single report{" "}
-          </p>
-        )}
-        <FontAwesomeIcon icon={faFileArrowUp} style={{ fontSize: "5rem" }} />
+    <div
+      className={
+        "drag-and-drop-container hover" +
+        (isDragActive ? " drag-active purple" : "")
+      }
+      {...getRootProps()}
+    >
+      <input className={"input-zone"} {...getInputProps()} />
+      {isDragActive ? (
+        <p>Drop a single report here...</p>
+      ) : (
+        <p>
+          Drop a single report pdf here, or click to select a single report{" "}
+        </p>
+      )}
+      <FontAwesomeIcon
+        icon={faFileArrowUp}
+        style={{ fontSize: props.footer ? "2rem" : "5rem" }}
+      />
+      {props.footer ? (
+        <div style={{ fontSize: "0.5rem" }}>&nbsp;</div>
+      ) : (
         <aside>
           <ul className={"file-list"} style={{ listStyleType: "none" }}>
             {acceptedFiles.length !== 0 ? files : null}
@@ -109,7 +105,7 @@ function ReportUpload(props) {
             ) : null}
           </ul>
         </aside>
-      </div>
+      )}
     </div>
   );
 }

@@ -20,22 +20,41 @@ function App() {
   return (
     <div className={"App"}>
       <div className="layout">
-        {reportUrl ? (
-          <embed
-            src={reportUrl}
-            type={"application/pdf"}
-            frameBorder={"0"}
-            scrolling={"auto"}
-            height={"100%"}
-            width={"100%"}
-          />
-        ) : (
-          <ReportUpload
-            setExtractedSentences={setExtractedSentences}
-            setNextSentencePageUrl={setNextSentencePageUrl}
-            setReportUrl={setReportUrl}
-          />
-        )}
+        <div className={"details-column"}>
+          <header className={"App-header"}>
+            <h2>Summarize Analyst Reports</h2>
+            <div className={"App-subheading"}>
+              <span>
+                Extract important sentences as a summary of the report & extract
+                buy, sell or hold
+              </span>
+            </div>
+          </header>
+          {reportUrl ? (
+            <React.Fragment>
+              <embed
+                src={reportUrl}
+                type={"application/pdf"}
+                frameBorder={"0"}
+                scrolling={"auto"}
+                height={"100%"}
+                style={{ padding: "20px" }}
+              />
+              <ReportUpload
+                setExtractedSentences={setExtractedSentences}
+                setNextSentencePageUrl={setNextSentencePageUrl}
+                setReportUrl={setReportUrl}
+                footer={reportUrl !== null}
+              />
+            </React.Fragment>
+          ) : (
+            <ReportUpload
+              setExtractedSentences={setExtractedSentences}
+              setNextSentencePageUrl={setNextSentencePageUrl}
+              setReportUrl={setReportUrl}
+            />
+          )}
+        </div>
         <div className={"seperator-bar"} />
         {extractedSentences ? (
           <AnalysisPane
