@@ -166,6 +166,8 @@ GROBID_CONFIG = {
     "coordinates": ["persName", "figure", "ref", "biblStruct", "formula", "s"],
 }
 
+X_FRAME_OPTIONS = "ALLOWALL"
+
 DATETIME_TEST_LEEWAY = 10
 DEFAULT_MAX_PROCESSES = 8
 MIN_REPORTS_MULTIPROCESSING = 10

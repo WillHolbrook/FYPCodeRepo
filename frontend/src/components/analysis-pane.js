@@ -2,11 +2,20 @@ import React from "react";
 
 function AnalysisPane(props) {
   return (
-    <React.Fragment>
+    <div>
       <header className={"App-header"}>
-        <h2>Analysis Will Appear Here</h2>
+        <h2>Analysis</h2>
       </header>
-    </React.Fragment>
+      <ol>
+        {props.extractedSentences.map((sentence, index) => {
+          if (index < props.numSentences) {
+            return <li key={index}>{sentence.text}</li>;
+          } else {
+            return null;
+          }
+        })}
+      </ol>
+    </div>
   );
 }
 

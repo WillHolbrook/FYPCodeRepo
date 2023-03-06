@@ -1,4 +1,4 @@
-import { API } from "../api-service";
+import { API, axapi } from "../api-service";
 import { faFileArrowUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useCallback } from "react";
@@ -6,22 +6,26 @@ import { useDropzone } from "react-dropzone";
 
 function ReportUpload(props) {
   const onDrop = useCallback((acceptedFiles) => {
-    // TODO show file sent to server and being processed
+    // TODO add_loading_spinner
     API.uploadReport(acceptedFiles[0])
       .then((resp) => {
         // TODO deal with errors
         // TODO set message to show file uploaded and plaintext extracted now extracting sentences
+        console.log(resp);
+        props.setReportUrl(
+          `${axapi.defaults.baseURL}${resp.data.pdf.substring(1)}`
+        );
         return resp.data.pk;
       })
       .then((report_pk) => {
         API.extractSentences(report_pk).then((resp) => {
-          // TODO visualize num sentences
-          // TODO send sentences to parent element along with link to next page
           // TODO deal with errors
+          props.setExtractedSentences(resp.data.results);
+          props.setNextSentencePageUrl(resp.data.next);
           console.log(resp);
         });
       });
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const {
     getRootProps,
