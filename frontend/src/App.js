@@ -1,8 +1,9 @@
 import "./App.css";
-import AnalysisPane from "./components/analysis-pane";
-import ReportUpload from "./components/report-upload";
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
+import AnalysisPane from "./components/analysis-pane";
+import ReportUpload from "./components/report-upload";
+
 
 function App() {
   const [cookie] = useCookies(["default_num_sentences"]);
