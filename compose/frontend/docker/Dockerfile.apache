@@ -8,8 +8,6 @@ RUN npm ci
 COPY ./frontend/public/ public
 COPY ./frontend/src/ src
 RUN npm run build
-RUN ls -la
-RUN ls -la ./build
 
 FROM ubuntu:20.04 AS BASE
 ENV TZ Europe/London
