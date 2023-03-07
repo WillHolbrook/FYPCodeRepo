@@ -28,6 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     "0.0.0.0",
     "localhost",
+    "localhost:8080",
     "127.0.0.1",
     "willholbrook.com",
     "www.willholbrook.com",
@@ -135,6 +136,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CSRF_TRUSTED_ORIGINS = [
     "https://*.127.0.0.1",
     "http://localhost:8020",
+    "http://localhost:8080",
     "http://localhost:3000",
 ]
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
