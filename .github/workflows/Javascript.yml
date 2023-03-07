@@ -2,7 +2,7 @@ name: ESLint
 
 on:
   push:
-    branches: [ develop, 5-set-up-basic-build-and-test-cicd-pipeline-for-javascript ]
+    branches: [ develop ]
 #    paths:
 #      - backend/**
 #      - compose/backend/**
