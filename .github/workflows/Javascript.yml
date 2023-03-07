@@ -25,6 +25,7 @@ jobs:
     - name: Install dependencies
       run: |
         npm install --include-dev
+        npm list -g --depth=0
 
     - name: Check Styling with Prettier
       if: always()
@@ -34,4 +35,4 @@ jobs:
     - name: Lint with ESLint
       if: always()
       run: |
-        npx eslint $(git ls-files -- '*.js') --max-warnings=0 --plugin eslint-plugin-react@7.32.2
+        npx eslint $(git ls-files -- '*.js') --max-warnings=0 --plugin eslint-plugin-react
