@@ -1,0 +1,41 @@
+name: ESLint
+
+on:
+  push:
+    branches: [ develop, 5-set-up-basic-build-and-test-cicd-pipeline-for-javascript ]
+#    paths:
+#      - backend/**
+#      - compose/backend/**
+  pull_request:
+    branches: [ develop ]
+#    paths:
+#      - backend/**
+#      - compose/backend/**
+    
+jobs:
+  javascript-ci:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend
+    strategy:
+      fail-fast: false
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+        cache: 'pip' # caching pip dependencies
+
+    - name: Install dependencies
+      run: |
+        npm install
+        
+    - name: Check Styling with Prettier
+      run : |
+        npx prettier $(git ls-files -- '*.js')
+
+    - name: Lint with ESLint
+      run: |
+        npx eslint $(git ls-files -- '*.js') --max-warnings=0 --plugin eslint@8.33.0 --plugin eslint-plugin-react@7.32.2
