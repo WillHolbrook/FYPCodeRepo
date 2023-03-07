@@ -34,7 +34,7 @@ jobs:
 
     - name: Check Styling with Prettier
       run : |
-        npx prettier --check '*.js'
+        npx prettier --check .
 
     - name: Lint with ESLint
       run: |
