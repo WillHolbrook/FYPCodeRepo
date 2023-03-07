@@ -1,0 +1,38 @@
+name: ESLint
+
+on:
+  push:
+    branches: [ develop ]
+#    paths:
+#      - backend/**
+#      - compose/backend/**
+  pull_request:
+    branches: [ develop ]
+#    paths:
+#      - backend/**
+#      - compose/backend/**
+
+jobs:
+  javascript-ci:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend
+    strategy:
+      fail-fast: false
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install dependencies
+      run: |
+        npm install --include-dev
+        npm list -g --depth=0
+
+    - name: Check Styling with Prettier
+      if: always()
+      run : |
+        npx prettier --check .
+
+    - name: Lint with ESLint
+      if: always()
+      run: |
+        npx eslint $(git ls-files -- '*.js') --max-warnings=0 --plugin eslint-plugin-react
