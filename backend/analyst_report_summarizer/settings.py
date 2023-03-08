@@ -27,12 +27,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     "0.0.0.0",
-    "localhost",
-    "localhost:8080",
     "127.0.0.1",
-    "willholbrook.com",
-    "www.willholbrook.com",
-    "86.26.160.245",
+    "localhost",
+    ".willholbrook.com",
+    ".willholbrook.com",
 ]
 
 # Application definition
@@ -84,7 +82,6 @@ WSGI_APPLICATION = "analyst_report_summarizer.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
@@ -134,10 +131,13 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Set allowed CSRF Origins
 CSRF_TRUSTED_ORIGINS = [
-    "https://*.127.0.0.1",
-    "http://localhost:8020",
-    "http://localhost:8080",
-    "http://localhost:3000",
+    "http://127.0.0.1",  # Dev
+    "http://127.0.0.1:3000",  # Dev
+    "http://localhost:8020",  # Dev
+    "http://localhost:8080",  # Dev
+    "http://localhost:3000",  # Dev
+    "http://fypfrontend.willholbrook.com",  # Prod
+    "https://fypfrontend.willholbrook.com",  # Prod
 ]
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
@@ -161,7 +161,7 @@ MEDIA_ROOT = BASE_DIR.joinpath("./media")
 TEST_RESOURCES_ROOT = BASE_DIR.joinpath("./api/tests/resources/")
 
 GROBID_CONFIG = {
-    "grobid_server": "https://grobid.willholbrook.com",
+    "grobid_server": "https://fyp.grobid.willholbrook.com",
     "batch_size": 1000,
     "sleep_time": 10,
     "timeout": 60,
