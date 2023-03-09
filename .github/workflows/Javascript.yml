@@ -1,5 +1,4 @@
-name: ESLint
-
+name: javascript-workflow
 on:
   push:
     branches: [ develop ]

@@ -13,7 +13,7 @@ function ReportUpload(props) {
         // TODO set message to show file uploaded and plaintext extracted now extracting sentences
         console.log(resp);
         props.setReportUrl(
-          `${axapi.defaults.baseURL}media/${resp.data.pdf.substring(1)}`
+          `${axapi.defaults.baseURL}${resp.data.pdf.substring(1)}`
         );
         return resp.data.pk;
       })

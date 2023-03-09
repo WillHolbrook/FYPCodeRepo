@@ -9,11 +9,14 @@ function App() {
   const [reportUrl, setReportUrl] = useState(null);
   const [extractedSentences, setExtractedSentences] = useState(null);
   const [nextSentencePageUrl, setNextSentencePageUrl] = useState(null);
-  const [numSentences, setNumSentences] = useState(null);
+  const [numSentences, setNumSentences] = useState(5);
 
   useEffect(() => {
     if (cookie.default_num_sentences) {
-      setNumSentences(parseInt(cookie.default_num_sentences));
+      const cookie_val = parseInt(cookie.default_num_sentences);
+      if (cookie_val) {
+        setNumSentences(cookie_val);
+      }
     }
   }, [cookie]);
 
