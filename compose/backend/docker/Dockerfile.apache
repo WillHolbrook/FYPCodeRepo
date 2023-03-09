@@ -27,6 +27,9 @@ COPY compose/backend/apache_config_files/ /etc/apache2/sites-available/
 RUN touch /opt/report_summarizer/API/db.sqlite3 && \
 	chmod 770 /opt/report_summarizer/API/db.sqlite3
 
+RUN mkdir /var/www/nltk_data/ && \
+    chown -R www-data:www-data /var/www/nltk_data/
+
 # Configure permissions and enable site
 RUN chown -R www-data:www-data /opt/report_summarizer/API && \
 	chmod +x /opt/report_summarizer/API/analyst_report_summarizer/wsgi.py && \
