@@ -172,6 +172,7 @@ REST_FRAMEWORK = {
 }
 
 MEDIA_ROOT = BASE_DIR.joinpath("./media")
+MEDIA_URL = "/media/"
 
 TEST_RESOURCES_ROOT = BASE_DIR.joinpath("./api/tests/resources/")
 

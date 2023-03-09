@@ -33,7 +33,7 @@ function ProfileToken(props) {
             setProfileImageUrl(
               `${
                 axapi.defaults.baseURL
-              }${resp.data.profile.profile_image.substring(1)}` //Used to strip leading `/` from profile image url
+              }media/${resp.data.profile.profile_image.substring(1)}` //Used to strip leading `/` from profile image url
             );
           }
         } else {
