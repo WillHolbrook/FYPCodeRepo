@@ -173,7 +173,7 @@ MEDIA_ROOT = BASE_DIR.joinpath("./media")
 TEST_RESOURCES_ROOT = BASE_DIR.joinpath("./api/tests/resources/")
 
 GROBID_CONFIG = {
-    "grobid_server": "https://fyp.grobid.willholbrook.com",
+    "grobid_server": "https://fypgrobid.willholbrook.com",
     "batch_size": 1000,
     "sleep_time": 10,
     "timeout": 60,
