@@ -6,9 +6,6 @@ services:
     image: registry.hub.docker.com/willholbrook/analyst_report_summarizer:latest
     container_name: AnalystReportSummarizerBackend
     environment:
-      DJANGO_SUPERUSER_EMAIL: wdh961@student.bham.ac.uk
-      DJANGO_SUPERUSER_PASSWORD: pL-ybkQ*4PjiX-a6f89afLMdhu
-      DJANGO_SUPERUSER_USERNAME: wdh961@student.bham.ac.uk
       DJANGO_DATABASE_TYPE: postgres
     ports:
       - 8030:80
