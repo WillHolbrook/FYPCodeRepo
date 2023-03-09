@@ -5,3 +5,4 @@ venv
 backend/.coverage
 frontend/node_modules
 resources
+postgresData

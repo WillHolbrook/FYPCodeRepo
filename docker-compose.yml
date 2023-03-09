@@ -1,0 +1,37 @@
+version: '3.8'
+volumes:
+  postgresData:
+services:
+  backend:
+    image: registry.hub.docker.com/willholbrook/analyst_report_summarizer:latest
+    container_name: AnalystReportSummarizerBackend
+    environment:
+      DJANGO_SUPERUSER_EMAIL: wdh961@student.bham.ac.uk
+      DJANGO_SUPERUSER_PASSWORD: pL-ybkQ*4PjiX-a6f89afLMdhu
+      DJANGO_SUPERUSER_USERNAME: wdh961@student.bham.ac.uk
+      DJANGO_DATABASE_TYPE: postgres
+    ports:
+      - 8030:80
+    depends_on:
+      - db
+      - grobid
+  db:
+    image: postgres
+    container_name: AnalystReportSummarizerDatabase
+    environment:
+      POSTGRES_PASSWORD: postgres
+
+    volumes:
+      - .\postgresData:/var/lib/postgresql/data/
+  frontend:
+    image: registry.hub.docker.com/willholbrook/analyst_report_summarizer_frontend:latest
+    container_name: AnalystReportSummarizerFrontend
+    ports:
+      - 8010:80
+    depends_on:
+      - backend
+  grobid:
+    image: registry.hub.docker.com/grobid/grobid:0.7.2
+    container_name: AnalystReportSummarizerGrobid
+    ports:
+      - 8020:8070
