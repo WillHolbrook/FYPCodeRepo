@@ -26,6 +26,7 @@ class TestAddToCorpus(APITestCase):
         report_count = Report.objects.count()
         report_pk = 3
         initial_report = Report.objects.get(pk=report_pk)
+        initial_report.extract_plaintext()
         response = self.client.post(
             reverse("add_to_corpus", kwargs={"report_pk": report_pk})
         )

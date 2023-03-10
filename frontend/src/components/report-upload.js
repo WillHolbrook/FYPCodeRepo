@@ -11,10 +11,10 @@ function ReportUpload(props) {
       .then((resp) => {
         // TODO deal with errors
         // TODO set message to show file uploaded and plaintext extracted now extracting sentences
-        console.log(resp);
         props.setReportUrl(
           `${axapi.defaults.baseURL}${resp.data.pdf.substring(1)}`
         );
+        props.setBuySellHold(resp.data.buy_sell_hold);
         return resp.data.pk;
       })
       .then((report_pk) => {
@@ -22,7 +22,6 @@ function ReportUpload(props) {
           // TODO deal with errors
           props.setExtractedSentences(resp.data.results);
           props.setNextSentencePageUrl(resp.data.next);
-          console.log(resp);
         });
       });
   }, []); // eslint-disable-line react-hooks/exhaustive-deps

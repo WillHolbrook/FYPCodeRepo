@@ -9,7 +9,7 @@ function AnalysisPane(props) {
         <h2>Analysis</h2>
       </header>
       <h3 style={{ marginBottom: 0 }}>
-        Stock Position: <i>TODO</i>
+        Stock Position: <i>{props.buySellHold}</i>
       </h3>
       <div className={"App-subheading"}>
         <span>(Buy, Sell or Hold)</span>
