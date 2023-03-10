@@ -8,7 +8,6 @@ from pathlib import Path
 from typing import Dict, Iterable, List, Set, Tuple, Union
 
 import numpy as np
-from api.models.report import Report
 from nltk import PorterStemmer, word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem.api import StemmerI
@@ -42,17 +41,6 @@ def log_time(func):
         return result
 
     return timeit_wrapper
-
-
-def extract_terms(
-    report_id,
-    stemmer: StemmerI = PorterStemmer(),
-) -> Union[List[str], Set[str]]:
-    """Function to extract the unique terms used in a report"""
-    report = Report.objects.get(pk=report_id)
-    if report.plaintext is None:
-        report.extract_plaintext()
-    return preprocess_text(report.plaintext, stemmer=stemmer)
 
 
 def preprocess_text(

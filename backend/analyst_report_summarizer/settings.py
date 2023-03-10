@@ -182,7 +182,7 @@ if os.getenv("GROBID_SERVER_HOSTNAME"):
         f"http://{socket.gethostbyname(os.getenv('GROBID_SERVER_HOSTNAME'))}:8070"
     )
 else:
-    GROBID_SERVER = "http://localhost:8020/"
+    GROBID_SERVER = "http://localhost:8020"
 print(GROBID_SERVER)
 
 GROBID_CONFIG = {
