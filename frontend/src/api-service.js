@@ -32,6 +32,7 @@ export class API {
     let formData = new FormData();
     formData.append("uploaded_report", reportFile);
     return axapi.post("api/report_upload/", formData, {
+      timeout: 60 * 1000,
       headers: {
         "Content-Type": "multipart/form-data",
       },
