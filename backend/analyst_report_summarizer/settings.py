@@ -176,9 +176,13 @@ MEDIA_ROOT = BASE_DIR.joinpath("./media")
 MEDIA_URL = "/media/"
 
 TEST_RESOURCES_ROOT = BASE_DIR.joinpath("./api/tests/resources/")
+if os.getenv("GROBID_SERVER"):
+    GROBID_SERVER = os.getenv("GROBID_SERVER")
+else:
+    GROBID_SERVER = "http://localhost:8020/"
 
 GROBID_CONFIG = {
-    "grobid_server": "http://localhost:8020/",
+    "grobid_server": GROBID_SERVER,
     "batch_size": 1000,
     "sleep_time": 10,
     "timeout": 60,
