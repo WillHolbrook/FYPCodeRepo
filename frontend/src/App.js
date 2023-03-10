@@ -10,6 +10,7 @@ function App() {
   const [extractedSentences, setExtractedSentences] = useState(null);
   const [nextSentencePageUrl, setNextSentencePageUrl] = useState(null);
   const [numSentences, setNumSentences] = useState(5);
+  const [buySellHold, setBuySellHold] = useState(null);
 
   useEffect(() => {
     if (cookie.default_num_sentences) {
@@ -47,6 +48,7 @@ function App() {
                 setExtractedSentences={setExtractedSentences}
                 setNextSentencePageUrl={setNextSentencePageUrl}
                 setReportUrl={setReportUrl}
+                setBuySellHold={setBuySellHold}
                 footer={reportUrl !== null}
               />
             </React.Fragment>
@@ -55,6 +57,7 @@ function App() {
               setExtractedSentences={setExtractedSentences}
               setNextSentencePageUrl={setNextSentencePageUrl}
               setReportUrl={setReportUrl}
+              setBuySellHold={setBuySellHold}
             />
           )}
         </div>
@@ -67,6 +70,7 @@ function App() {
             setNextSentencePageUrl={setNextSentencePageUrl}
             numSentences={numSentences}
             setNumSentences={setNumSentences}
+            buySellHold={buySellHold}
           />
         ) : (
           <header className={"App-header"}>
