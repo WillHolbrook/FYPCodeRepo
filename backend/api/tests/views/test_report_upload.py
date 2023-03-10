@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=duplicate-code
 """Module to test Report Upload API"""
+from unittest import skip
+
 from api.models.report import Report
 from api.tests.models.test_report import ReportTestCase
 from django.contrib.auth import get_user_model
@@ -23,6 +25,7 @@ class TestReportUpload(APITestCase):
         self.token = Token.objects.create(user=self.user)
         self.client.credentials(HTTP_AUTHORIZATION=f"Token {self.token}")
 
+    @skip("Don't test in CI")
     def test_singular_report(self):
         """Test for uploading a report"""
         test_pdf: File = ReportTestCase.load_test_pdf()

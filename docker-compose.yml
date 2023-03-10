@@ -1,0 +1,35 @@
+version: '3.8'
+volumes:
+  postgresData:
+services:
+  backend:
+    image: registry.hub.docker.com/willholbrook/analyst_report_summarizer:latest
+    container_name: AnalystReportSummarizerBackend
+    environment:
+      DJANGO_DATABASE_TYPE: postgres
+      GROBID_SERVER_HOSTNAME: grobid
+    ports:
+      - 8030:80
+    depends_on:
+      - db
+      - grobid
+  db:
+    image: postgres
+    container_name: AnalystReportSummarizerDatabase
+    environment:
+      POSTGRES_PASSWORD: postgres
+
+    volumes:
+      - .\postgresData:/var/lib/postgresql/data/
+  frontend:
+    image: registry.hub.docker.com/willholbrook/analyst_report_summarizer_frontend:latest
+    container_name: AnalystReportSummarizerFrontend
+    ports:
+      - 8010:80
+    depends_on:
+      - backend
+  grobid:
+    image: registry.hub.docker.com/grobid/grobid:0.7.2
+    container_name: AnalystReportSummarizerGrobid
+    ports:
+      - 8020:8070
