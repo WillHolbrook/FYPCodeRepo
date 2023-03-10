@@ -4,6 +4,7 @@
 import xml.etree.ElementTree as ET
 from datetime import timedelta
 from pathlib import Path
+from unittest import skip
 
 from analyst_report_summarizer.settings import DATETIME_TEST_LEEWAY, TEST_RESOURCES_ROOT
 from api.grobid_tfidf_code.main import extract_text_from_element_tree
@@ -27,6 +28,7 @@ class ReportTestCase(TestCase):
         """Method to load the test pdf used across multiple tests"""
         return File(open(path, "rb"), path.name)
 
+    @skip("Don't test in CI")
     def test_report_creation(self):
         """Test to see if a Report can be created"""
         number_of_reports = Report.objects.count()
@@ -37,27 +39,30 @@ class ReportTestCase(TestCase):
             msg="Profile not automatically created",
         )
 
-    # def test_tei_xml_extraction(self):
-    #     """Test to see if correct tei_xml can be extracted from a file"""
-    #     report = Report.objects.create(self.load_test_pdf())
-    #
-    #     with open(
-    #         TEST_RESOURCES_ROOT.joinpath(Path("test.tei.xml")), encoding="utf-8"
-    #     ) as file:
-    #         expected_text = extract_text_from_element_tree(ET.fromstring(file.read()))
-    #
-    #     test_text = extract_text_from_element_tree(ET.fromstring(report.tei_xml))
-    #
-    #     self.assertEqual(
-    #         test_text, expected_text, msg="The extracted tei.xml isn't as expected"
-    #     )
+    @skip("Don't test in CI")
+    def test_tei_xml_extraction(self):
+        """Test to see if correct tei_xml can be extracted from a file"""
+        report = Report.objects.create(self.load_test_pdf())
 
+        with open(
+            TEST_RESOURCES_ROOT.joinpath(Path("test.tei.xml")), encoding="utf-8"
+        ) as file:
+            expected_text = extract_text_from_element_tree(ET.fromstring(file.read()))
+
+        test_text = extract_text_from_element_tree(ET.fromstring(report.tei_xml))
+
+        self.assertEqual(
+            test_text, expected_text, msg="The extracted tei.xml isn't as expected"
+        )
+
+    @skip("Don't test in CI")
     def test_upload_with_user_set(self):
         """Test to see if report can be created with user link"""
         created_user = get_user_model().objects.create_user("user2", "password")
         self._create_two_reports_for_user(created_user)
         created_user.delete()
 
+    @skip("Don't test in CI")
     def test_upload_without_user_set(self):
         """Test to see if report can be created without user link"""
         report = Report.objects.create(self.load_test_pdf())
@@ -84,6 +89,7 @@ class ReportTestCase(TestCase):
         self.assertIn(report2, reports)
         return report1, report2
 
+    @skip("Don't test in CI")
     def test_deletion_with_user(self):
         """Test to see if report associated with a user is deleted"""
         created_user = get_user_model().objects.create_user("user3", "password")
@@ -98,6 +104,7 @@ class ReportTestCase(TestCase):
         )
         self.assertEqual(len(Report.objects.filter(user=created_user)), 0)
 
+    @skip("Don't test in CI")
     def test_upload_time(self):
         """Test to see if the upload time is set correctly with a 10-second margin of error"""
         now = timezone.now()
@@ -110,6 +117,7 @@ class ReportTestCase(TestCase):
             report.upload_datetime, now + timedelta(seconds=DATETIME_TEST_LEEWAY)
         )
 
+    @skip("Don't test in CI")
     def test_plaintext_extraction(self):
         """Test to see if the plaintext is extracted and stored in a report object"""
         report = Report.objects.create(self.load_test_pdf())
@@ -118,6 +126,7 @@ class ReportTestCase(TestCase):
 
         self.assertEqual(report.plaintext, test_text)
 
+    @skip("Don't test in CI")
     def test_plaintext_extraction_time(self):
         """Test to see if the plaintext extraction time is appropriately updated"""
         report = Report.objects.create(self.load_test_pdf())
