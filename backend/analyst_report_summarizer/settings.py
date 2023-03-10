@@ -149,6 +149,7 @@ CSRF_TRUSTED_ORIGINS = [
     "http://127.0.0.1",  # Dev
     "http://127.0.0.1:3000",  # Dev
     "http://localhost:8020",  # Dev
+    "http://localhost:8010",  # Dev
     "http://localhost:8080",  # Dev
     "http://localhost:3000",  # Dev
     "http://fypfrontend.willholbrook.com",  # Prod
@@ -177,7 +178,7 @@ MEDIA_URL = "/media/"
 TEST_RESOURCES_ROOT = BASE_DIR.joinpath("./api/tests/resources/")
 
 GROBID_CONFIG = {
-    "grobid_server": "https://fypgrobid.willholbrook.com",
+    "grobid_server": "http://localhost:8020/",
     "batch_size": 1000,
     "sleep_time": 10,
     "timeout": 60,
