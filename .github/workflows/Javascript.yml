@@ -2,14 +2,14 @@ name: javascript-workflow
 on:
   push:
     branches: [ develop ]
-#    paths:
-#      - backend/**
-#      - compose/backend/**
+    paths:
+      - frontend/**
+      - compose/frontend/**
   pull_request:
     branches: [ develop ]
-#    paths:
-#      - backend/**
-#      - compose/backend/**
+    paths:
+      - frontend/**
+      - compose/frontend/**
 
 jobs:
   javascript-ci:
