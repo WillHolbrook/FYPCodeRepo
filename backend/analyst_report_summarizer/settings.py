@@ -11,6 +11,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 import os
+import socket
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -176,10 +177,13 @@ MEDIA_ROOT = BASE_DIR.joinpath("./media")
 MEDIA_URL = "/media/"
 
 TEST_RESOURCES_ROOT = BASE_DIR.joinpath("./api/tests/resources/")
-if os.getenv("GROBID_SERVER"):
-    GROBID_SERVER = os.getenv("GROBID_SERVER")
+if os.getenv("GROBID_SERVER_HOSTNAME"):
+    GROBID_SERVER = (
+        f"http://{socket.gethostbyname(os.getenv('GROBID_SERVER_HOSTNAME'))}:8070"
+    )
 else:
     GROBID_SERVER = "http://localhost:8020/"
+print(GROBID_SERVER)
 
 GROBID_CONFIG = {
     "grobid_server": GROBID_SERVER,

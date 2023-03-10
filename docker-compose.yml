@@ -7,6 +7,7 @@ services:
     container_name: AnalystReportSummarizerBackend
     environment:
       DJANGO_DATABASE_TYPE: postgres
+      GROBID_SERVER_HOSTNAME: grobid
     ports:
       - 8030:80
     depends_on:

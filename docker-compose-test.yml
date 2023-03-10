@@ -2,9 +2,11 @@
 version: "3.8"
 
 services:
-  summarizer_api:
-    build:
-      context: . #Sets the directory for docker-compose to build.
+  backend:
+    image: analyst_report_summarizer_dev
+
+    environment:
+      GROBID_SERVER_HOSTNAME: grobid
 
     # Maps port on the local machine to port on Docker image
     ports:
@@ -12,12 +14,12 @@ services:
 
     volumes:
     # Copy changes made to the project to your image in real-time.
-      - .:/summarizer_api
-    # Handles the command used to run the project in the Docker container.
-    command: sh -c "python manage.py runserver 0.0.0.0:8000"
+      - .\backend:/opt/app
+    depends_on:
+      - grobid
 
   grobid:
     image: registry.hub.docker.com/grobid/grobid:0.7.2
     domainname: "grobidwillholbrook"
     ports:
-      - "8070:8070"
+      - "8020:8070"
