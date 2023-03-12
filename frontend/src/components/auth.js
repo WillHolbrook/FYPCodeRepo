@@ -7,18 +7,18 @@ function Auth() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isLoginView, setIsLoginView] = useState(true);
-  const [token, setToken] = useCookies(["rs_token"]);
+  const [cookie, setCookie] = useCookies(["rs_token"]);
   const [passwordValid, setPasswordValid] = useState(false);
 
   useEffect(() => {
-    if (token.rs_token) {
+    if (cookie.rs_token) {
       window.location.href = "/homepage/";
     }
-  }, [token]);
+  }, [cookie]);
 
   const loginClicked = () => {
     API.loginUser({ username, password }).then((resp) => {
-      setToken("rs_token", resp.data.token);
+      setCookie("rs_token", resp.data.token);
     });
   };
 
