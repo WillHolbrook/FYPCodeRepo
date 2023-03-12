@@ -1,7 +1,7 @@
 import UserDetails from "../profile/user-details";
 import React, { useState } from "react";
 
-function ProfileToken(props) {
+function ProfileToken() {
   const [username, setUsername] = useState(null);
   const defaultProfileImageUrl = "/logo512.png";
   const [profileImageUrl, setProfileImageUrl] = useState(
