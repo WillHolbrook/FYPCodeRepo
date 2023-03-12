@@ -6,16 +6,18 @@ import { useDropzone } from "react-dropzone";
 
 function ReportUpload(props) {
   const onDrop = useCallback((acceptedFiles) => {
-    // TODO add_loading_spinner
-    API.uploadReport(acceptedFiles[0]).then((resp) => {
-      // TODO deal with errors
-      // TODO set message to show file uploaded and plaintext extracted now extracting sentences
-      props.setReportUrl(
-        `${axapi.defaults.baseURL}${resp.data.pdf.substring(1)}`
-      );
-      console.log(resp.data);
-      props.setReportDetails(resp.data);
-    });
+    props.setLoadingReport(true);
+    API.uploadReport(acceptedFiles[0])
+      .then((resp) => {
+        // TODO deal with errors
+        props.setReportUrl(
+          `${axapi.defaults.baseURL}${resp.data.pdf.substring(1)}`
+        );
+        props.setReportDetails(resp.data);
+      })
+      .finally(() => {
+        props.setLoadingReport(false);
+      });
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const {
