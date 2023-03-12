@@ -14,13 +14,16 @@ function ProfileToken() {
   };
 
   return (
-    <div className={"profile-token hover"} onClick={goToProfilePage}>
+    <div
+      className={"nav-bar-subheading profile-token hover"}
+      onClick={goToProfilePage}
+    >
       <UserDetails
         setUsername={setUsername}
         setProfileImageUrl={setProfileImageUrl}
         maxUsernameLength={maxUsernameLength}
       />
-      <div className={"profile-token-username"}>{username}</div>
+      <div className={"nav-bar-link"}>{username}</div>
       <img
         className={"profile-picture"}
         src={profileImageUrl}

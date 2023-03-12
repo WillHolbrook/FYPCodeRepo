@@ -11,11 +11,21 @@ function NavBar() {
     setLoggedIn(!!cookie.rs_token);
   }, [cookie]);
 
+  const goToUploadHistory = () => {
+    window.location.href = "/upload_history/";
+  };
+
   return (
     <div className={"nav-bar"}>
       {loggedIn ? (
         <React.Fragment>
-          <div className={"profile-token"}>&nbsp;</div>
+          <div
+            className={"nav-bar-subheading hover"}
+            onClick={goToUploadHistory}
+            style={{ justifyContent: "flex-start", paddingLeft: "10px" }}
+          >
+            <div className={"nav-bar-link"}>Upload History</div>
+          </div>
           <Title />
           <ProfileToken />
         </React.Fragment>
