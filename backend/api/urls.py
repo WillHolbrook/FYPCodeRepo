@@ -3,11 +3,12 @@
 from api.views.add_report_to_corpus_view import AddReportToCorpusView
 from api.views.calculate_idf_view import CalculateIDF
 from api.views.extract_plaintext_view import ExtractPlaintextView
+from api.views.extract_sentence_bert_view import ReportExtractSentenceBertView
+from api.views.extract_sentence_tfidf_view import UserReportExtractSentenceView
 from api.views.my_user_view import MyUserView
 from api.views.profile_view import ProfileView
-from api.views.user_report_extract_sentence_view import UserReportExtractSentenceView
-from api.views.user_report_upload_view import UserReportUploadView
-from api.views.user_report_view import ReportViewSet
+from api.views.report_upload_view import UserReportUploadView
+from api.views.report_viewset import ReportViewSet
 from api.views.user_view_set import UserViewSet
 from django.urls import include, path, re_path
 from rest_framework import routers
@@ -22,6 +23,11 @@ api_patterns = [
         "report_extract_sentence/(?P<report_pk>[0-9]*)",
         UserReportExtractSentenceView.as_view(),
         name="extract_sentence",
+    ),
+    re_path(
+        "report_extract_sentence_bert/(?P<report_pk>[0-9]*)",
+        ReportExtractSentenceBertView.as_view(),
+        name="extract_sentence_bert",
     ),
     re_path(
         "add_to_corpus/(?P<report_pk>[0-9]*)",

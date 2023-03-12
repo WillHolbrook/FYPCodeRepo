@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """Module for Report ViewSet"""
 from api.models.report import Report
-from api.serializers.user_report_details_serializer import ReportDetailSerializer
-from api.serializers.user_report_list_serializer import ReportListSerializer
+from api.serializers.report_details_serializer import ReportDetailSerializer
+from api.serializers.report_list_serializer import ReportListSerializer
 from api.views.auth_utils import check_user_not_anon
 from rest_framework import mixins, status, viewsets
 from rest_framework.authentication import TokenAuthentication

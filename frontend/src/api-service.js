@@ -28,7 +28,6 @@ export class API {
   }
 
   static uploadReport(reportFile) {
-    console.log(reportFile);
     let formData = new FormData();
     formData.append("uploaded_report", reportFile);
     return axapi.post("api/report_upload/", formData, {
