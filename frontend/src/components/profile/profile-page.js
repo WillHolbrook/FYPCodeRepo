@@ -69,6 +69,7 @@ function ProfilePage() {
 
   const logoutUser = () => {
     removeCookie("rs_token", { path: "/" });
+    window.location.href = "/";
   };
 
   const profilePicture = (
