@@ -3,10 +3,10 @@ import { useEffect } from "react";
 import { useCookies } from "react-cookie";
 
 function UserDetails(props) {
-  const [token] = useCookies(["rs_token"]);
+  const [cookie] = useCookies(["rs_token"]);
 
   useEffect(() => {
-    if (token.rs_token) {
+    if (cookie.rs_token) {
       API.getCurrentUser().then((resp) => {
         if (resp.status === 200) {
           if (resp.data.username.length > props.maxUsernameLength) {
@@ -32,7 +32,7 @@ function UserDetails(props) {
         }
       });
     }
-  }, [token, props]);
+  }, [cookie, props]);
 
   return undefined;
 }
