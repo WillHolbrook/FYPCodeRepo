@@ -12,20 +12,6 @@ function SentenceList(props) {
           }
         })}
       </ol>
-      <div className={"input-label-side-by-side"}>
-        <h3>Max Number of Summary Sentences</h3>
-        <div style={{ width: "4rem" }}>
-          <input
-            type={"number"}
-            min={1}
-            max={10}
-            defaultValue={props.numSentences}
-            onChange={(evt) =>
-              props.setNumSentences(parseInt(evt.target.value))
-            }
-          />
-        </div>
-      </div>
     </React.Fragment>
   );
 }

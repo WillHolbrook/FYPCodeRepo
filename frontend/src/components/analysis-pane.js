@@ -55,6 +55,18 @@ function AnalysisPane({ extractionMethod, reportDetails }) {
       ) : (
         <Loading />
       )}
+      <div className={"input-label-side-by-side"}>
+        <h3>Max Number of Summary Sentences</h3>
+        <div style={{ width: "4rem" }}>
+          <input
+            type={"number"}
+            min={1}
+            max={10}
+            defaultValue={numSentences}
+            onChange={(evt) => setNumSentences(parseInt(evt.target.value))}
+          />
+        </div>
+      </div>
     </div>
   );
 }
