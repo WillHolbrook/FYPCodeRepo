@@ -18,7 +18,9 @@ class ReportExtractSentenceBertView(APIView):
     model = Summarizer()
 
     @staticmethod
-    def _extract_sentences_using_bert(request, report_pk):
+    def _extract_sentences_using_bert(
+        request, report_pk
+    ):  # pylint: disable=duplicate-code
         """Method to extract sentences using BERT"""
         (response, report) = check_user_is_present_and_has_access_to_given_report(
             request, report_pk
