@@ -53,7 +53,7 @@ function AnalysisPane({ extractionMethod, reportDetails }) {
           extractedSentences={extractedSentences}
         />
       ) : (
-        <Loading />
+        <Loading style={{ flexGrow: 1 }} />
       )}
       <div className={"input-label-side-by-side"}>
         <h3>Max Number of Summary Sentences</h3>

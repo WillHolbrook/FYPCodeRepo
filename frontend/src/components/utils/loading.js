@@ -1,8 +1,8 @@
 import React from "react";
 
-function Loading() {
+function Loading(props) {
   return (
-    <header className={"App-header"} style={{ flexGrow: 1 }}>
+    <header className={"App-header"} style={props.style}>
       <h1>Loading...</h1>
     </header>
   );
