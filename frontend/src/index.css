@@ -218,3 +218,20 @@ button:disabled {
 .drag-active {
   background-color: #353a45;
 }
+
+.profile-edit {
+  opacity: 0;
+  margin: auto;
+  padding: 0;
+  border-radius: 50%;
+  height: 7rem;
+  width: 7rem;
+  display: flex;
+}
+
+.profile-edit:hover,
+.profile-picture-drag-active {
+  opacity: 70%;
+  background-color: black;
+  cursor: pointer;
+}

@@ -68,9 +68,14 @@ export class API {
     return axapi.get(`api/profile/`);
   }
 
-  // TODO add passing profile image
-  static updateProfileDetails() {
-    return axapi.post(`api/profile/`);
+  static updateProfileDetails(profileImage) {
+    let formData = new FormData();
+    formData.append("profile_image", profileImage);
+    return axapi.post("api/profile/", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
   }
 
   static listUsers() {
