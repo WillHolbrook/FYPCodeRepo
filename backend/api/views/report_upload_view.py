@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """View for uploading a new Report"""
-from api.serializers.user_report_details_serializer import ReportDetailSerializer
-from api.serializers.user_report_upload_serializer import UserReportUploadSerializer
+from api.serializers.report_details_serializer import ReportDetailSerializer
+from api.serializers.report_upload_serializer import UserReportUploadSerializer
 from rest_framework import status
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated

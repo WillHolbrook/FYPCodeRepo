@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from api.models.sentence import Sentence
-from api.serializers.sentence_serializer import SentenceSerializer
+from api.serializers.sentence_tfidf_serializer import SentenceSerializer
 from api.views.auth_utils import check_user_is_present_and_has_access_to_given_report
 from django.db.models import QuerySet
 from rest_framework.authentication import TokenAuthentication

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """Module for ExtractPlaintextView"""
-from api.serializers.user_report_details_serializer import ReportDetailSerializer
+from api.serializers.report_details_serializer import ReportDetailSerializer
 from api.views.auth_utils import check_user_is_present_and_has_access_to_given_report
 from rest_framework import status
 from rest_framework.authentication import TokenAuthentication
