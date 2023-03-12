@@ -20,16 +20,12 @@ function ProfileToken() {
         setProfileImageUrl={setProfileImageUrl}
         maxUsernameLength={maxUsernameLength}
       />
-      {username ? (
-        <React.Fragment>
-          <div className={"profile-token-username"}>{username}</div>
-          <img
-            className={"profile-picture"}
-            src={profileImageUrl}
-            alt={"Profile"}
-          />
-        </React.Fragment>
-      ) : null}
+      <div className={"profile-token-username"}>{username}</div>
+      <img
+        className={"profile-picture"}
+        src={profileImageUrl}
+        alt={"Profile"}
+      />
     </div>
   );
 }
