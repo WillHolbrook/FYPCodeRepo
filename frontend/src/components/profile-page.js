@@ -56,14 +56,6 @@ function ProfilePage() {
           Change Password
         </button>
         <br />
-        <label>API Key 1</label>
-        <br />
-        <span className={"profile-span"}>TODO apikey1 placeholder</span>
-        <br />
-        <label>API Key 2</label>
-        <br />
-        <span className={"profile-span"}>TODO apikey2 placeholder</span>
-        <br />
         <div className={"input-label-side-by-side"}>
           <label>Default Number of Sentences</label>
           <div style={{ width: "4rem" }}>
