@@ -7,23 +7,15 @@ import { useDropzone } from "react-dropzone";
 function ReportUpload(props) {
   const onDrop = useCallback((acceptedFiles) => {
     // TODO add_loading_spinner
-    API.uploadReport(acceptedFiles[0])
-      .then((resp) => {
-        // TODO deal with errors
-        // TODO set message to show file uploaded and plaintext extracted now extracting sentences
-        props.setReportUrl(
-          `${axapi.defaults.baseURL}${resp.data.pdf.substring(1)}`
-        );
-        props.setBuySellHold(resp.data.buy_sell_hold);
-        return resp.data.pk;
-      })
-      .then((report_pk) => {
-        API.extractSentences(report_pk).then((resp) => {
-          // TODO deal with errors
-          props.setExtractedSentences(resp.data.results);
-          props.setNextSentencePageUrl(resp.data.next);
-        });
-      });
+    API.uploadReport(acceptedFiles[0]).then((resp) => {
+      // TODO deal with errors
+      // TODO set message to show file uploaded and plaintext extracted now extracting sentences
+      props.setReportUrl(
+        `${axapi.defaults.baseURL}${resp.data.pdf.substring(1)}`
+      );
+      console.log(resp.data);
+      props.setReportDetails(resp.data);
+    });
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const {

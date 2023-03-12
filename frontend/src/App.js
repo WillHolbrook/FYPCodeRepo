@@ -1,25 +1,14 @@
 import "./App.css";
 import AnalysisPane from "./components/analysis-pane";
 import ReportUpload from "./components/report-upload";
-import React, { useEffect, useState } from "react";
-import { useCookies } from "react-cookie";
+import React, { useState } from "react";
 
 function App() {
-  const [cookie] = useCookies(["default_num_sentences"]);
   const [reportUrl, setReportUrl] = useState(null);
-  const [extractedSentences, setExtractedSentences] = useState(null);
-  const [nextSentencePageUrl, setNextSentencePageUrl] = useState(null);
-  const [numSentences, setNumSentences] = useState(5);
-  const [buySellHold, setBuySellHold] = useState(null);
+  const [reportDetails, setReportDetails] = useState(null);
+  const [extractionMethod, setExtractionMethod] = useState("tfidf");
 
-  useEffect(() => {
-    if (cookie.default_num_sentences) {
-      const cookie_val = parseInt(cookie.default_num_sentences);
-      if (cookie_val) {
-        setNumSentences(cookie_val);
-      }
-    }
-  }, [cookie]);
+  console.log(reportDetails);
 
   return (
     <div className={"App"}>
@@ -45,38 +34,49 @@ function App() {
                 style={{ padding: "20px" }}
               />
               <ReportUpload
-                setExtractedSentences={setExtractedSentences}
-                setNextSentencePageUrl={setNextSentencePageUrl}
                 setReportUrl={setReportUrl}
-                setBuySellHold={setBuySellHold}
+                setReportDetails={setReportDetails}
                 footer={reportUrl !== null}
               />
             </React.Fragment>
           ) : (
             <ReportUpload
-              setExtractedSentences={setExtractedSentences}
-              setNextSentencePageUrl={setNextSentencePageUrl}
               setReportUrl={setReportUrl}
-              setBuySellHold={setBuySellHold}
+              setReportDetails={setReportDetails}
             />
           )}
         </div>
         <div className={"seperator-bar"} />
-        {extractedSentences ? (
-          <AnalysisPane
-            extractedSentences={extractedSentences}
-            setExtractedSentences={setExtractedSentences}
-            nextSentencePageUrl={nextSentencePageUrl}
-            setNextSentencePageUrl={setNextSentencePageUrl}
-            numSentences={numSentences}
-            setNumSentences={setNumSentences}
-            buySellHold={buySellHold}
-          />
-        ) : (
-          <header className={"App-header"}>
-            <h2>Analysis Will Appear Here</h2>
-          </header>
-        )}
+        <div className={"details-column"}>
+          {reportDetails ? (
+            <AnalysisPane
+              extractionMethod={extractionMethod}
+              reportDetails={reportDetails}
+            />
+          ) : (
+            <header className={"App-header"}>
+              <h2>Analysis Will Appear Here</h2>
+            </header>
+          )}
+          <div className={"input-label-side-by-side"}>
+            <h3>Select an extraction method:</h3>
+            <select
+              style={{ width: "auto" }}
+              id="extraction-method"
+              name="extraction-method"
+              onChange={(evt) => {
+                if (evt.target.value === "tfidf") {
+                  setExtractionMethod("tfidf");
+                } else if (evt.target.value === "bert") {
+                  setExtractionMethod("bert");
+                }
+              }}
+            >
+              <option value={"tfidf"}>TF-IDF</option>
+              <option value={"bert"}>Sentence BERT</option>
+            </select>
+          </div>
+        </div>
       </div>
     </div>
   );

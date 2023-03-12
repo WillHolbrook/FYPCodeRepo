@@ -64,7 +64,7 @@ function ProfilePage() {
         <br />
         <span className={"profile-span"}>TODO apikey2 placeholder</span>
         <br />
-        <div className={"num-sentences"}>
+        <div className={"input-label-side-by-side"}>
           <label>Default Number of Sentences</label>
           <div style={{ width: "4rem" }}>
             <input

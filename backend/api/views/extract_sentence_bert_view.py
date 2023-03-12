@@ -37,6 +37,7 @@ class ReportExtractSentenceBertView(APIView):
             num_sentences=REST_FRAMEWORK["PAGE_SIZE"],
             return_as_list=True,
         )
+        sentences = [{"text": sentence} for sentence in sentences]
         return Response(
             data={"count": len(sentences), "results": sentences},
             status=status.HTTP_200_OK,

@@ -65,7 +65,7 @@ label {
   padding-left: 2rem;
 }
 
-.num-sentences {
+.input-label-side-by-side {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -94,7 +94,8 @@ label {
 }
 
 input,
-textarea {
+textarea,
+select {
   width: 100%;
   padding: 10px;
   margin: 8px 0;
@@ -179,6 +180,7 @@ button:disabled {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  height: 100%;
 }
 
 .file-list {

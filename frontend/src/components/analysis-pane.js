@@ -1,7 +1,38 @@
-import React from "react";
+import { API } from "../api-service";
+import Loading from "./loading";
+import SentenceList from "./sentence-list";
+import React, { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 
-function AnalysisPane(props) {
+function AnalysisPane({ extractionMethod, reportDetails }) {
+  const [cookie] = useCookies(["default_num_sentences"]);
+  const [extractedSentences, setExtractedSentences] = useState(null);
+  const [numSentences, setNumSentences] = useState(5);
+
   // TODO retrieve more sentences if required
+  useEffect(() => {
+    setExtractedSentences(null);
+    let func = API.extractSentences;
+    if (extractionMethod === "bert") {
+      func = API.extractSentencesBERT;
+    }
+
+    func(reportDetails.pk).then((resp) => {
+      // TODO deal with errors
+      console.log(resp);
+      console.log(resp.data.results);
+      setExtractedSentences(resp.data.results);
+    });
+  }, [extractionMethod, reportDetails]);
+
+  useEffect(() => {
+    if (cookie.default_num_sentences) {
+      const cookie_val = parseInt(cookie.default_num_sentences);
+      if (cookie_val) {
+        setNumSentences(cookie_val);
+      }
+    }
+  }, [cookie]);
 
   return (
     <div className={"details-column"}>
@@ -9,33 +40,21 @@ function AnalysisPane(props) {
         <h2>Analysis</h2>
       </header>
       <h3 style={{ marginBottom: 0 }}>
-        Stock Position: <i>{props.buySellHold}</i>
+        Stock Position: <i>{reportDetails.buy_sell_hold}</i>
       </h3>
       <div className={"App-subheading"}>
         <span>(Buy, Sell or Hold)</span>
       </div>
       <h3>Summary:</h3>
-      <ol style={{ flexGrow: 1 }}>
-        {props.extractedSentences.map((sentence, index) => {
-          if (index < props.numSentences) {
-            return <li key={index}>{sentence.text}</li>;
-          } else {
-            return null;
-          }
-        })}
-      </ol>
-      <div className={"num-sentences"}>
-        <h3>Max Number of Summary Sentences</h3>
-        <div style={{ width: "4rem" }}>
-          <input
-            type={"number"}
-            min={1}
-            max={99}
-            defaultValue={props.numSentences}
-            onChange={(evt) => props.setNumSentences(evt.target.value)}
-          />
-        </div>
-      </div>
+      {extractedSentences ? (
+        <SentenceList
+          numSentences={numSentences}
+          setNumSentences={setNumSentences}
+          extractedSentences={extractedSentences}
+        />
+      ) : (
+        <Loading />
+      )}
     </div>
   );
 }
