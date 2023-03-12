@@ -183,7 +183,6 @@ if os.getenv("GROBID_SERVER_HOSTNAME"):
     )
 else:
     GROBID_SERVER = "http://localhost:8020"
-print(GROBID_SERVER)
 
 GROBID_CONFIG = {
     "grobid_server": GROBID_SERVER,
