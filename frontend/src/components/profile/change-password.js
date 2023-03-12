@@ -1,5 +1,5 @@
-import { API } from "../api-service";
-import PassRequire from "./pass-require";
+import { API } from "../../api-service";
+import PassRequire from "../pass-require";
 import React, { useState } from "react";
 
 function ChangePassword() {

@@ -1,5 +1,5 @@
-import { API } from "../api-service";
-import Loading from "./loading";
+import { API } from "../../api-service";
+import Loading from "../utils/loading";
 import SentenceList from "./sentence-list";
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";

@@ -1,4 +1,4 @@
-import { API } from "../api-service";
+import { API } from "../../api-service";
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 

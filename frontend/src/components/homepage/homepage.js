@@ -1,9 +1,8 @@
-import "./App.css";
-import AnalysisPane from "./components/analysis-pane";
-import ReportUpload from "./components/report-upload";
+import AnalysisPane from "./analysis-pane";
+import ReportUpload from "./report-upload";
 import React, { useState } from "react";
 
-function App() {
+function Homepage() {
   const [reportUrl, setReportUrl] = useState(null);
   const [reportDetails, setReportDetails] = useState(null);
   const [extractionMethod, setExtractionMethod] = useState("tfidf");
@@ -82,4 +81,4 @@ function App() {
   );
 }
 
-export default App;
+export default Homepage;
