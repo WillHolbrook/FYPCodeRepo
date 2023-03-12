@@ -34,7 +34,9 @@ class TestExtractSentences(APITestCase):
         self.assertEqual(len(response["results"]), num_returned_sentences)
 
         self.assertIsInstance(response["results"], list)
-        self.assertTrue(all(isinstance(elem, str) for elem in response["results"]))
+        self.assertTrue(all(isinstance(elem, dict) for elem in response["results"]))
+        for sentence in response["results"]:
+            self.assertIsNotNone(sentence.get("text"))
 
     def test_extracting_non_owned_report(self):
         """Test for extracting sentences from an unowned report"""

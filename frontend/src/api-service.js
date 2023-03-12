@@ -60,6 +60,10 @@ export class API {
     );
   }
 
+  static extractSentencesBERT(report_id) {
+    return axapi.post(`api/report_extract_sentence_bert/${report_id}/`);
+  }
+
   static getProfileDetails() {
     return axapi.get(`api/profile/`);
   }
