@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Dict, Iterable, List, Set, Tuple, Union
 
 import numpy as np
-from analyst_report_summarizer.settings import STOPWORDS
+from api.grobid_tfidf_code import STOPWORDS
 from nltk import PorterStemmer, word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem.api import StemmerI

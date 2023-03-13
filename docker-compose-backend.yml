@@ -23,13 +23,6 @@ services:
 
     volumes:
       - .\postgresData:/var/lib/postgresql/data/
-  frontend:
-    image: registry.hub.docker.com/willholbrook/analyst_report_summarizer_frontend:latest
-    container_name: AnalystReportSummarizerFrontend
-    ports:
-      - 8010:80
-    depends_on:
-      - backend
   grobid:
     image: registry.hub.docker.com/grobid/grobid:0.7.2
     container_name: AnalystReportSummarizerGrobid
