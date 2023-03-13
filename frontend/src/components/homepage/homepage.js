@@ -1,7 +1,8 @@
+import { API } from "../../api-service";
 import Loading from "../utils/loading";
 import AnalysisPane from "./analysis-pane";
 import ReportUpload from "./report-upload";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 function Homepage() {
@@ -10,9 +11,23 @@ function Homepage() {
   const [extractionMethod, setExtractionMethod] = useState("tfidf");
   const [loadingReport, setLoadingReport] = useState(false);
   const { state } = useLocation();
-  const { reportPk } = state;
 
-  console.log(reportPk);
+  useEffect(() => {
+    if (state) {
+      console.log(state.reportPk);
+      setLoadingReport(true);
+      API.getReport(state.reportPk)
+        .then((resp) => {
+          if (resp.status === 200) {
+            setReportDetails(resp.data);
+            setReportUrl(resp.data.pdf);
+          }
+        })
+        .finally(() => {
+          setLoadingReport(false);
+        });
+    }
+  }, [state]);
 
   const uploadFooter = (
     <ReportUpload
