@@ -33,6 +33,7 @@ function UploadHistory() {
   const reports_html = reports.map((data) => {
     return (
       <tr key={data.pk} onClick={() => navigate_to_details(data.pk)}>
+        <td>{data.report_name}</td>
         <td>{formatDate(data.upload_datetime)}</td>
         <td>{formatDate(data.last_modified)}</td>
       </tr>
@@ -50,6 +51,7 @@ function UploadHistory() {
         <table className={"history-table"}>
           <thead>
             <tr key={"Header"}>
+              <th>Report Name</th>
               <th>Upload Datetime</th>
               <th>Last Modified Datetime</th>
             </tr>
