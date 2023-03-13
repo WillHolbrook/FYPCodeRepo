@@ -1,13 +1,33 @@
+import { API } from "../../api-service";
 import Loading from "../utils/loading";
 import AnalysisPane from "./analysis-pane";
 import ReportUpload from "./report-upload";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 function Homepage() {
   const [reportUrl, setReportUrl] = useState(null);
   const [reportDetails, setReportDetails] = useState(null);
   const [extractionMethod, setExtractionMethod] = useState("tfidf");
   const [loadingReport, setLoadingReport] = useState(false);
+  const { state } = useLocation();
+
+  useEffect(() => {
+    if (state) {
+      console.log(state.reportPk);
+      setLoadingReport(true);
+      API.getReport(state.reportPk)
+        .then((resp) => {
+          if (resp.status === 200) {
+            setReportDetails(resp.data);
+            setReportUrl(resp.data.pdf);
+          }
+        })
+        .finally(() => {
+          setLoadingReport(false);
+        });
+    }
+  }, [state]);
 
   const uploadFooter = (
     <ReportUpload
@@ -57,7 +77,7 @@ function Homepage() {
         <div className={"App-subheading"}>
           <span>
             Extract important sentences as a summary of the report & extract
-            buy, sell or hold
+            buy, sell or hold.
           </span>
         </div>
       </header>

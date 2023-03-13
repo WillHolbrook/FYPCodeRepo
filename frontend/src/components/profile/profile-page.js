@@ -1,4 +1,4 @@
-import { API, axapi } from "../../api-service";
+import { API } from "../../api-service";
 import UserDetails from "./user-details";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -22,9 +22,7 @@ function ProfilePage() {
     if (acceptedFiles.length === 1) {
       API.updateProfileDetails(acceptedFiles[0]).then((resp) => {
         // TODO deal with errors
-        setProfileImageUrl(
-          `${axapi.defaults.baseURL}${resp.data.profile_image.substring(1)}`
-        );
+        setProfileImageUrl(resp.data.profile_image);
         setCookie("rs_token", cookie.rs_token);
       });
     }
@@ -69,6 +67,7 @@ function ProfilePage() {
 
   const logoutUser = () => {
     removeCookie("rs_token", { path: "/" });
+    window.location.href = "/";
   };
 
   const profilePicture = (

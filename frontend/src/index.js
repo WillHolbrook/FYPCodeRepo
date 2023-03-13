@@ -1,5 +1,6 @@
 import ApiComp from "./components/api-component";
 import Auth from "./components/auth";
+import UploadHistory from "./components/history/history";
 import Homepage from "./components/homepage/homepage";
 import NavBar from "./components/nav/nav-bar";
 import ChangePassword from "./components/profile/change-password";
@@ -27,6 +28,10 @@ function Router() {
     {
       path: "/change_password/",
       element: <ChangePassword />,
+    },
+    {
+      path: "/upload_history/",
+      element: <UploadHistory />,
     },
   ]);
 

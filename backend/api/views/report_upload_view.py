@@ -26,10 +26,14 @@ class UserReportUploadView(APIView):
             If is a valid file returns the details of the created Report model
             HTTP_400_BAD_REQUEST If there isn't a valid file uploaded
         """
-        serializer = UserReportUploadSerializer(data=request.data)
+        serializer = UserReportUploadSerializer(
+            data=request.data, context={"request": request}
+        )
         if serializer.is_valid():
             report = serializer.save(user=request.user)
-            return Response(ReportDetailSerializer(report).data)
+            return Response(
+                ReportDetailSerializer(report, context={"request": request}).data
+            )
         return Response(
             data=serializer.errors,
             status=status.HTTP_400_BAD_REQUEST,

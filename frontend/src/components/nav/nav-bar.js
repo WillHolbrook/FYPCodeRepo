@@ -1,18 +1,37 @@
 import ProfileToken from "./profile-token";
 import Title from "./title";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 
 function NavBar() {
+  const [cookie] = useCookies(["rs_token"]);
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  useEffect(() => {
+    setLoggedIn(!!cookie.rs_token);
+  }, [cookie]);
+
+  const goToUploadHistory = () => {
+    window.location.href = "/upload_history/";
+  };
+
   return (
     <div className={"nav-bar"}>
-      <div className={"profile-token"}>&nbsp;</div>
-      <Title />
-      <ProfileToken
-        username={"Will Holbrook"}
-        profileImageUrl={
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/800px-Image_created_with_a_mobile_phone.png"
-        }
-      />
+      {loggedIn ? (
+        <React.Fragment>
+          <div
+            className={"nav-bar-subheading hover"}
+            onClick={goToUploadHistory}
+            style={{ justifyContent: "flex-start", paddingLeft: "10px" }}
+          >
+            <div className={"nav-bar-link"}>Upload History</div>
+          </div>
+          <Title />
+          <ProfileToken />
+        </React.Fragment>
+      ) : (
+        <Title />
+      )}
     </div>
   );
 }

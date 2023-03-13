@@ -21,7 +21,9 @@ class UserReportExtractSentenceView(APIView, LimitOffsetPagination):
     def _get_paginated_sentence(self, request, sentences: QuerySet[Sentence]):
         """Method to get a paginated response used in both post() and get()"""
         results = self.paginate_queryset(sentences, request, view=self)
-        serializer = SentenceSerializer(results, many=True)
+        serializer = SentenceSerializer(
+            results, context={"request": request}, many=True
+        )
         return self.get_paginated_response(serializer.data)
 
     def post(self, request, report_pk):

@@ -12,6 +12,7 @@ class ReportDetailSerializer(serializers.ModelSerializer):
         model = Report
         fields = [
             "pk",
+            "report_name",
             "pdf",
             "tei_xml",
             "plaintext",
@@ -23,6 +24,7 @@ class ReportDetailSerializer(serializers.ModelSerializer):
         ]
         extra_kwargs = {
             "pk": {"read_only": True},
+            "report_name": {"read_only": True},
             "pdf": {"read_only": True},
             "tei_xml": {"read_only": True},
             "plaintext": {"read_only": True},

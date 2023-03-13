@@ -1,7 +1,7 @@
 import UserDetails from "../profile/user-details";
 import React, { useState } from "react";
 
-function ProfileToken(props) {
+function ProfileToken() {
   const [username, setUsername] = useState(null);
   const defaultProfileImageUrl = "/logo512.png";
   const [profileImageUrl, setProfileImageUrl] = useState(
@@ -14,22 +14,21 @@ function ProfileToken(props) {
   };
 
   return (
-    <div className={"profile-token hover"} onClick={goToProfilePage}>
+    <div
+      className={"nav-bar-subheading profile-token hover"}
+      onClick={goToProfilePage}
+    >
       <UserDetails
         setUsername={setUsername}
         setProfileImageUrl={setProfileImageUrl}
         maxUsernameLength={maxUsernameLength}
       />
-      {username ? (
-        <React.Fragment>
-          <div className={"profile-token-username"}>{username}</div>
-          <img
-            className={"profile-picture"}
-            src={profileImageUrl}
-            alt={"Profile"}
-          />
-        </React.Fragment>
-      ) : null}
+      <div className={"nav-bar-link"}>{username}</div>
+      <img
+        className={"profile-picture"}
+        src={profileImageUrl}
+        alt={"Profile"}
+      />
     </div>
   );
 }

@@ -28,12 +28,14 @@ class ProfileView(APIView):
            If required profile fields are provided returns the details of the updated Profile
            HTTP_400_BAD_REQUEST If required profile fields aren't provided
         """
-        serializer = ProfileSerializer(data=request.data)
+        serializer = ProfileSerializer(data=request.data, context={"request": request})
         if serializer.is_valid():
             profile: Profile = request.user.profile
             profile: Profile = serializer.update(profile, serializer.validated_data)
 
-            return Response(ProfileSerializer(profile).data)
+            return Response(
+                ProfileSerializer(profile, context={"request": request}).data
+            )
 
         return Response(
             data=serializer.errors,
@@ -42,4 +44,8 @@ class ProfileView(APIView):
 
     def get(self, request):
         """Retrieves the profile details of the specified user"""
-        return Response(ProfileSerializer(Profile.objects.get(user=request.user)).data)
+        return Response(
+            ProfileSerializer(
+                Profile.objects.get(user=request.user), context={"request": request}
+            ).data
+        )

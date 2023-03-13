@@ -1,12 +1,12 @@
-import { API, axapi } from "../../api-service";
+import { API } from "../../api-service";
 import { useEffect } from "react";
 import { useCookies } from "react-cookie";
 
 function UserDetails(props) {
-  const [token] = useCookies(["rs_token"]);
+  const [cookie] = useCookies(["rs_token"]);
 
   useEffect(() => {
-    if (token.rs_token) {
+    if (cookie.rs_token) {
       API.getCurrentUser().then((resp) => {
         if (resp.status === 200) {
           if (resp.data.username.length > props.maxUsernameLength) {
@@ -17,22 +17,15 @@ function UserDetails(props) {
           } else {
             props.setUsername(resp.data.username);
           }
-          if (
-            resp.data.profile.profile_image &&
-            resp.data.profile.profile_image[0] === "/"
-          ) {
-            props.setProfileImageUrl(
-              `${
-                axapi.defaults.baseURL
-              }${resp.data.profile.profile_image.substring(1)}` //Used to strip leading `/` from profile image url
-            );
+          if (resp.data.profile.profile_image) {
+            props.setProfileImageUrl(resp.data.profile.profile_image);
           }
         } else {
           console.log("Error", resp);
         }
       });
     }
-  }, [token, props]);
+  }, [cookie, props]);
 
   return undefined;
 }

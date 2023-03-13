@@ -1,4 +1,4 @@
-import { API, axapi } from "../../api-service";
+import { API } from "../../api-service";
 import { faFileArrowUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useCallback } from "react";
@@ -10,9 +10,7 @@ function ReportUpload(props) {
     API.uploadReport(acceptedFiles[0])
       .then((resp) => {
         // TODO deal with errors
-        props.setReportUrl(
-          `${axapi.defaults.baseURL}${resp.data.pdf.substring(1)}`
-        );
+        props.setReportUrl(resp.data.pdf);
         props.setReportDetails(resp.data);
       })
       .finally(() => {

@@ -167,9 +167,12 @@ button:disabled {
   color: #cc0000;
 }
 
-.profile-token {
+.nav-bar-subheading {
   display: flex;
   min-width: 20%;
+}
+
+.profile-token {
   justify-content: flex-end;
 }
 
@@ -182,7 +185,7 @@ button:disabled {
   border-radius: 50%;
 }
 
-.profile-token-username {
+.nav-bar-link {
   margin-top: auto;
   margin-bottom: auto;
   font-size: 1rem;
@@ -215,8 +218,10 @@ button:disabled {
 }
 
 .drag-and-drop-container:hover,
-.drag-active {
+.drag-active,
+table.history-table tbody tr:hover {
   background-color: #353a45;
+  cursor: pointer;
 }
 
 .profile-edit {
@@ -234,4 +239,22 @@ button:disabled {
   opacity: 70%;
   background-color: black;
   cursor: pointer;
+}
+
+table.history-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 2rem;
+}
+
+table.history-table thead tr {
+  font-size: 1.5rem;
+  text-align: left;
+}
+
+table.history-table tbody td {
+  border-top: solid;
+  border-bottom: solid;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
