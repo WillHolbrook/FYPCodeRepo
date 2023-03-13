@@ -253,6 +253,7 @@ table.history-table thead tr {
 }
 
 table.history-table tbody td {
+  border-top: solid;
   border-bottom: solid;
   padding-top: 1rem;
   padding-bottom: 1rem;
