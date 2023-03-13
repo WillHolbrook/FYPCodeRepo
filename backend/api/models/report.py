@@ -20,6 +20,7 @@ class Report(models.Model):
     user = models.ForeignKey(
         get_user_model(), on_delete=models.CASCADE, related_name="reports", null=True
     )
+    report_name = models.CharField(max_length=100, null=False, blank=False)
     pdf = models.FileField(upload_to=f"reports/{user.primary_key}", null=False)
     tei_xml = models.TextField(null=False)
     plaintext = models.TextField(null=True, default=None)
@@ -42,6 +43,9 @@ class Report(models.Model):
         null=True,
         default=None,
     )
+
+    class Meta:
+        ordering = ["-last_modified"]
 
     buy_aliases = {"buy", "overweight", "ow", "po", "posit"}
     sell_aliases = {"sell", "underweight", "uw", "neg"}

@@ -12,6 +12,7 @@ class ReportListSerializer(serializers.ModelSerializer):
         model = Report
         fields = [
             "pk",
+            "report_name",
             "upload_datetime",
             "last_modified",
             "plaintext_datetime",
@@ -19,6 +20,7 @@ class ReportListSerializer(serializers.ModelSerializer):
         ]
         extra_kwargs = {
             "pk": {"read_only": True},
+            "report_name": {"read_only": True},
             "upload_datetime": {"read_only": True},
             "last_modified": {"read_only": True},
             "plaintext_datetime": {"read_only": True},
