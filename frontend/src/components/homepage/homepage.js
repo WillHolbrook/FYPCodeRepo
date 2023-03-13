@@ -77,7 +77,7 @@ function Homepage() {
         <div className={"App-subheading"}>
           <span>
             Extract important sentences as a summary of the report & extract
-            buy, sell or hold
+            buy, sell or hold.
           </span>
         </div>
       </header>
