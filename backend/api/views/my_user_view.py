@@ -19,7 +19,7 @@ class MyUserView(APIView):
     def get(self, request):
         """Retrieves the details of the current user"""
         check_user_not_anon(request)
-        return Response(UserSerializer(request.user).data)
+        return Response(UserSerializer(request.user, context={"request": request}).data)
 
     def put(self, request):
         """Method to update user details"""
@@ -30,7 +30,10 @@ class MyUserView(APIView):
             if request.data.get("username") is not None:
                 user.username = request.data.get("username")
             user.save()
-            return Response(data=UserSerializer(user).data, status=status.HTTP_200_OK)
+            return Response(
+                data=UserSerializer(user, context={"request": request}).data,
+                status=status.HTTP_200_OK,
+            )
         return Response(
             data={"error": "password must not be none"},
             status=status.HTTP_400_BAD_REQUEST,
