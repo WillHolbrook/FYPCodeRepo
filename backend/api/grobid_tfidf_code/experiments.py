@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Dict, Iterable, List, Set, Tuple, Union
 
 import numpy as np
+from analyst_report_summarizer.settings import STOPWORDS
 from nltk import PorterStemmer, word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem.api import StemmerI
@@ -83,9 +84,7 @@ def preprocess_text(
         doc_tokens = word_tokenize(text)
         # Remove Stopwords
         doc_tokens = [
-            doc_token
-            for doc_token in doc_tokens
-            if doc_token not in stopwords.words("english")
+            doc_token for doc_token in doc_tokens if doc_token not in STOPWORDS
         ]
         # Stem Tokens
         doc_tokens = [stemmer.stem(doc_token) for doc_token in doc_tokens]

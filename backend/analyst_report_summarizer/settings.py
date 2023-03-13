@@ -15,6 +15,8 @@ import socket
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+from nltk.corpus import stopwords
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
@@ -197,3 +199,5 @@ X_FRAME_OPTIONS = "ALLOWALL"
 DATETIME_TEST_LEEWAY = 10
 DEFAULT_MAX_PROCESSES = 8
 MIN_REPORTS_MULTIPROCESSING = 10
+
+STOPWORDS = stopwords.words("english")
