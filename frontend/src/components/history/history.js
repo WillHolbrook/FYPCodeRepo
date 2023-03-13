@@ -27,28 +27,9 @@ function UploadHistory() {
   const reports_html = reports.map((data) => {
     return (
       <React.Fragment>
-        <tr key={data.pk} style={{ fontSize: "1rem" }}>
-          {/*, display:"flex", justifyContent:"space-between"*/}
-          <td
-            style={{
-              borderBottom: "solid",
-              paddingRight: 0,
-              paddingTop: "1rem",
-              paddingBottom: "1rem",
-            }}
-          >
-            {formatDate(data.upload_datetime)}
-          </td>
-          <td
-            style={{
-              borderBottom: "solid",
-              paddingRight: 0,
-              paddingTop: "1rem",
-              paddingBottom: "1rem",
-            }}
-          >
-            {formatDate(data.last_modified)}
-          </td>
+        <tr key={data.pk}>
+          <td>{formatDate(data.upload_datetime)}</td>
+          <td>{formatDate(data.last_modified)}</td>
         </tr>
       </React.Fragment>
     );
@@ -58,20 +39,20 @@ function UploadHistory() {
     <div className={"App"}>
       <header className={"App-header"}>
         <h2>Upload History</h2>
-        {loading ? (
-          <Loading />
-        ) : (
-          <table style={{ width: "100%", borderCollapse: "collapse" }}>
-            <thead>
-              <tr>
-                <td>Upload Datetime</td>
-                <td>Last Modified Datetime</td>
-              </tr>
-            </thead>
-            {reports_html}
-          </table>
-        )}
       </header>
+      {loading ? (
+        <Loading />
+      ) : (
+        <table className={"history-table"}>
+          <thead>
+            <tr>
+              <th>Upload Datetime</th>
+              <th>Last Modified Datetime</th>
+            </tr>
+          </thead>
+          <tbody>{reports_html}</tbody>
+        </table>
+      )}
     </div>
   );
 }
