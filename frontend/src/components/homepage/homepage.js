@@ -2,12 +2,17 @@ import Loading from "../utils/loading";
 import AnalysisPane from "./analysis-pane";
 import ReportUpload from "./report-upload";
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 
 function Homepage() {
   const [reportUrl, setReportUrl] = useState(null);
   const [reportDetails, setReportDetails] = useState(null);
   const [extractionMethod, setExtractionMethod] = useState("tfidf");
   const [loadingReport, setLoadingReport] = useState(false);
+  const { state } = useLocation();
+  const { reportPk } = state;
+
+  console.log(reportPk);
 
   const uploadFooter = (
     <ReportUpload

@@ -2,10 +2,12 @@ import { API } from "../../api-service";
 import Loading from "../utils/loading";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function UploadHistory() {
   const [reports, setReports] = useState([]);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setLoading(true);
@@ -24,14 +26,16 @@ function UploadHistory() {
     return moment(date).format("Do MMMM YYYY, HH:mm");
   };
 
+  const navigate_to_details = (reportPk) => {
+    navigate("/homepage", { state: { reportPk: reportPk } });
+  };
+
   const reports_html = reports.map((data) => {
     return (
-      <React.Fragment>
-        <tr key={data.pk}>
-          <td>{formatDate(data.upload_datetime)}</td>
-          <td>{formatDate(data.last_modified)}</td>
-        </tr>
-      </React.Fragment>
+      <tr key={data.pk} onClick={() => navigate_to_details(data.pk)}>
+        <td>{formatDate(data.upload_datetime)}</td>
+        <td>{formatDate(data.last_modified)}</td>
+      </tr>
     );
   });
 
@@ -45,7 +49,7 @@ function UploadHistory() {
       ) : (
         <table className={"history-table"}>
           <thead>
-            <tr>
+            <tr key={"Header"}>
               <th>Upload Datetime</th>
               <th>Last Modified Datetime</th>
             </tr>
