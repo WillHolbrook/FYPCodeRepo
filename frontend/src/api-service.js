@@ -31,7 +31,7 @@ export class API {
     let formData = new FormData();
     formData.append("uploaded_report", reportFile);
     return axapi.post("api/report_upload/", formData, {
-      timeout: 60 * 1000,
+      timeout: 3 * 60 * 1000,
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -51,7 +51,9 @@ export class API {
   }
 
   static extractSentences(report_id) {
-    return axapi.post(`api/report_extract_sentence/${report_id}/`);
+    return axapi.post(`api/report_extract_sentence/${report_id}/`, null, {
+      timeout: 3 * 60 * 1000,
+    });
   }
 
   static retrieveSentences(report_id, limit = 10, offset = 0) {
@@ -61,7 +63,9 @@ export class API {
   }
 
   static extractSentencesBERT(report_id) {
-    return axapi.post(`api/report_extract_sentence_bert/${report_id}/`);
+    return axapi.post(`api/report_extract_sentence_bert/${report_id}/`, null, {
+      timeout: 3 * 60 * 1000,
+    });
   }
 
   static getProfileDetails() {
