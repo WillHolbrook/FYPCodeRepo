@@ -74,9 +74,9 @@ class TestReportList(APITestCase):
 
         list_data = response.data
 
-        self.assertEqual(list_data["count"], 2)
+        self.assertEqual(len(list_data), 2)
 
-        reports_list = list_data["results"]
+        reports_list = list_data
         reports_pk_list = [report.pk for report in self.reports]
         for report in reports_list:
             self.assertIn(report["pk"], reports_pk_list)
@@ -89,8 +89,8 @@ class TestReportList(APITestCase):
 
         response = self.client.get(reverse("reports-list"))
 
-        self.assertEqual(response.data["count"], 0)
-        self.assertEqual(response.data["results"], [])
+        self.assertEqual(len(response.data), 0)
+        self.assertEqual(response.data, [])
 
     def test_non_logged_in_user(self):
         """Test for extracting a report without being logged in"""
