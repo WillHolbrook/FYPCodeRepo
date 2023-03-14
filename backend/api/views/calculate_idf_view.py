@@ -1,15 +1,11 @@
 # -*- coding: utf-8 -*-
 """Module for CalculateIDF"""
+import logging
 import platform
-from multiprocessing.pool import Pool
-from typing import List, Set, Tuple
+from typing import List, Tuple
 
 import numpy as np
-from analyst_report_summarizer.settings import (
-    DEFAULT_MAX_PROCESSES,
-    MIN_REPORTS_MULTIPROCESSING,
-)
-from api.grobid_tfidf_code.experiments import flatten_num_tokens, preprocess_text
+from api.grobid_tfidf_code.experiments import preprocess_text
 from api.models.report import Report
 from api.models.term_idf import TermIDF
 from rest_framework import status
@@ -17,6 +13,8 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
+
+logger = logging.getLogger("django")
 
 
 class CalculateIDF(APIView):
@@ -50,14 +48,9 @@ class CalculateIDF(APIView):
         )
 
     @staticmethod
-    def calculate_idf_for_corpus(
-        max_num_processes: int = DEFAULT_MAX_PROCESSES,
-    ) -> Tuple[int, int]:
+    def calculate_idf_for_corpus() -> Tuple[int, int]:
         """
         calculates the idf of terms from all Report objects marked with the in corpus flag
-
-        Args:
-            max_num_processes: the maximum number of processes used in calculations
 
         Returns:
             A tuple of:
@@ -68,33 +61,43 @@ class CalculateIDF(APIView):
             Report.objects.filter(corpus_flag=True).values_list("id", flat=True)
         )
         num_docs = len(corpus_report_ids)
-        doc_tokens_list: List[Set[str]] = []
+        # doc_tokens_list: List[Set[str]] = []
+        #
+        # num_processes = min(max_num_processes, num_docs)
 
-        num_processes = min(max_num_processes, num_docs)
+        # if (
+        #     platform.system() == "Windows"
+        #     or num_docs < MIN_REPORTS_MULTIPROCESSING
+        #     or True
+        # ):
+        logger.info("Extracting IDF on Windows")
+        doc_tokens = {}
+        for report_id in corpus_report_ids:
+            logger.info("Extracting terms for report pk: %d", report_id)
+            report = Report.objects.get(pk=report_id)
+            if report.plaintext is None:
+                report.extract_plaintext()
+            individual_doc_tokens = preprocess_text(report.plaintext, as_list=False)
+            for token in individual_doc_tokens:
+                if token in doc_tokens:
+                    doc_tokens[token] += 1
+                else:
+                    doc_tokens[token] = 1
+            logger.info("Finished extracting terms for report pk: %d", report_id)
+        # elif platform.system() == "Linux":
+        #     logger.info("Extracting IDF on Linux")
+        #     if num_processes > 0:
+        #         with Pool(num_processes) as pool:
+        #             doc_tokens_list: List[Set[str]] = pool.map(
+        #                 Report.extract_terms, corpus_report_ids
+        #             )
+        #     logger.info("Finished getting doc tokens")
+        #     doc_tokens = flatten_num_tokens(doc_tokens_list)
+        #     logger.info("Finished flattening doc tokens")
+        # else:
+        #     raise OSError("Not running on Linux or Windows platform")
 
-        if platform.system() == "Windows" or num_docs < MIN_REPORTS_MULTIPROCESSING:
-            doc_tokens = {}
-            for report_id in corpus_report_ids:
-                report = Report.objects.get(pk=report_id)
-                if report.plaintext is None:
-                    report.extract_plaintext()
-                individual_doc_tokens = preprocess_text(report.plaintext, as_list=False)
-                for token in individual_doc_tokens:
-                    if token in doc_tokens:
-                        doc_tokens[token] += 1
-                    else:
-                        doc_tokens[token] = 1
-        elif platform.system() == "Linux":
-            if num_processes > 0:
-                with Pool(num_processes) as pool:
-                    doc_tokens_list: List[Set[str]] = pool.map(
-                        Report.extract_terms, corpus_report_ids
-                    )
-
-            doc_tokens = flatten_num_tokens(doc_tokens_list)
-        else:
-            raise OSError("Not running on Linux or Windows platform")
-
+        logger.info("Generating TermIDF models")
         idf_models: List[TermIDF] = []
         for term, frequency in doc_tokens.items():
             # Note we add 1 to the frequency to smooth errors
@@ -105,9 +108,10 @@ class CalculateIDF(APIView):
                     idf=np.log10(num_docs / frequency + 1),
                 )
             )
-
+        logger.info("Finished calculating idf values deleting old idf values")
         TermIDF.objects.all().delete()
         for model in idf_models:
             model.save()
 
+        logger.info("Finished IDF calculation")
         return len(idf_models), num_docs

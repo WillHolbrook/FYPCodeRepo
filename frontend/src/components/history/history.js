@@ -14,7 +14,7 @@ function UploadHistory() {
     API.listReports()
       .then((resp) => {
         if (resp.status === 200) {
-          setReports(resp.data.results);
+          setReports(resp.data);
         }
       })
       .finally(() => {

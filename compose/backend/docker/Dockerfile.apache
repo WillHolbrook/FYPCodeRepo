@@ -19,6 +19,12 @@ ENV GROBID_SERVER grobid
 # Install dependencies, gather all static files and check system
 RUN pip3 install -r requirements.txt
 
+# Make logging directory
+RUN mkdir /var/log/django/ && \
+    chown -R www-data:www-data /var/log/django/
+RUN touch /var/log/django/backend.log && \
+	chown www-data:www-data /var/log/django/backend.log
+
 COPY ./backend /opt/report_summarizer/API/
 RUN python3 /opt/report_summarizer/API/manage.py check
 RUN python3 /opt/report_summarizer/API/manage.py collectstatic --noinput

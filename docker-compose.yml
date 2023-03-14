@@ -12,6 +12,7 @@ services:
       - 8030:80
     volumes:
       - .\backend\media:/opt/report_summarizer/API/media/
+    restart: on-failure
     depends_on:
       - db
       - grobid
@@ -20,7 +21,7 @@ services:
     container_name: AnalystReportSummarizerDatabase
     environment:
       POSTGRES_PASSWORD: postgres
-
+    restart: on-failure
     volumes:
       - .\postgresData:/var/lib/postgresql/data/
   frontend:
@@ -28,6 +29,7 @@ services:
     container_name: AnalystReportSummarizerFrontend
     ports:
       - 8010:80
+    restart: on-failure
     depends_on:
       - backend
   grobid:
@@ -35,3 +37,4 @@ services:
     container_name: AnalystReportSummarizerGrobid
     ports:
       - 8020:8070
+    restart: on-failure

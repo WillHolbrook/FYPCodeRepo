@@ -19,6 +19,7 @@ class ReportViewSet(
     permission_classes = [IsAuthenticated]
     serializer_class = ReportDetailSerializer
     queryset = Report.objects.all()
+    pagination_class = None
 
     action_serializers = {"list": ReportListSerializer}
 
