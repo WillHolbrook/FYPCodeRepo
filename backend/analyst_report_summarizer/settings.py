@@ -198,3 +198,49 @@ X_FRAME_OPTIONS = "ALLOWALL"
 DATETIME_TEST_LEEWAY = 10
 DEFAULT_MAX_PROCESSES = 8
 MIN_REPORTS_MULTIPROCESSING = 10
+
+if DEBUG:
+    LOGGING = {
+        "version": 1,
+        "formatters": {
+            "simple": {"format": "%(levelname)s %(message)s"},
+        },
+        "handlers": {
+            "console": {
+                "level": "DEBUG",
+                "class": "logging.StreamHandler",
+                "formatter": "simple",
+            }
+        },
+        "loggers": {
+            "django": {
+                "handlers": ["console"],
+                "level": "DEBUG",
+                "propagate": True,
+            },
+        },
+    }
+else:
+    LOGGING = {
+        "version": 1,
+        "formatters": {
+            "verbose": {
+                "format": "%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s"
+            }
+        },
+        "handlers": {
+            "file": {
+                "level": "DEBUG",
+                "class": "logging.FileHandler",
+                "filename": "/var/log/django/backend.log",
+                "formatter": "verbose",
+            },
+        },
+        "loggers": {
+            "django": {
+                "handlers": ["file"],
+                "level": "DEBUG",
+                "propagate": True,
+            },
+        },
+    }

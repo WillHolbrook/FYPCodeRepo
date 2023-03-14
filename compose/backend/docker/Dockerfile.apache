@@ -36,6 +36,12 @@ RUN mkdir /var/www/nltk_data/ && \
 RUN mkdir /var/www/.cache/ && \
     chown -R www-data:www-data /var/www/.cache/
 
+# Make logging directory
+RUN mkdir /var/log/django/ && \
+    chown -R www-data:www-data /var/log/django/
+RUN touch /var/log/django/backend.log && \
+	chmod 770 /var/log/django/backend.log
+
 # Configure permissions and enable site
 RUN chown -R www-data:www-data /opt/report_summarizer/API && \
 	chmod +x /opt/report_summarizer/API/analyst_report_summarizer/wsgi.py && \

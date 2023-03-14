@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """Module for CalculateIDF"""
+import logging
 import platform
 from multiprocessing.pool import Pool
 from typing import List, Set, Tuple
@@ -17,6 +18,8 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
+
+logger = logging.getLogger(__name__)
 
 
 class CalculateIDF(APIView):
@@ -73,6 +76,7 @@ class CalculateIDF(APIView):
         num_processes = min(max_num_processes, num_docs)
 
         if platform.system() == "Windows" or num_docs < MIN_REPORTS_MULTIPROCESSING:
+            logger.info("Extracting IDF on Windows")
             doc_tokens = {}
             for report_id in corpus_report_ids:
                 report = Report.objects.get(pk=report_id)
@@ -85,13 +89,15 @@ class CalculateIDF(APIView):
                     else:
                         doc_tokens[token] = 1
         elif platform.system() == "Linux":
+            logger.info("Extracting IDF on Linux")
             if num_processes > 0:
                 with Pool(num_processes) as pool:
                     doc_tokens_list: List[Set[str]] = pool.map(
                         Report.extract_terms, corpus_report_ids
                     )
-
+            logger.info("Finished getting doc tokens")
             doc_tokens = flatten_num_tokens(doc_tokens_list)
+            logger.info("Finished flattening doc tokens")
         else:
             raise OSError("Not running on Linux or Windows platform")
 
@@ -105,9 +111,10 @@ class CalculateIDF(APIView):
                     idf=np.log10(num_docs / frequency + 1),
                 )
             )
-
+        logger.info("Finished calculating idf values deleting old idf values")
         TermIDF.objects.all().delete()
         for model in idf_models:
             model.save()
 
+        logger.info("Finished IDF calculation")
         return len(idf_models), num_docs
