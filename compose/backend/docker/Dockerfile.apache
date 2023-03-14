@@ -14,6 +14,7 @@ RUN python3 -m venv $VIRTUAL_ENV
 ENV PATH "$VIRTUAL_ENV/bin:$PATH"
 ENV DEBUG False
 ENV GROBID_SERVER grobid
+ENV TORCH_HOME /var/www/.cache/
 
 
 # Install dependencies, gather all static files and check system
