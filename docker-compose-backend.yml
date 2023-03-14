@@ -12,6 +12,7 @@ services:
       - 8030:80
     volumes:
       - .\backend\media:/opt/report_summarizer/API/media/
+    restart: on-failure
     depends_on:
       - db
       - grobid
@@ -20,11 +21,12 @@ services:
     container_name: AnalystReportSummarizerDatabase
     environment:
       POSTGRES_PASSWORD: postgres
-
+    restart: on-failure
     volumes:
       - .\postgresData:/var/lib/postgresql/data/
   grobid:
     image: registry.hub.docker.com/grobid/grobid:0.7.2
     container_name: AnalystReportSummarizerGrobid
+    restart: on-failure
     ports:
       - 8020:8070
