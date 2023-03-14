@@ -23,7 +23,6 @@ function ProfilePage() {
       API.updateProfileDetails(acceptedFiles[0]).then((resp) => {
         // TODO deal with errors
         setProfileImageUrl(resp.data.profile_image);
-        setCookie("rs_token", cookie.rs_token);
       });
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
