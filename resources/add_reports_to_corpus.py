@@ -10,8 +10,18 @@ headers = {
 response = requests.request("GET", url, headers=headers, data=payload)
 
 report_list = response.json()
+i = 0
+
+print(report_list)
 
 for report in report_list:
     url = f"http://localhost:8030/api/add_to_corpus/{report['pk']}/"
-    print(url)
+    # print(url)
     response = requests.request("POST", url, headers=headers, data=payload)
+    i += 1
+    print(i)
+
+    if response.status_code != 200:
+        print(report)
+        print(response.text)
+        print(response.status_code)
