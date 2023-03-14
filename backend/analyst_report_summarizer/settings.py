@@ -207,7 +207,7 @@ if DEBUG:
         },
         "handlers": {
             "console": {
-                "level": "DEBUG",
+                "level": "INFO",
                 "class": "logging.StreamHandler",
                 "formatter": "simple",
             }
@@ -215,7 +215,7 @@ if DEBUG:
         "loggers": {
             "django": {
                 "handlers": ["console"],
-                "level": "DEBUG",
+                "level": "INFO",
                 "propagate": True,
             },
         },
@@ -230,7 +230,7 @@ else:
         },
         "handlers": {
             "file": {
-                "level": "DEBUG",
+                "level": "INFO",
                 "class": "logging.FileHandler",
                 "filename": "/var/log/django/backend.log",
                 "formatter": "verbose",
@@ -239,7 +239,7 @@ else:
         "loggers": {
             "django": {
                 "handlers": ["file"],
-                "level": "DEBUG",
+                "level": "INFO",
                 "propagate": True,
             },
         },
