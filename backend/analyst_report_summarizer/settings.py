@@ -15,6 +15,7 @@ import socket
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
@@ -197,3 +198,49 @@ X_FRAME_OPTIONS = "ALLOWALL"
 DATETIME_TEST_LEEWAY = 10
 DEFAULT_MAX_PROCESSES = 8
 MIN_REPORTS_MULTIPROCESSING = 10
+
+if DEBUG:
+    LOGGING = {
+        "version": 1,
+        "formatters": {
+            "simple": {"format": "%(levelname)s %(message)s"},
+        },
+        "handlers": {
+            "console": {
+                "level": "INFO",
+                "class": "logging.StreamHandler",
+                "formatter": "simple",
+            }
+        },
+        "loggers": {
+            "django": {
+                "handlers": ["console"],
+                "level": "INFO",
+                "propagate": True,
+            },
+        },
+    }
+else:
+    LOGGING = {
+        "version": 1,
+        "formatters": {
+            "verbose": {
+                "format": "%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s"
+            }
+        },
+        "handlers": {
+            "file": {
+                "level": "INFO",
+                "class": "logging.FileHandler",
+                "filename": "/var/log/django/backend.log",
+                "formatter": "verbose",
+            },
+        },
+        "loggers": {
+            "django": {
+                "handlers": ["file"],
+                "level": "INFO",
+                "propagate": True,
+            },
+        },
+    }

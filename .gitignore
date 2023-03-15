@@ -252,6 +252,7 @@ fabric.properties
 /resources/input_pdfs
 /resources/output_tei_xml
 /resources/output_txt
+/resources/validated-reports
 
 /django-angularjs-web-development/
 /backend/media/

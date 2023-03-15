@@ -1,0 +1,10 @@
+version: '3.8'
+volumes:
+  postgresData:
+services:
+  frontend:
+    image: registry.hub.docker.com/willholbrook/analyst_report_summarizer_frontend:latest
+    container_name: AnalystReportSummarizerFrontend
+    restart: on-failure
+    ports:
+      - 8010:80
