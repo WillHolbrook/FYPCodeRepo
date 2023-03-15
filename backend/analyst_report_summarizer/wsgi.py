@@ -14,8 +14,10 @@ import sys
 
 sys.path.append("/opt/report_summarizer/API/")
 
+from analyst_report_summarizer.startup import run
 from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "analyst_report_summarizer.settings")
+run()
 
 application = get_wsgi_application()
