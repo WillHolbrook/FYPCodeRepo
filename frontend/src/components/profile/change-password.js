@@ -9,6 +9,8 @@ function ChangePassword() {
 
   const isDisabled = !passwordValid || password.length === 0;
 
+  document.title = "Analyst Report Summarizer";
+
   const goToProfilePage = () => {
     window.location.href = "/profile/";
   };

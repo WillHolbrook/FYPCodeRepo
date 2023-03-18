@@ -12,6 +12,8 @@ function Homepage() {
   const [loadingReport, setLoadingReport] = useState(false);
   const { state } = useLocation();
 
+  document.title = "Analyst Report Summarizer";
+
   useEffect(() => {
     if (state) {
       console.log(state.reportPk);
