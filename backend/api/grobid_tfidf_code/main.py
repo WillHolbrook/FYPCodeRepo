@@ -60,7 +60,21 @@ def extract_text_from_xml_file(
 
 
 def extract_text_from_element_tree(root: ET.Element) -> str:
-    text: str = ". ".join(root.itertext())
+    text = root.find(
+        "{http://www.tei-c.org/ns/1.0}teiHeader/{http://www.tei-c.org/ns/1.0}fileDesc/{http://www.tei-c.org/ns/1.0}titleStmt/{http://www.tei-c.org/ns/1.0}title"
+    ).text
+    text: str = (
+        text
+        + ". "
+        + ". ".join(root.find("{http://www.tei-c.org/ns/1.0}text").itertext())
+    )
+    re1 = re.compile(
+        re.escape(
+            "This document is being provided for the exclusive use of WILLIAM HOLBROOK at UNIVERSITY OF BIRMINGHAM."
+        ),
+        re.IGNORECASE,
+    )
+    text = re1.sub("", text)
     text = re.sub(r"(\s\.)+", "", text)
     text = re.sub(r"\s+", " ", text)
     text = re.sub(r"\s*?(\n)\s*", ".\n", text)
