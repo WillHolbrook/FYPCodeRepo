@@ -156,13 +156,14 @@ CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",  # Dev
     "http://fypfrontend.willholbrook.com",  # Prod
     "https://fypfrontend.willholbrook.com",  # Prod
+    "http://74.235.227.137",  # Prod
 ]
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 CSRF_COOKIE_NAME = "XSRF-TOKEN"
 CSRF_HEADER_NAME = "HTTP_X_XSRF_TOKEN"
 
-CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_ALLOW_ALL = True
 CORS_ORIGIN_WHITELIST = CSRF_TRUSTED_ORIGINS
 
 REST_FRAMEWORK = {
