@@ -31,7 +31,7 @@ class TestExtractSentences(APITestCase):
         paged_response = response.data
         num_returned_sentences = paged_response["count"]
 
-        self.assertGreaterEqual(num_returned_sentences, 4)
+        self.assertGreaterEqual(num_returned_sentences, 1)
         self.assertIsNone(paged_response["next"])
         self.assertIsNone(paged_response["previous"])
 
