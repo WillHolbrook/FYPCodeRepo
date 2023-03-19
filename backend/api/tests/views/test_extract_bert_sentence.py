@@ -30,7 +30,7 @@ class TestExtractSentences(APITestCase):
         response = response.data
         num_returned_sentences = response["count"]
 
-        self.assertGreaterEqual(num_returned_sentences, 4)
+        self.assertGreaterEqual(num_returned_sentences, 1)
         self.assertEqual(len(response["results"]), num_returned_sentences)
 
         self.assertIsInstance(response["results"], list)

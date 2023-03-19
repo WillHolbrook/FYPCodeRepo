@@ -10,6 +10,8 @@ function Auth() {
   const [cookie, setCookie] = useCookies(["rs_token"]);
   const [passwordValid, setPasswordValid] = useState(false);
 
+  document.title = "Analyst Report Summarizer";
+
   useEffect(() => {
     if (cookie.rs_token) {
       window.location.href = "/homepage/";

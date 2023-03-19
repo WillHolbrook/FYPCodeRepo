@@ -18,6 +18,8 @@ function ProfilePage() {
   );
   const defaultNumSentences = 5;
 
+  document.title = "Analyst Report Summarizer";
+
   const onDrop = useCallback((acceptedFiles) => {
     if (acceptedFiles.length === 1) {
       API.updateProfileDetails(acceptedFiles[0]).then((resp) => {

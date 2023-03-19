@@ -9,6 +9,8 @@ function UploadHistory() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+  document.title = "Analyst Report Summarizer";
+
   useEffect(() => {
     setLoading(true);
     API.listReports()
