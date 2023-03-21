@@ -17,6 +17,7 @@ class ReportListSerializer(serializers.ModelSerializer):
             "last_modified",
             "plaintext_datetime",
             "sentence_datetime",
+            "buy_sell_hold",
         ]
         extra_kwargs = {
             "pk": {"read_only": True},
@@ -25,4 +26,5 @@ class ReportListSerializer(serializers.ModelSerializer):
             "last_modified": {"read_only": True},
             "plaintext_datetime": {"read_only": True},
             "sentence_datetime": {"read_only": True},
+            "buy_sell_hold": {"read_only": True},
         }
