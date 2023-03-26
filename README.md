@@ -8,6 +8,33 @@
 
 ## External Dependencies and Acknowledgements
 
+- Python - 3.8.10
+- Node - 18.12.1
+
+### Python Dependencies
+
+_This project makes use of multiple python modules some of which are in general,
+some are used for development only and some are used for evaluation only and
+have been listed as such in the following._
+
+#### Production Modules
+
+
+#### Production Code Adapted For Use
+#### Development Modules
+#### Evaluation Modules
+### Node Dependencies
+
+_This project makes use of multiple node packages some of which are in general,
+and some are used for development only and have been listed as such in the following._
+
+#### Production Packages
+#### Development Packages
+### Docker Images
+### GitHub Actions
+### Pre-Commit Hooks
+
+
 ## Development Tools
 
 ### Pre-commit Hooks
