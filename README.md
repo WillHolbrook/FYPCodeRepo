@@ -42,9 +42,27 @@ at [https://github.com/kermitt2/grobid_client_python](https://github.com/kermitt
 
 #### Development Modules
 
+| Module        | Version | Link                                                                               |
+|---------------|---------|------------------------------------------------------------------------------------|
+| pytest        | 7.2.1   | [https://pypi.org/project/pytest/](https://pypi.org/project/pytest/)               |
+| black         | 23.1.0  | [https://pypi.org/project/black/](https://pypi.org/project/black/)                 |
+| coverage      | 7.2.0   | [https://pypi.org/project/coverage/](https://pypi.org/project/coverage/)           |
+| pre-commit    | 3.1.0   | [https://pypi.org/project/pre-commit/](https://pypi.org/project/pre-commit/)       |
+| pylint        | 2.16.2  | [https://pypi.org/project/pylint/](https://pypi.org/project/pylint/)               |
+| pylint-django | 2.5.3   | [https://pypi.org/project/pylint-django/](https://pypi.org/project/pylint-django/) |
+
 
 
 #### Evaluation Modules
+
+| Module       | Version | Link                                                                             |
+|--------------|---------|----------------------------------------------------------------------------------|
+| requests     | 2.28.2  | [https://pypi.org/project/requests/](https://pypi.org/project/requests/)         |
+| pandas       | 1.5.3   | [https://pypi.org/project/pandas/](https://pypi.org/project/pandas/)             |
+| seaborn      | 0.12.2  | [https://pypi.org/project/seaborn/](https://pypi.org/project/seaborn/)           |
+| scikit-learn | 1.2.2   | [https://pypi.org/project/scikit-learn/](https://pypi.org/project/scikit-learn/) |
+
+
 ### Node Dependencies
 
 _This project makes use of multiple node packages some of which are in general,
