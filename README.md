@@ -128,10 +128,24 @@ As Part of this project a number of docker images have been used as a base and t
 | postgres                              | latest    | [https://hub.docker.com/layers/library/postgres/latest/images/sha256-739e77524f4036dd45e09368cefed617780bb24eca6c4aa9b0b431c7c0b76bca?context=explore](https://hub.docker.com/layers/library/postgres/latest/images/sha256-739e77524f4036dd45e09368cefed617780bb24eca6c4aa9b0b431c7c0b76bca?context=explore)           |
 | registry.hub.docker.com/grobid/grobid | 0.7.2     | [https://registry.hub.docker.com/layers/grobid/grobid/0.7.2/images/sha256-a318e685dbf597a9b6dd1c5e03cc6b41d9dcd2f6b43629a5ad41bb0ba5c238aa?context=explore](https://registry.hub.docker.com/layers/grobid/grobid/0.7.2/images/sha256-a318e685dbf597a9b6dd1c5e03cc6b41d9dcd2f6b43629a5ad41bb0ba5c238aa?context=explore) |
 
-
 ### GitHub Actions
+
+As part of the CI/CD pipelines this project makes use of some pre-made GitHub
+actions listed below
+
+| Name | Version | Link |
+|------|---------|------|
+|      |         |      |
+
 ### Pre-Commit Hooks
 
+To ensure high code quality pre-commit hooks are used in this project the description
+of how to use them can be found later in this file. Below is a table of used pre-commit hooks
+and their versions.
+
+| Name | Version | Link |
+|------|---------|------|
+|      |         |      |
 
 ## Development Tools
 
