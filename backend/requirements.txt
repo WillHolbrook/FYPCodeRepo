@@ -1,5 +1,5 @@
-Django==4.1.7
-Pillow==9.4.0
+Django~=4.1.7
+Pillow~=9.4.0
 django-cors-headers~=3.13.0
 djangorestframework~=3.14.0
 djangorestframework-api-key~=2.3.0
