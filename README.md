@@ -10,6 +10,23 @@
 
 - Python - 3.8.10
 - Node - 18.12.1
+- Docker/Docker Desktop
+  - Client
+    - Cloud integration - v1.0.31
+    - Version - 20.10.23
+    - API version - 1.41
+    - Go version - go1.18.10
+  - Server: Docker Desktop 4.17.1 (101757)
+    - Engine
+      - Version - 20.10.23
+      - API version - 1.41 (minimum version 1.12)
+      - Go version - go1.18.10
+    - containerd
+      - Version - 1.6.18
+    - runc
+      - Version - 1.1.4
+    - docker-init
+      - Version - 0.19.0
 
 ### Python Dependencies
 
