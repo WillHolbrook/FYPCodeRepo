@@ -1,0 +1,5 @@
+FROM registry.hub.docker.com/willholbrook/analyst_report_summarizer_combined:latest
+
+COPY ./backend/media /opt/report_summarizer/API/media/
+
+RUN chown -R www-data:www-data /opt/report_summarizer/API/media/
