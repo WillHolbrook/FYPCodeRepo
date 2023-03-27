@@ -3,7 +3,7 @@ volumes:
   postgresData:
 services:
   backend:
-    image: willholbrook/analyst_report_summarizer_combined
+    image: registry.hub.docker.com/willholbrook/analyst_report_summarizer_combined
 #    image: registry.hub.docker.com/willholbrook/analyst_report_summarizer_combined:latest
     container_name: AnalystReportSummarizerCombined
     environment:
@@ -19,7 +19,7 @@ services:
       - grobid
   db:
     image: postgres
-    container_name: 2AnalystReportSummarizerDatabase
+    container_name: AnalystReportSummarizerDatabase
     environment:
       POSTGRES_PASSWORD: postgres
     restart: on-failure
