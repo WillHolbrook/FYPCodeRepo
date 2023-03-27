@@ -2,9 +2,26 @@
 
 ## Deployment Instructions
 
-### Development Deployment
-
 ### Production Deployment
+
+To deploy a production instance you first need to have Docker installed instructions on
+how to install Docker can be found [here](https://docs.docker.com/get-docker/).
+[https://docs.docker.com/get-docker/](https://docs.docker.com/get-docker/)
+
+Once Docker has successfully been installed open a terminal in the root of the repository
+and run `docker-compose -f .\docker-compose-combined-populated.yml up` to run a copy of
+the server with the databases populated and a combined frontend and backend.
+
+Once the server is running you can access the project at [localhost:8030]
+(http://localhost:8030). Where some users already exist and are listed in the following
+table. But you can also create your own.
+
+| Username                | Password                | Description                                                                              |
+|-------------------------|-------------------------|------------------------------------------------------------------------------------------|
+| test_gold_user          | Gold007!                | An account that has all of the gold standard reports uploaded in (contains duplicates)   |
+| test_superuser_username | test_superuser_password | A Django Admin account which can be used at _website_/admin to perform admin activitiees |
+| test_user_username      | test_user_username      | A simple non-staff Django Account                                                        |
+| DemoUser                | DemoPass1!              | A demo account which contains interesting reports with particularly useful summaries     |
 
 ## External Dependencies and Acknowledgements
 
