@@ -3,8 +3,6 @@ run-name: push-from-github-to-gitlab
 on:
   push:
     branches: [ develop ]
-  pull_request:
-    branches: [ develop ]
 jobs:
   push-to-github:
     runs-on: ubuntu-latest
