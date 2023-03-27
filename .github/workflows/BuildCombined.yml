@@ -1,0 +1,18 @@
+name: build-combined-image
+run-name: build-combined-image
+on:
+  push:
+    branches: [ develop ]
+jobs:
+  push-to-github:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build Docker Image
+        working-directory: .
+        env:
+          RegistryImage: willholbrook
+          ImageName: analyst_report_summarizer_combined
+        run: |
+          docker build --tag $RegistryImage/$ImageName --file="compose/combined/docker/Dockerfile.apache" .
+          docker push $RegistryImage/$ImageName

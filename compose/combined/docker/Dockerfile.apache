@@ -1,0 +1,78 @@
+FROM node:latest AS build
+WORKDIR /build
+
+COPY ./frontend/package.json package.json
+COPY ./frontend/package-lock.json package-lock.json
+RUN npm ci
+
+COPY ./frontend/public/ public
+COPY ./frontend/src/ src
+ENV REACT_APP_BASE_URL http://willholbrook.com/
+RUN npm run build
+
+FROM ubuntu:20.04 AS BASE
+ENV TZ Europe/London
+WORKDIR /opt/report_summarizer/API/
+
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+RUN apt update && apt install apache2 python3 python3-pip python3-venv libapache2-mod-wsgi-py3 -y
+RUN python3 --version
+
+COPY ./backend/requirements.txt /opt/report_summarizer/API/requirements.txt
+
+# Set up a python virtual environment for use and set it to the default
+ENV VIRTUAL_ENV /opt/report_summarizer/venv
+RUN python3 -m venv $VIRTUAL_ENV
+ENV PATH "$VIRTUAL_ENV/bin:$PATH"
+ENV DEBUG False
+ENV GROBID_SERVER grobid
+ENV TORCH_HOME /var/www/.cache/torch
+ENV HF_HOME /var/www/.cache/huggingface
+ENV NLTK_DATA_DIR /var/www/nltk_data
+
+
+# Install dependencies, gather all static files and check system
+RUN pip3 install -r requirements.txt
+
+# Make logging directory
+RUN mkdir /var/log/django/ && \
+    chown -R www-data:www-data /var/log/django/
+RUN touch /var/log/django/backend.log && \
+	chown www-data:www-data /var/log/django/backend.log
+
+RUN mkdir /var/www/nltk_data/ && \
+    chown -R www-data:www-data /var/www/nltk_data/
+
+RUN mkdir /var/www/.cache/ && \
+    chown -R www-data:www-data /var/www/.cache/
+
+RUN python3 -c 'from summarizer import Summarizer; model = Summarizer()'
+
+COPY ./backend /opt/report_summarizer/API/
+RUN python3 /opt/report_summarizer/API/manage.py check
+RUN python3 /opt/report_summarizer/API/manage.py collectstatic --noinput
+
+# Copy apache config + keys into place
+COPY compose/combined/apache_config_files/ /etc/apache2/sites-available/
+
+# Ensure that the db.sqlite3 file exists and www-data can write to it
+RUN touch /opt/report_summarizer/API/db.sqlite3 && \
+	chmod 770 /opt/report_summarizer/API/db.sqlite3
+
+# Copy built files
+COPY --from=build /build/build/ /usr/local/www/frontend/documents
+
+# Configure permissions and enable site
+RUN a2dissite 000-default && \
+ 	a2ensite Frontend && \
+	a2ensite API && \
+ 	a2enmod rewrite && \
+ 	a2enmod proxy_http
+
+
+# Expose HTTP and HTTPS
+EXPOSE 80/tcp
+EXPOSE 443/tcp
+
+# Docker containers only run whilst main process is ongoing, so apache must run in the foreground
+CMD apachectl -D FOREGROUND
