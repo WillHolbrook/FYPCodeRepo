@@ -47,6 +47,9 @@ RUN mkdir /var/www/.cache/ && \
 
 RUN python3 -c 'from summarizer import Summarizer; model = Summarizer()'
 
+RUN mkdir /opt/report_summarizer/API/media/ && \
+    chown -R www-data:www-data /opt/report_summarizer/API/media/
+
 COPY ./backend /opt/report_summarizer/API/
 RUN python3 /opt/report_summarizer/API/manage.py check
 RUN python3 /opt/report_summarizer/API/manage.py collectstatic --noinput

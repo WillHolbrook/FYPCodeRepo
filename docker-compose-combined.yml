@@ -3,8 +3,7 @@ volumes:
   postgresData:
 services:
   backend:
-    image: registry.hub.docker.com/willholbrook/analyst_report_summarizer_combined
-#    image: registry.hub.docker.com/willholbrook/analyst_report_summarizer_combined:latest
+    image: registry.hub.docker.com/willholbrook/analyst_report_summarizer_combined:latest
     container_name: AnalystReportSummarizerCombined
     environment:
       DJANGO_DATABASE_TYPE: postgres
@@ -29,5 +28,3 @@ services:
     image: registry.hub.docker.com/grobid/grobid:0.7.2
     container_name: 2AnalystReportSummarizerGrobid
     restart: on-failure
-    ports:
-      - 8020:8070

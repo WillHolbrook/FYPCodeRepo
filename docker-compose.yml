@@ -35,6 +35,4 @@ services:
   grobid:
     image: registry.hub.docker.com/grobid/grobid:0.7.2
     container_name: AnalystReportSummarizerGrobid
-    ports:
-      - 8020:8070
     restart: on-failure
