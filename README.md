@@ -133,9 +133,15 @@ As Part of this project a number of docker images have been used as a base and t
 As part of the CI/CD pipelines this project makes use of some pre-made GitHub
 actions listed below
 
-| Name | Version | Link |
-|------|---------|------|
-|      |         |      |
+| Name                        | Version | Link                                                                                                                                     |
+|-----------------------------|---------|------------------------------------------------------------------------------------------------------------------------------------------|
+| ssh-setup-action            | v2      | [https://github.com/marketplace/actions/ssh-setup](https://github.com/marketplace/actions/ssh-setup)                                     |
+| checkout                    | v3      | [https://github.com/marketplace/actions/checkout](https://github.com/marketplace/actions/checkout)                                       |
+| setup-python                | v4.5.0  | [https://github.com/marketplace/actions/setup-python](https://github.com/marketplace/actions/setup-python)                               |
+| upload-artifact             | v3.1.2  | [https://github.com/marketplace/actions/upload-a-build-artifact](https://github.com/marketplace/actions/upload-a-build-artifact)         |
+| CodeCoverageSummary         | v1.3.0  | [https://github.com/marketplace/actions/code-coverage-summary](https://github.com/marketplace/actions/code-coverage-summary)             |
+| sticky-pull-request-comment | v2.5.0  | [https://github.com/marketplace/actions/sticky-pull-request-comment](https://github.com/marketplace/actions/sticky-pull-request-comment) |
+| login-action                | v2.1.0  | [https://github.com/marketplace/actions/docker-login](https://github.com/marketplace/actions/docker-login)                               |
 
 ### Pre-Commit Hooks
 
@@ -143,9 +149,18 @@ To ensure high code quality pre-commit hooks are used in this project the descri
 of how to use them can be found later in this file. Below is a table of used pre-commit hooks
 and their versions.
 
-| Name | Version | Link |
-|------|---------|------|
-|      |         |      |
+| Name                    | Version   | Link                                                                                             |
+|-------------------------|-----------|--------------------------------------------------------------------------------------------------|
+| trailing-whitespace     | v3.2.0    | [https://github.com/pre-commit/pre-commit-hooks](https://github.com/pre-commit/pre-commit-hooks) |
+| end-of-file-fixer       | v3.2.0    | [https://github.com/pre-commit/pre-commit-hooks](https://github.com/pre-commit/pre-commit-hooks) |
+| check-yaml              | v3.2.0    | [https://github.com/pre-commit/pre-commit-hooks](https://github.com/pre-commit/pre-commit-hooks) |
+| check-added-large-files | v3.2.0    | [https://github.com/pre-commit/pre-commit-hooks](https://github.com/pre-commit/pre-commit-hooks) |
+| fix-encoding-pragma     | v3.2.0    | [https://github.com/pre-commit/pre-commit-hooks](https://github.com/pre-commit/pre-commit-hooks) |
+| black                   | 22.10.0   | [https://github.com/psf/black](https://github.com/psf/black)                                     |
+| isort                   | 5.12.0    | [https://github.com/PyCQA/isort](https://github.com/PyCQA/isort)                                 |
+| prettier                | 'v2.7.1'  | [https://github.com/pre-commit/mirrors-prettier](https://github.com/pre-commit/mirrors-prettier) |
+| eslint                  | 'v8.33.0' | [https://github.com/pre-commit/mirrors-eslint](https://github.com/pre-commit/mirrors-eslint)     |
+
 
 ## Development Tools
 
