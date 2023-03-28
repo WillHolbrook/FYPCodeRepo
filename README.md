@@ -4,7 +4,9 @@
 
 ### Production Deployment
 
-To deploy a production instance you first need to have Docker installed instructions on
+A live production of the website can be found at [http://willholbrook.com/](http://willholbrook.com/)
+
+If instead you want to deploy a production instance yourself you first need to have Docker installed instructions on
 how to install Docker can be found [here](https://docs.docker.com/get-docker/).
 [https://docs.docker.com/get-docker/](https://docs.docker.com/get-docker/)
 
@@ -22,6 +24,31 @@ table. But you can also create your own.
 | test_superuser_username | test_superuser_password | A Django Admin account which can be used at _website_/admin to perform admin activitiees |
 | test_user_username      | test_user_username      | A simple non-staff Django Account                                                        |
 | DemoUser                | DemoPass1!              | A demo account which contains interesting reports with particularly useful summaries     |
+
+If you want to access the website from other devices/over the internet you need to provide
+access to the computer the docker containers are running on at port `8030`.
+
+To run the container on a port different to `8030` you can go into the file
+[./docker-compose-combined-populated.yml](./docker-compose-combined-populated.yml)
+and edit line 12 to be the port you want the container to run on instead of `8030`.
+For example change the following
+```
+10    ...
+11    ports:
+12      - 8030:80
+13    ...
+```
+
+to
+
+```
+10    ...
+11    ports:
+12      - 80:80
+13    ...
+```
+
+to run the website on port 80
 
 ## External Dependencies and Acknowledgements
 
