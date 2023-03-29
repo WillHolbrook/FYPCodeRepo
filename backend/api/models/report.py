@@ -71,7 +71,6 @@ class Report(models.Model):
 
     def extract_buy_sell_hold(self) -> None:
         """Method to extract buy sell hold from a given report"""
-        # self.buy_sell_hold = "Buy"
         tokens = preprocess_text(self.plaintext, as_list=True)
         term_frequency_dict = flatten_num_tokens([tokens])
         num_buy_aliases = 0
@@ -101,5 +100,5 @@ class Report(models.Model):
         if self.plaintext is None:
             self.plaintext = extract_text_from_element_tree(ET.fromstring(self.tei_xml))
             self.plaintext_datetime = timezone.now()
-            self.extract_buy_sell_hold()
+        self.extract_buy_sell_hold()
         super().save(*args, **kwargs)

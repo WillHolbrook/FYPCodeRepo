@@ -11,7 +11,7 @@ def upload_report(file_path: Path):
         ('uploaded_report', (file_path.name, open(file_path, 'rb'), 'application/pdf'))
     ]
     headers = {
-        'Authorization': 'Token 27e71b26d075711968976e2bb548600b746ef896'
+        'Authorization': 'Token 9ea25c3d1e151d9bbf693a0bb03969c52fee0460'
     }
 
     response = requests.request("POST", url, headers=headers, data=payload, files=files)
@@ -23,7 +23,7 @@ def upload_report(file_path: Path):
 
 
 # Set the directory path
-dir_path = Path('../datasets/validated-reports')
+dir_path = Path('../../datasets/validated-gold-reports')
 i = 0
 
 # Walk through all the files in the directory
