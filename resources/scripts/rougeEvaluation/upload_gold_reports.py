@@ -11,7 +11,7 @@ def upload_report(file_path: Path):
         ('uploaded_report', (file_path.name, open(file_path, 'rb'), 'application/pdf'))
     ]
     headers = {
-        'Authorization': 'Token 9ea25c3d1e151d9bbf693a0bb03969c52fee0460'
+        'Authorization': 'Token 4331cec7ce201eee0fa0a1f6d13a7e4673c954a2'
     }
 
     response = requests.request("POST", url, headers=headers, data=payload, files=files)
@@ -28,6 +28,7 @@ i = 0
 
 # Walk through all the files in the directory
 for file_path in dir_path.glob('*.pdf'):
+    print(file_path)
     if file_path.is_file():
         # if i < 10:
             # Call the function on the file
