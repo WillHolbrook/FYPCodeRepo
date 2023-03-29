@@ -112,8 +112,6 @@ at [https://github.com/kermitt2/grobid_client_python](https://github.com/kermitt
 | pylint        | 2.16.2  | [https://pypi.org/project/pylint/](https://pypi.org/project/pylint/)               |
 | pylint-django | 2.5.3   | [https://pypi.org/project/pylint-django/](https://pypi.org/project/pylint-django/) |
 
-
-
 #### Evaluation Modules
 
 | Module       | Version | Link                                                                             |
@@ -122,7 +120,7 @@ at [https://github.com/kermitt2/grobid_client_python](https://github.com/kermitt
 | pandas       | 1.5.3   | [https://pypi.org/project/pandas/](https://pypi.org/project/pandas/)             |
 | seaborn      | 0.12.2  | [https://pypi.org/project/seaborn/](https://pypi.org/project/seaborn/)           |
 | scikit-learn | 1.2.2   | [https://pypi.org/project/scikit-learn/](https://pypi.org/project/scikit-learn/) |
-
+| openpyxl     | 3.1.2   | [https://pypi.org/project/openpyxl](https://pypi.org/project/openpyxl)           |
 
 ### Node Dependencies
 
