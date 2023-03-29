@@ -22,7 +22,7 @@ def upload_report(file_path: Path):
 
 
 # Set the directory path
-dir_path = Path('./validated-reports')
+dir_path = Path('../datasets/validated-reports')
 i = 0
 
 # Walk through all the files in the directory

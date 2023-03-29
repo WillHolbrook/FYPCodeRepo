@@ -249,10 +249,11 @@ fabric.properties
 
 /.idea
 
-/resources/input_pdfs
-/resources/output_tei_xml
-/resources/output_txt
-/resources/validated-reports
+/resources/datasets/input_pdfs
+/resources/datasets/output_tei_xml
+/resources/datasets/output_txt
+/resources/datasets/validated-reports
+/resources/datasets/validated-gold-reports
 
 /django-angularjs-web-development/
 /backend/media/

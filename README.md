@@ -223,7 +223,7 @@ Python pre-commit hooks are set up to only run on the "backend" directory and "J
 
 ### Postman Collection
 
-This project comes with a [postman collection](./resources/FYP.postman_collection.json)
+This project comes with a [postman collection](resources/postman/FYP.postman_collection.json)
 and a [postman environment](./resources/FYP%20Environment.postman_environment.json)
 which can be used for testing and development of the Web App.
 These files are found in [`./resources`](./resources)
