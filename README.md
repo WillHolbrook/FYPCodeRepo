@@ -10,13 +10,13 @@ To a separate production instance can be deployed into a Docker environment.
 * Instructions on how to install Docker can be found [here](https://docs.docker.com/get-docker/).
 [https://docs.docker.com/get-docker/](https://docs.docker.com/get-docker/)
 
-Once Docker has successfully been installed open a terminal in the root of the repository
-and run `docker-compose -f .\docker-compose-combined-populated.yml up` to run a copy of
+Once Docker has successfully been installed:
+1. Open a terminal in the root of the repository
+2. Run `docker-compose -f .\docker-compose-combined-populated.yml up` to run a copy of
 the server with the databases populated and a combined frontend and backend.
 
-Once the server is running you can access the project at [localhost:8030]
-(http://localhost:8030). Where some users already exist and are listed in the following
-table. But you can also create your own.
+Once the server is running the project can be accessed at at [localhost:8030]
+(http://localhost:8030). Pre-existing users already are listed in the following table. It is also possibkle to create new users.
 
 | Username                | Password                | Description                                                                              |
 |-------------------------|-------------------------|------------------------------------------------------------------------------------------|
@@ -25,12 +25,11 @@ table. But you can also create your own.
 | test_user_username      | test_user_username      | A simple non-staff Django Account                                                        |
 | DemoUser                | DemoPass1!              | A demo account which contains interesting reports with particularly useful summaries     |
 
-If you want to access the website from other devices/over the internet you need to provide
-access to the computer the docker containers are running on at port `8030`.
+To access the website from other devices/over the internet, make sure it is possible port `8030` on the system running the docker containers.
 
-To run the container on a port different to `8030` you can go into the file
+To run the container on a port different to `8030`, edit the file
 [./docker-compose-combined-populated.yml](./docker-compose-combined-populated.yml)
-and edit line 12 to be the port you want the container to run on instead of `8030`.
+and change the "ports" setting, replacing `8030` with the required port number.
 For example change the following
 ```
 10    ...
@@ -48,7 +47,7 @@ to
 13    ...
 ```
 
-to run the website on port 80
+to run set the the website on port 80.
 
 ## External Dependencies and Acknowledgements
 
@@ -74,9 +73,7 @@ to run the website on port 80
 
 ### Python Dependencies
 
-_This project makes use of multiple python modules some of which are in general,
-some are used for development only and some are used for evaluation only and
-have been listed as such in the following._
+_This project makes use of multiple python modules some of which are only used for development and / or evaluation. These are listed below._
 
 #### Production Modules
 
@@ -126,8 +123,7 @@ at [https://github.com/kermitt2/grobid_client_python](https://github.com/kermitt
 
 ### Node Dependencies
 
-_This project makes use of multiple node packages some of which are in general,
-and some are used for development only and have been listed as such in the following._
+_This project makes use of multiple node packages some of which are only used for development. These are listed below._
 
 #### Production Packages
 
@@ -162,7 +158,7 @@ and some are used for development only and have been listed as such in the follo
 
 ### Docker Images
 
-As Part of this project a number of docker images have been used as a base and thn either built onto of or used as is. They are here as follows:
+As Part of this project a number of docker images have been used as a base and then either built onto of or used as is. They are here as follows:
 
 | Image Name                            | Image Tag | Link                                                                                                                                                                                                                                                                                                                   |
 |---------------------------------------|-----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -174,7 +170,7 @@ As Part of this project a number of docker images have been used as a base and t
 
 ### GitHub Actions
 
-As part of the CI/CD pipelines this project makes use of some pre-made GitHub
+As part of the CI/CD pipelines this project makes use of the pre-made GitHub
 actions listed below
 
 | Name                        | Version | Link                                                                                                                                     |
@@ -189,9 +185,9 @@ actions listed below
 
 ### Pre-Commit Hooks
 
-To ensure high code quality pre-commit hooks are used in this project the description
-of how to use them can be found later in this file. Below is a table of used pre-commit hooks
-and their versions.
+_To ensure high code quality pre-commit hooks are used in this project. A description
+of how to use them can be found later in this file. Below is a table of the pre-commit hooks
+used._
 
 | Name                    | Version   | Link                                                                                             |
 |-------------------------|-----------|--------------------------------------------------------------------------------------------------|
