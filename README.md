@@ -6,7 +6,7 @@
 
 A live instance of the production website can be found at [http://willholbrook.com/](http://willholbrook.com/)
 
-To a separate production instance can be deployed into a Docker environment.  
+To a separate production instance can be deployed into a Docker environment.
 * Instructions on how to install Docker can be found [here](https://docs.docker.com/get-docker/).
 [https://docs.docker.com/get-docker/](https://docs.docker.com/get-docker/)
 
@@ -70,6 +70,7 @@ to run set the the website on port 80.
       - Version - 1.1.4
     - docker-init
       - Version - 0.19.0
+- Website Icon is used from [https://www.flaticon.com/free-icon/the-sum-of_261941](https://www.flaticon.com/free-icon/the-sum-of_261941)
 
 ### Python Dependencies
 
