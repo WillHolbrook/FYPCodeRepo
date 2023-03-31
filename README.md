@@ -4,10 +4,10 @@
 
 ### Production Deployment
 
-A live production of the website can be found at [http://willholbrook.com/](http://willholbrook.com/)
+A live instance of the production website can be found at [http://willholbrook.com/](http://willholbrook.com/)
 
-If instead you want to deploy a production instance yourself you first need to have Docker installed instructions on
-how to install Docker can be found [here](https://docs.docker.com/get-docker/).
+To a separate production instance can be deployed into a Docker environment.  
+* Instructions on how to install Docker can be found [here](https://docs.docker.com/get-docker/).
 [https://docs.docker.com/get-docker/](https://docs.docker.com/get-docker/)
 
 Once Docker has successfully been installed open a terminal in the root of the repository
