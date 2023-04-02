@@ -110,8 +110,6 @@ at [https://github.com/kermitt2/grobid_client_python](https://github.com/kermitt
 | pylint        | 2.16.2  | [https://pypi.org/project/pylint/](https://pypi.org/project/pylint/)               |
 | pylint-django | 2.5.3   | [https://pypi.org/project/pylint-django/](https://pypi.org/project/pylint-django/) |
 
-
-
 #### Evaluation Modules
 
 | Module       | Version | Link                                                                             |
@@ -120,7 +118,8 @@ at [https://github.com/kermitt2/grobid_client_python](https://github.com/kermitt
 | pandas       | 1.5.3   | [https://pypi.org/project/pandas/](https://pypi.org/project/pandas/)             |
 | seaborn      | 0.12.2  | [https://pypi.org/project/seaborn/](https://pypi.org/project/seaborn/)           |
 | scikit-learn | 1.2.2   | [https://pypi.org/project/scikit-learn/](https://pypi.org/project/scikit-learn/) |
-
+| openpyxl     | 3.1.2   | [https://pypi.org/project/openpyxl](https://pypi.org/project/openpyxl)           |
+| rouge-metric | 1.0.1   | [https://pypi.org/project/rouge-metric/](https://pypi.org/project/rouge-metric/) |
 
 ### Node Dependencies
 
@@ -220,7 +219,7 @@ Python pre-commit hooks are set up to only run on the "backend" directory and "J
 
 ### Postman Collection
 
-This project comes with a [postman collection](./resources/FYP.postman_collection.json)
+This project comes with a [postman collection](resources/postman/FYP.postman_collection.json)
 and a [postman environment](./resources/FYP%20Environment.postman_environment.json)
 which can be used for testing and development of the Web App.
 These files are found in [`./resources`](./resources)
