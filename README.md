@@ -15,6 +15,14 @@ Once Docker has successfully been installed:
 2. Run `docker-compose -f .\docker-compose-combined-populated.yml up` to run a copy of
 the server with the databases populated and a combined frontend and backend.
 
+This uses two docker images as described in the table below with the hash at time of submission:
+
+| Docker Image                                 | Link                                                                                                                                                                               | Hash                                                                    |
+|----------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| analyst_report_summarizer_combined_populated | [https://hub.docker.com/r/willholbrook/analyst_report_summarizer_combined_populated/tags](https://hub.docker.com/r/willholbrook/analyst_report_summarizer_combined_populated/tags) | sha256:625754755f844986a21f67f45f42a92202fc70f5d106a10030faf061026cc93c |
+| analyst_report_summarizer_database_populated | [https://hub.docker.com/r/willholbrook/analyst_report_summarizer_database_populated/tags](https://hub.docker.com/r/willholbrook/analyst_report_summarizer_database_populated/tags) | sha256:15d2769871157cd757917c7e53156f9fb17f658f07bc2a61472ac2548e1800d4 |
+
+
 Once the server is running the project can be accessed at at [localhost:8030]
 (http://localhost:8030). Pre-existing users already are listed in the following table. It is also possibkle to create new users.
 
